@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class ="sidebar">
+    <div>
+        <p>The Cat</p>
+    </div>
+    <div>
+        <a href="/play/feed"><button class="button" type="button" name="feed" value="feed">Give Food</button></a>
+        <a href="/play/water"><button class="button" type="button" name="water" value="water">Give Water</button></a>
+        <a href="/play/pet"><button class="button" type="button" name="pet" value="pet">Pet</button></a>
+        <a href="/play/game"><button class="button" type="button" name="play" value="play">Play Game</button></a>
+    </div>
+    <div>
+        <button class="button" type="button" name="shoo" value="shoo" >Shoo Away</button>
+    </div>
+</div>
+<h2 class="alert alert-primary" role="alert" th:text="${flashMessage}" th:if="${flashMessage}"></h2>
+<div class="cat-position">
+    <img src="/images/cat-placeholder.png" class="cat-image">
+</div>
+
+</body>
+</html>
