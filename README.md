@@ -20,5 +20,6 @@ _If the running of the project fails, or the web page doesn't load, please conta
   * User can pet pet
   * User can play with pet
 * Disowning (shooing) a pet doesn't do anything yet
+* Clicking `HELP` brings out a side bar with instructions
 
 
