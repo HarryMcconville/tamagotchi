@@ -46,4 +46,10 @@ public class Pet {
         this.isActive = true;
         this.image = image;
     }
+
+    public Pet(String name, User user) {
+        this.name = name;
+        this.user = user;
+        this.isActive = true;
+    }
 }
