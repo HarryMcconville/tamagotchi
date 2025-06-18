@@ -3,6 +3,8 @@ package com.makers.tamagotchi.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 
@@ -14,6 +16,13 @@ public class Pet {
     private Long id;
 
     private String name;
+
+    //new hunger level:
+    private int hunger;
+
+    //new time_decay element:
+    @Column(name = "last_updated")
+    private LocalDateTime lastUpdated;
 
     // fetches the user so it can be assigned to the cat as a foreign key
     // ManyToOne establishes that one user can have many cats
@@ -42,5 +51,8 @@ public class Pet {
         this.name = name;
         this.user = user;
         this.isActive = true;
+        this.hunger = 100; // means the bar is full when created
+        this.lastUpdated = LocalDateTime.now(); // this will track when hunger was last checked
+
     }
 }

@@ -6,12 +6,25 @@ import com.makers.tamagotchi.Repository.PetRepository;
 import com.makers.tamagotchi.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.makers.tamagotchi.Model.Pet;
+import com.makers.tamagotchi.Model.User;
+import com.makers.tamagotchi.Repository.PetRepository;
+import com.makers.tamagotchi.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Optional;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,23 +57,52 @@ public class PlayController {
     }
 
     @GetMapping("/play/feed")
-    public String feedCat(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("flashMessage", "You have fed your Cat!");
+    public String feedCat(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+                          RedirectAttributes redirectAttributes) {
+        try {
+            Optional<User> userOpt = userRepository.findUserByEmail(email);
+
+            if (userOpt.isEmpty()) {
+                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+                return "redirect:/play";
+            }
+
+            User user = userOpt.get();
+            List<Pet> pets = petRepository.findAllByUser(user);
+
+            Pet activePet = pets.stream()
+                    .filter(Pet::getIsActive)
+                    .findFirst()
+                    .orElse(null);
+
+            if (activePet == null) {
+                redirectAttributes.addFlashAttribute("flashMessage", "No active pet found.");
+                return "redirect:/play";
+            }
+            // HUNGER STUFF
+            // Update hunger
+            activePet.setHunger(100);
+            activePet.setLastUpdated(LocalDateTime.now());
+            petRepository.save(activePet);
+
+            redirectAttributes.addFlashAttribute("flashMessage", "You fed your cat! " + activePet.getName() + "'s food level is now 100%.");
+        } catch (Exception e) {
+            e.printStackTrace(); // For debug cus why aint it working?
+            redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while feeding the cat.");
+        }
+
         return "redirect:/play";
     }
-
     @GetMapping("/play/water")
     public String waterCat(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("flashMessage", "You have watered your Cat!");
         return "redirect:/play";
     }
-
     @GetMapping("/play/pet")
     public String petCat(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("flashMessage", "You have petted your Cat!");
         return "redirect:/play";
     }
-
     @GetMapping("/play/game")
     public String playGameWithCat(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("flashMessage", "You have played with your Cat!");
