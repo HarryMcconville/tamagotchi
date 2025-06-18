@@ -1,6 +1,6 @@
 package com.makers.tamagotchi.Controller;
 
-import com.github.javafaker.Faker;
+
 import com.makers.tamagotchi.Model.User;
 import com.makers.tamagotchi.Model.Pet;
 import com.makers.tamagotchi.Repository.UserRepository;
