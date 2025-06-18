@@ -6,16 +6,21 @@ import lombok.Data;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
-    private String id;  // e.g. "auth0|abc12345678"
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "display_name")
     private String displayName;
     private boolean enabled;
     private String email;
+
     // empty constructor
     public User() {}
+
     // constructor for creating the user
-    public User(String id, String displayName, boolean enabled, String email) {
+    public User(Long id, String displayName, boolean enabled, String email) {
         this.id = id;
         this.displayName = displayName;
         this.enabled = enabled;
