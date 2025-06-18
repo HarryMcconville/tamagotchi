@@ -1,0 +1,2 @@
+ALTER TABLE pets
+ADD is_active BOOLEAN DEFAULT TRUE;
