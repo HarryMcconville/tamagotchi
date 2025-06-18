@@ -13,16 +13,16 @@
 
 <div class="sidebar">
     <div>
-        <p>The Cat</p>
+        <p th:text="${pet.name} + ' The Cat'"></p>
     </div>
     <div>
-        <a href="/play/feed"><button class="button" type="button" name="feed" value="feed">Give Food</button></a>
-        <a href="/play/water"><button class="button" type="button" name="water" value="water">Give Water</button></a>
-        <a href="/play/pet"><button class="button" type="button" name="pet" value="pet">Pet</button></a>
-        <a href="/play/game"><button class="button" type="button" name="play" value="play">Play Game</button></a>
+        <a href="/play/feed" class="cat-button">Give Food</a>
+        <a href="/play/water" class="cat-button">Give Water</a>
+        <a href="/play/pet" class="cat-button">Pet</a>
+        <a href="/play/game" class="cat-button">Play Game</button></a>
     </div>
     <div>
-        <button class="button" type="button" name="shoo" value="shoo">Shoo Away</button>
+        <a href="/play/shoo" class="cat-button">Shoo Away</a>
     </div>
 
     <!-- The off canvas help button config -->

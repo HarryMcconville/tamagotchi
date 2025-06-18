@@ -25,6 +25,9 @@ public class Pet {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
+
     // Empty constructor
     public Pet(){
 
@@ -38,5 +41,6 @@ public class Pet {
     public Pet(String name, User user){
         this.name = name;
         this.user = user;
+        this.isActive = true;
     }
 }
