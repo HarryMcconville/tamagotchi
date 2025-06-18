@@ -22,14 +22,15 @@
 
     <div class="mb-3">
       <label for="catImageInput" class="form-label">Choose your cat:</label>
-      <div class="row text-center">
-        <div class="col-md-3" th:each="img : ${randomCatImages}">
+      <div style="overflow-x: auto; white-space: nowrap;" class="px-3">
+        <div th:each="img : ${randomCatImages}"
+             style="display: inline-block; text-align: center; margin-right: 15px; margin-left: 15px;">
           <img th:src="@{'/images/cats/' + ${img}}"
                th:alt="${img}"
-               class="img-thumbnail mb-3 cat-option"
-               style="cursor: pointer;"
+               class="cat-option"
+               style="width: 300px; height: auto; cursor: pointer;"
                onclick="selectCat(this)"
-               data-name="[[${img}]]" />
+               th:attr="data-name=${img}">
         </div>
       </div>
     </div>
