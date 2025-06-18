@@ -23,7 +23,10 @@
 
     <div class="mb-3">
       <label for="catName" class="form-label">Cat's name:</label>
-      <input type="text" class="form-control" id="catName" name="catName" required>
+      <div class="input-group">
+        <input type="text" class="form-control" id="catName" name="catName" required>
+        <button type="button" class="btn btn-outline-secondary" id="randomNameBtn">Choose for me</button>
+      </div>
     </div>
 
     <div class="mb-3" th:if="${firstTimeLogin}">
@@ -35,5 +38,6 @@
   </form>
 </div>
 
+<script src="/js/main.js"></script>
 </body>
 </html>
