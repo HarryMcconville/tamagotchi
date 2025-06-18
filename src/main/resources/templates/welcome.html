@@ -9,7 +9,7 @@
 <body>
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
-  <form th:action="@{/start}" method="post" class="p-4 bg-white rounded shadow" style="max-width: 400px; width: 100%;">
+  <form th:action="@{/start}" method="post" class="p-4 bg-white rounded shadow" style="max-width: 400px; width: 100%;" onsubmit="return validateCatSelection()">
     <!-- First-time login -->
     <h1 class="text-center mb-4" th:if="${firstTimeLogin}">Welcome!</h1>
 
@@ -20,21 +20,29 @@
 
     <p class="text-center">Congratulations on deciding to adopt an adorable cat!</p>
 
-    <div class="mb-3">
-      <label for="catImageInput" class="form-label">Choose your cat:</label>
-      <div style="overflow-x: auto; white-space: nowrap;" class="px-3">
-        <div th:each="img : ${randomCatImages}"
-             style="display: inline-block; text-align: center; margin-right: 15px; margin-left: 15px;">
-          <img th:src="@{'/images/cats/' + ${img}}"
-               th:alt="${img}"
-               class="cat-option"
-               style="width: 300px; height: auto; cursor: pointer;"
-               onclick="selectCat(this)"
-               th:attr="data-name=${img}">
+<!--     choosing cat image    -->
+      <div class="mb-3">
+        <label for="catImageInput" class="form-label">Choose your cat:</label>
+          <!-- Error message placeholder -->
+          <div id="catError" class="text-danger mb-2" style="display: none;">
+            Please select a cat to adopt!
+          </div>
+        <!--        making it a scroll through      -->
+        <div style="overflow-x: auto; white-space: nowrap;" class="px-3">
+          <div th:each="img : ${randomCatImages}"
+               style="display: inline-block; text-align: center; margin: 0 15px;">
+  <!--                individual image styling + functionality     -->
+            <img th:src="@{'/images/cats/' + ${img}}"
+                 th:alt="${img}"
+                 class="cat-option"
+                 style="width: 300px; height: auto; cursor: pointer;"
+                 onclick="selectCat(this)"
+                 th:attr="data-name=${img}">
+          </div>
         </div>
+          <!--      allows the cat image to be selected     -->
+          <input type="hidden" name="catImage" id="catImageInput">
       </div>
-    </div>
-    <input type="hidden" name="catImage" id="catImageInput">
 
 
     <div class="mb-3">
@@ -51,18 +59,55 @@
   </form>
 </div>
 
+
+<!--  Script to show border around selected cat + fill hidden input with selected file -->
 <script>
   function selectCat(imgElement) {
-    // Highlight selected cat
+    // Clear previous selections
     document.querySelectorAll('.cat-option').forEach(img => {
-      img.classList.remove('border', 'border-primary', 'border-3');
+      img.classList.remove('selected-cat');
     });
-    imgElement.classList.add('border', 'border-primary', 'border-3');
 
-    // Update hidden input with selected filename
+    // Apply new selection
+    imgElement.classList.add('selected-cat');
     document.getElementById('catImageInput').value = imgElement.dataset.name;
+
+    // Hide error message if it's showing
+    document.getElementById('catError').style.display = 'none';
+  }
+
+</script>
+
+<!-- Script to make sure user selects a cat -->
+<script>
+  function validateCatSelection() {
+    const selectedCat = document.getElementById('catImageInput').value;
+    const errorMsg = document.getElementById('catError');
+
+    if (!selectedCat) {
+      errorMsg.style.display = 'block';
+      return false;
+    }
+
+    errorMsg.style.display = 'none'; // hide if selection is valid
+    return true;
+  }
+
+  function selectCat(imgElement) {
+    // Clear other ticks or highlights if you're using them
+    document.querySelectorAll('.cat-option').forEach(img => {
+      img.classList.remove('selected-cat');
+    });
+
+    imgElement.classList.add('selected-cat');
+    document.getElementById('catImageInput').value = imgElement.dataset.name;
+
+    // Hide the error when a cat is selected
+    const errorMsg = document.getElementById('catError');
+    errorMsg.style.display = 'none';
   }
 </script>
+
 
 </body>
 </html>

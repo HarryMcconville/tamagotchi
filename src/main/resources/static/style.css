@@ -102,6 +102,12 @@ a.cat-button:active::before {
 
 }
 
+.cat-option.selected-cat {
+  border: 4px solid #0d6efd; /* Bootstrap primary blue */
+  border-radius: 8px;
+}
+
+
 h2 {
     text-align: center;
 }

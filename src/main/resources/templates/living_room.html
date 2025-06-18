@@ -3,7 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cat Home</title>
     <link rel="stylesheet" href="/style.css">
 
     <!-- Required bootstrap css import for offcanvas -->
@@ -35,8 +35,9 @@
 
 <h2 class="alert alert-primary" role="alert" th:text="${flashMessage}" th:if="${flashMessage}"></h2>
 
-<div class="cat-position">
-    <img src="/images/cat-placeholder.png" class="cat-image">
+<!-- shows the correct cat  -->
+<div class="cat-position" th:with="adoptedCatImage=${pet.image}">
+    <img th:src="@{'/images/cats/' + ${pet.image}}" alt="Image of Cat" class="cat-image">
 </div>
 
 <!-- code block for configuring the offcanvas element -->
