@@ -1,6 +1,5 @@
 package com.makers.tamagotchi.Controller;
 
-
 import com.makers.tamagotchi.Model.User;
 import com.makers.tamagotchi.Model.Pet;
 import com.makers.tamagotchi.Repository.UserRepository;
@@ -45,17 +44,27 @@ public class WelcomeController {
         // the user has to be Optional because they may not be present at this point
         Optional<User> userOptional = userRepository.findUserByEmail(email);
 
-        // if the user has already logged in before, creates variable displayName
+        // if user exists, gets user data
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+
+            // checks user for active pet
+            List<Pet> pets = petRepository.findAllByUser(user);
+            for (Pet pet : pets) {
+                if (Boolean.TRUE.equals(pet.getIsActive())) {
+                    return new ModelAndView("redirect:/play");
+                }
+            }
+
+            // if the user has already logged in before, creates variable displayName
             String displayName = user.getDisplayName();
 
-            // if user has logged in but did not create a displayName:
+            // checks if DisplayName present, if not then sets firstTimeLogin to true:
             if (displayName == null || displayName.trim().isEmpty()) {
                 model.addAttribute("displayName", null);
                 model.addAttribute("firstTimeLogin", true);
 
-            // if user has logged in and created a displayName:
+            // checks if DisplayName present, if so sets firstTimeLogin to false:
             } else {
                 model.addAttribute("displayName", displayName);
                 model.addAttribute("firstTimeLogin", false);
@@ -63,6 +72,7 @@ public class WelcomeController {
 
         // if user not found, treated as first-time login:
         } else {
+            // First-time login
             model.addAttribute("displayName", null);
             model.addAttribute("firstTimeLogin", true);
         }
@@ -97,6 +107,7 @@ public class WelcomeController {
 
         return new ModelAndView("welcome");
     }
+
 
     @PostMapping("/start")
     public String handleWelcome(
