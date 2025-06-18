@@ -70,7 +70,7 @@ public class WelcomeController {
     @PostMapping("/start")
     public String handleWelcome(
             @RequestParam(value = "displayName", required = false) String displayName,
-            @RequestParam("catName") String catName,
+            @RequestParam("catName") String catName, @RequestParam("catImage") String catImage,
             Authentication authentication) {
 
         // if user not authenticated, throws an error
@@ -97,6 +97,7 @@ public class WelcomeController {
         Pet cat = new Pet();
         cat.setName(catName);
         cat.setUser(user);
+        cat.setImage(catImage);
         petRepository.save(cat);
 
         return "redirect:/play";
