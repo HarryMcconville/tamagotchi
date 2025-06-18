@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -63,6 +66,34 @@ public class WelcomeController {
             model.addAttribute("displayName", null);
             model.addAttribute("firstTimeLogin", true);
         }
+
+        // randomly selects 4 cats from the cat images folder
+                // listing the cats
+        List<String> allCatImages = new ArrayList<>(List.of(
+                "black-cat.png",
+                "black-white-cat.png",
+                "dark-brown-cat.png",
+                "grey-cat.png",
+                "mixed-black-cat.png",
+                "mixed-blue-cat.png",
+                "mixed-brown-cat.png",
+                "mixed-grey-cat.png",
+                "mixed-orange-cat.png",
+                "mixed-purple-cat.png",
+                "mixed-yellow-cat.png",
+                "noodle-oti-cat.png",
+                "orange-cat.png",
+                "pale-brown-cat.png",
+                "pale-grey-cat.png",
+                "pale-yellow-cat.png",
+                "rainbow-cat.png",
+                "white-cat.png",
+                "yellow-cat.png"
+        ));
+                // shuffling and taking 4 random ones
+        Collections.shuffle(allCatImages);
+        List<String> randomCatImages = allCatImages.subList(0, 4);
+        model.addAttribute("randomCatImages", randomCatImages);
 
         return new ModelAndView("welcome");
     }
