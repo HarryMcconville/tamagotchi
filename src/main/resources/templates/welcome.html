@@ -28,11 +28,11 @@
           <div id="catError" class="text-danger mb-2" style="display: none;">
             Please select a cat to adopt!
           </div>
-        <!--        making it a scroll through      -->
+        <!-- making it a scroll through      -->
         <div style="overflow-x: auto; white-space: nowrap;" class="px-3">
           <div th:each="img : ${randomCatImages}"
                style="display: inline-block; text-align: center; margin: 0 15px;">
-  <!--                individual image styling + functionality     -->
+  <!--      individual image styling + functionality     -->
             <img th:src="@{'/images/cats/' + ${img}}"
                  th:alt="${img}"
                  class="cat-option"
@@ -41,7 +41,7 @@
                  th:attr="data-name=${img}">
           </div>
         </div>
-          <!--      allows the cat image to be selected     -->
+          <!--  allows the cat image to be selected     -->
           <input type="hidden" name="catImage" id="catImageInput">
       </div>
 
@@ -64,55 +64,6 @@
 </div>
 
 <script src="/js/main.js"></script>
-
-<!--  Script to show border around selected cat + fill hidden input with selected file -->
-<script>
-  function selectCat(imgElement) {
-    // Clear previous selections
-    document.querySelectorAll('.cat-option').forEach(img => {
-      img.classList.remove('selected-cat');
-    });
-
-    // Apply new selection
-    imgElement.classList.add('selected-cat');
-    document.getElementById('catImageInput').value = imgElement.dataset.name;
-
-    // Hide error message if it's showing
-    document.getElementById('catError').style.display = 'none';
-  }
-
-</script>
-
-<!-- Script to make sure user selects a cat -->
-<script>
-  function validateCatSelection() {
-    const selectedCat = document.getElementById('catImageInput').value;
-    const errorMsg = document.getElementById('catError');
-
-    if (!selectedCat) {
-      errorMsg.style.display = 'block';
-      return false;
-    }
-
-    errorMsg.style.display = 'none'; // hide if selection is valid
-    return true;
-  }
-
-  function selectCat(imgElement) {
-    // Clear other ticks or highlights if you're using them
-    document.querySelectorAll('.cat-option').forEach(img => {
-      img.classList.remove('selected-cat');
-    });
-
-    imgElement.classList.add('selected-cat');
-    document.getElementById('catImageInput').value = imgElement.dataset.name;
-
-    // Hide the error when a cat is selected
-    const errorMsg = document.getElementById('catError');
-    errorMsg.style.display = 'none';
-  }
-</script>
-
 
 </body>
 </html>
