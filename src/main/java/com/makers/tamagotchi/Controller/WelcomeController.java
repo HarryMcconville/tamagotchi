@@ -97,6 +97,7 @@ public class WelcomeController {
                 "pale-grey-cat.png",
                 "pale-yellow-cat.png",
                 "rainbow-cat.png",
+                "tiger-cat.png",
                 "white-cat.png",
                 "yellow-cat.png"
         ));
