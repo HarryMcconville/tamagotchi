@@ -61,8 +61,42 @@
 <h2 class="alert alert-primary" role="alert" th:text="${flashMessage}" th:if="${flashMessage}"></h2>
 
 <!-- shows the correct cat  -->
-<div class="cat-position" th:with="adoptedCatImage=${pet.image}">
-    <img th:src="@{'/images/cats/' + ${pet.image}}" alt="Image of Cat" class="cat-image">
+<div class="cat-position">
+    <a href="#" onclick="playMeowAndRedirect(event)">
+        <img th:src="@{'/images/cats/' + ${pet.image}}" alt="Image of Cat" class="cat-image">
+    </a>
+    <audio id="meow" src="/audio/meow.mp3" preload="auto"></audio>
+</div>
+
+
+<!-- Javascript to play sound before redirect  -->
+<script>
+    function playMeowAndRedirect(event) {
+        event.preventDefault(); // prevent default navigation
+
+        const audio = document.getElementById('meow');
+        audio.currentTime = 0;
+        audio.play();
+
+        // Redirect after short delay (adjust as needed)
+        setTimeout(() => {
+            window.location.href = "/play/pet";
+        }, 1100);
+    }
+</script>
+
+
+<!-- Shows Food bowl and makes clickable -->
+<div class="food-bowl-position">
+    <a href="/play/feed"><img src="/images/foodbowl.png" class="food-bowl-image"></a>
+</div>
+<!-- Shows Water bowl and makes clickable -->
+<div class="water-bowl-position">
+    <a href="/play/water"><img src="/images/waterbowl.png" class="water-bowl-image"></a>
+</div>
+<!-- Shows Yarn and makes clickable -->
+<div class="yarn-position">
+    <a href="/play/game"><img src="/images/yarn.png" class="yarn-image"></a>
 </div>
 
 <!-- code block for configuring the offcanvas element -->
