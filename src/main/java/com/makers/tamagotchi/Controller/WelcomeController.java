@@ -1,5 +1,6 @@
 package com.makers.tamagotchi.Controller;
-
+import com.makers.tamagotchi.Model.Village;
+import com.makers.tamagotchi.Repository.VillageRepository;
 import com.makers.tamagotchi.Model.User;
 import com.makers.tamagotchi.Model.Pet;
 import com.makers.tamagotchi.Repository.UserRepository;
@@ -27,6 +28,9 @@ public class WelcomeController {
 
     @Autowired
     private PetRepository petRepository;
+
+    @Autowired
+    private VillageRepository villageRepository;
 
     @RequestMapping(value = "/welcome")
     public ModelAndView welcome(Authentication authentication, Model model) {
@@ -127,13 +131,18 @@ public class WelcomeController {
 
         // uses email to look up user in DB
         User user = userRepository.findUserByEmail(email)
-                // otherwise, saves new user to DB
                 .orElseGet(() -> {
                     User newUser = new User();
                     newUser.setEmail(email);
                     newUser.setDisplayName(displayName);
                     newUser.setEnabled(true);
-                    return userRepository.save(newUser);
+                    User savedUser = userRepository.save(newUser);
+
+                    // Create village for new user
+                    Village village = new Village(savedUser);
+                    villageRepository.save(village);
+
+                    return savedUser;
                 });
 
         // saves new cat in the DB

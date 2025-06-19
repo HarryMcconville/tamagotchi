@@ -45,7 +45,7 @@ public class VillageController {
         return modelAndView;
     }
 
-    @PostMapping("/village/catFood")
+    @GetMapping("/village/catFood")
     public String harvestFood(@AuthenticationPrincipal(expression = "attributes['email']") String email,
                               RedirectAttributes redirectAttributes) {
         try {
@@ -68,18 +68,27 @@ public class VillageController {
                 redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
                 return "redirect:/village";
             }
-            // Village stuff
-            // increase catFood
-            activeVillage.setCatfood(1);
-            activeVillage.setCatFoodLastUpdated(LocalDateTime.now());
-            villageRepository.save(activeVillage);
 
-            redirectAttributes.addFlashAttribute("flashMessage", "You have collected cat food!");
+            int available = activeVillage.getCatfood();
+
+            if (available > 0) {
+                activeVillage.setCatfood(available - 1);
+                activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() + 1);
+                activeVillage.setCatFoodLastUpdated(LocalDateTime.now());
+                villageRepository.save(activeVillage);
+                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 cat food!");
+            } else {
+                redirectAttributes.addFlashAttribute("flashMessage", "No cat food available yet.");
+            }
+
+            return "redirect:/village";
         } catch (Exception e) {
-            e.printStackTrace(); // For debug cus why aint it working?
-            redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while collecting the cat food.");
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting cat food.");
+            return "redirect:/village";
         }
-
-        return "redirect:/village";
     }
+
 }
+
+

@@ -6,6 +6,10 @@
 </head>
 <body>
 <p>Not a yellow raincoat in sight</p>
-<a href="/village/catFood" class="cat-button">Collect food</button></a>
+<p th:text="'Available food: ' + ${village.catfood}"></p>
+<p th:text="'Your collected food: ' + ${village.collectedCatFood}"></p>
+
+<a href="/village/catFood" class="cat-button">Collect food</a>
+<p th:text="${flashMessage}" th:if="${flashMessage}"></p>
 </body>
 </html>

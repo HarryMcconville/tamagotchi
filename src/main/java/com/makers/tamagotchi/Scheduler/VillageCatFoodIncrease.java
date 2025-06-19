@@ -21,7 +21,7 @@ public class VillageCatFoodIncrease {
 
         for (Village village : villages) {
             int currentCatFood = village.getCatfood();
-            int newCatFood = Math.max(100, currentCatFood + 1); // will increase catfood by 1% every 10 secs but never go bel 0
+            int newCatFood = Math.min(100, currentCatFood + 1); // will increase catfood by 1% every 10 secs but never go bel 0
             village.setCatfood(newCatFood);
             villageRepository.save(village);
         }
