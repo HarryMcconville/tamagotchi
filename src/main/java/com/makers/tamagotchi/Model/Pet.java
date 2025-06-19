@@ -37,6 +37,8 @@ public class Pet {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+    private String image;
+
     // Empty constructor
     public Pet(){
 
@@ -47,7 +49,14 @@ public class Pet {
         this.id = id;
     }
 
-    public Pet(String name, User user){
+    public Pet(String name, User user, String image){
+        this.name = name;
+        this.user = user;
+        this.isActive = true;
+        this.image = image;
+    }
+
+    public Pet(String name, User user) {
         this.name = name;
         this.user = user;
         this.isActive = true;
