@@ -91,7 +91,6 @@ a.cat-button:active::before {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
-    pointer-events: none;
 }
 
 .cat-image {
@@ -99,7 +98,81 @@ a.cat-button:active::before {
     width: 100%;
     height: auto;
     display: block;
+    transition: max-width 0.3s ease;
 
+}
+
+.cat-image:hover {
+    max-width: 340px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.food-bowl-image {
+    max-width: 75px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+
+}
+.food-bowl-position {
+    position: absolute;
+    top: 80%;
+    left: 18%;
+    transform: translate(-50%, -50%);
+}
+
+.food-bowl-image:hover {
+    max-width: 100px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.water-bowl-image {
+    max-width: 75px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+
+}
+.water-bowl-position {
+    position: absolute;
+    top: 80%;
+    left: 13%;
+    transform: translate(-50%, -50%);
+}
+
+.water-bowl-image:hover {
+    max-width: 100px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.yarn-image {
+    max-width: 100px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+
+}
+.yarn-position {
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+.yarn-image:hover {
+    max-width: 120px;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .cat-option.selected-cat {
