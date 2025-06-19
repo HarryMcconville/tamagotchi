@@ -12,6 +12,7 @@ import com.makers.tamagotchi.Repository.PetRepository;
 import com.makers.tamagotchi.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,18 +95,112 @@ public class PlayController {
         return "redirect:/play";
     }
     @GetMapping("/play/water")
-    public String waterCat(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("flashMessage", "You have watered your Cat!");
+
+    public String waterCat(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+                           RedirectAttributes redirectAttributes) {
+        try {
+            Optional<User> userOpt = userRepository.findUserByEmail(email);
+
+            if (userOpt.isEmpty()) {
+                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+                return "redirect:/play";
+            }
+
+            User user = userOpt.get();
+            List<Pet> pets = petRepository.findAllByUser(user);
+
+            Pet activePet = pets.stream()
+                    .filter(Pet::getIsActive)
+                    .findFirst()
+                    .orElse(null);
+
+            if (activePet == null) {
+                redirectAttributes.addFlashAttribute("flashMessage", "No active pet found.");
+                return "redirect:/play";
+            }
+            // THIRST STUFF
+            // Update thirst
+            activePet.setThirst(100);
+            activePet.setThirstLastUpdated(LocalDateTime.now());
+            petRepository.save(activePet);
+
+            redirectAttributes.addFlashAttribute("flashMessage", "You have refilled " + activePet.getName() + "'s water bowl!");
+        } catch (Exception e) {
+            e.printStackTrace(); // For debug cus why aint it working?
+            redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while filling up the water bowl.");
+        }
         return "redirect:/play";
     }
     @GetMapping("/play/pet")
-    public String petCat(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("flashMessage", "You have petted your Cat!");
+    public String petCat(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+                         RedirectAttributes redirectAttributes) {
+        try {
+            Optional<User> userOpt = userRepository.findUserByEmail(email);
+
+            if (userOpt.isEmpty()) {
+                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+                return "redirect:/play";
+            }
+
+            User user = userOpt.get();
+            List<Pet> pets = petRepository.findAllByUser(user);
+
+            Pet activePet = pets.stream()
+                    .filter(Pet::getIsActive)
+                    .findFirst()
+                    .orElse(null);
+
+            if (activePet == null) {
+                redirectAttributes.addFlashAttribute("flashMessage", "No active pet found.");
+                return "redirect:/play";
+            }
+            // SOCIAL STUFF
+            // Update social
+            activePet.setSocial(100);
+            activePet.setSocialLastUpdated(LocalDateTime.now());
+            petRepository.save(activePet);
+
+            redirectAttributes.addFlashAttribute("flashMessage", "You have pet " + activePet.getName() + "!");
+        } catch (Exception e) {
+            e.printStackTrace(); // For debug cus why aint it working?
+            redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while petting your cat.");
+        }
         return "redirect:/play";
     }
     @GetMapping("/play/game")
-    public String playGameWithCat(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("flashMessage", "You have played with your Cat!");
+    public String playGameWithCat(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+                                  RedirectAttributes redirectAttributes) {
+        try {
+            Optional<User> userOpt = userRepository.findUserByEmail(email);
+
+            if (userOpt.isEmpty()) {
+                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+                return "redirect:/play";
+            }
+
+            User user = userOpt.get();
+            List<Pet> pets = petRepository.findAllByUser(user);
+
+            Pet activePet = pets.stream()
+                    .filter(Pet::getIsActive)
+                    .findFirst()
+                    .orElse(null);
+
+            if (activePet == null) {
+                redirectAttributes.addFlashAttribute("flashMessage", "No active pet found.");
+                return "redirect:/play";
+            }
+            // fun STUFF
+            // Update fun
+            activePet.setFun(100);
+            activePet.setFunLastUpdated(LocalDateTime.now());
+            petRepository.save(activePet);
+
+            redirectAttributes.addFlashAttribute("flashMessage", "You have played with " + activePet.getName() + "!");
+        } catch (Exception e) {
+            e.printStackTrace(); // For debug cus why aint it working?
+            redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while playing with your cat.");
+        }
         return "redirect:/play";
     }
 
