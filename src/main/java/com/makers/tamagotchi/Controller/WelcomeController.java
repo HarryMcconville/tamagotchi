@@ -1,5 +1,6 @@
 package com.makers.tamagotchi.Controller;
 
+import com.makers.tamagotchi.Model.Trait;
 import com.makers.tamagotchi.Model.User;
 import com.makers.tamagotchi.Model.Pet;
 import com.makers.tamagotchi.Repository.UserRepository;
@@ -13,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @Controller
 public class WelcomeController {
@@ -27,6 +27,20 @@ public class WelcomeController {
 
     @Autowired
     private PetRepository petRepository;
+
+    private Trait[] getRandomTraits() {
+        List<Trait> traits = List.of(Trait.values());
+        Random random = new Random();
+
+        Trait perk = traits.get(random.nextInt(traits.size()));
+        Trait flaw;
+
+        do {
+            flaw = traits.get(random.nextInt(traits.size()));
+        } while (flaw == perk);
+
+        return new Trait[]{perk, flaw};
+    }
 
     @RequestMapping(value = "/welcome")
     public ModelAndView welcome(Authentication authentication, Model model) {
@@ -114,7 +128,7 @@ public class WelcomeController {
     public String handleWelcome(
             @RequestParam(value = "displayName", required = false) String displayName,
             @RequestParam("catName") String catName, @RequestParam("catImage") String catImage,
-            Authentication authentication) {
+            Authentication authentication, RedirectAttributes redirectAttributes) {
 
         // if user not authenticated, throws an error
         if (authentication == null) {
@@ -141,7 +155,22 @@ public class WelcomeController {
         cat.setName(catName);
         cat.setUser(user);
         cat.setImage(catImage);
+
+        Trait[] traits = getRandomTraits();
+        cat.setPerk(traits[0]);
+        cat.setFlaw(traits[1]);
+
         petRepository.save(cat);
+
+        redirectAttributes.addFlashAttribute("newPetName", cat.getName());
+
+        redirectAttributes.addFlashAttribute("newPetPerk", cat.getPerk().name().replace("_", " "));
+        redirectAttributes.addFlashAttribute("newPetPerkDesc", cat.getPerk().getDescription());
+
+        redirectAttributes.addFlashAttribute("newPetFlaw", cat.getFlaw().name().replace("_", " "));
+        redirectAttributes.addFlashAttribute("newPetFlawDesc", cat.getFlaw().getDescription());
+
+        redirectAttributes.addFlashAttribute("newPetImage", cat.getImage());
 
         return "redirect:/play";
     }

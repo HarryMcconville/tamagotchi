@@ -79,3 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(decreaseFun, 10000); // Every 10 seconds
 });
+
+// for new pet modal on entering play screen
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById('newPetModal')) {
+    var newPetModal = new bootstrap.Modal(document.getElementById('newPetModal'));
+    newPetModal.show();
+  }
+});
