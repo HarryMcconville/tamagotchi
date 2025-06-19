@@ -26,7 +26,7 @@ public class PetHungerDecay {
             petRepository.save(pet);
         }
 
-        System.out.println("Hunger decayed for all pets by 1%.");
+        System.out.println("Hunger decayed for pet by 1%.");
     }
 }
 

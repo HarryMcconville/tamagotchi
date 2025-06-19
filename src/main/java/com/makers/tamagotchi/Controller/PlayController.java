@@ -86,7 +86,7 @@ public class PlayController {
             activePet.setLastUpdated(LocalDateTime.now());
             petRepository.save(activePet);
 
-            redirectAttributes.addFlashAttribute("flashMessage", "You fed your cat! " + activePet.getName() + "'s food level is now 100%.");
+            redirectAttributes.addFlashAttribute("flashMessage", "You have fed " + activePet.getName() + "!");
         } catch (Exception e) {
             e.printStackTrace(); // For debug cus why aint it working?
             redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while feeding the cat.");
