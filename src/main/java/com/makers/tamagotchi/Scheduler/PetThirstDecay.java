@@ -9,24 +9,24 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class PetHungerDecay {
+public class PetThirstDecay {
 
     @Autowired
     private PetRepository petRepository;
 
     // can run every 5 mins just as a test but we can change this. the time is set to milliseconds
-    @Scheduled(fixedRate = 10000) // 5 minutes = 300,000 ms but for testing i;ve set it to 10secs
-    public void decayHunger() {
+    @Scheduled(fixedRate = 20000) // 5 minutes = 300,000 ms but for testing i;ve set it to 20secs
+    public void decayThirst() {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
-            int currentHunger = pet.getHunger();
-            int newHunger = Math.max(0, currentHunger - 1); // will reduce hunger by 1% every 10 secs but never go bel 0
-            pet.setHunger(newHunger);
+            int currentThirst = pet.getThirst();
+            int newThirst = Math.max(0, currentThirst - 1); // will reduce thirst by 1% every 20 secs but never go bel 0
+            pet.setThirst(newThirst);
             petRepository.save(pet);
         }
 
-        System.out.println("Hunger decayed for pet by 1%.");
+        System.out.println("Thirst decayed for pet by 1%.");
     }
 }
 
