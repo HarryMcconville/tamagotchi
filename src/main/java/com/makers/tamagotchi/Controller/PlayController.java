@@ -160,7 +160,7 @@ public class PlayController {
             activePet.setSocialLastUpdated(LocalDateTime.now());
             petRepository.save(activePet);
 
-            redirectAttributes.addFlashAttribute("flashMessage", "You have pet " + activePet.getName() + "!");
+            redirectAttributes.addFlashAttribute("flashMessage", "You have petted " + activePet.getName() + "!");
         } catch (Exception e) {
             e.printStackTrace(); // For debug cus why aint it working?
             redirectAttributes.addFlashAttribute("flashMessage", "Something went wrong while petting your cat.");
@@ -211,6 +211,13 @@ public class PlayController {
             petRepository.save(activePet);
         }
         return "redirect:/welcome";
+    }
+
+    @GetMapping("/play/confirm_shoo")
+    public ModelAndView confirmShoo(@ModelAttribute("activePet") Pet activePet){
+        ModelAndView modelAndView = new ModelAndView("shoo_cat");
+        modelAndView.addObject("pet", activePet);
+        return modelAndView;
     }
 }
 
