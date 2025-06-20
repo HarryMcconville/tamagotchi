@@ -1,6 +1,7 @@
 // This is for JS scripts for the /play endpoint
 // i.e. updating status bars
 
+// JS FOR STATUS BARS
 // NEW js ajax to link front end to db rather than be separate
 document.addEventListener("DOMContentLoaded", function () {
   // Grab references to all bars and text
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         hunger: document.getElementById("hunger-text"),
         thirst: document.getElementById("thirst-text"),
         social: document.getElementById("social-text"),
-        fun: document.getElementById("fun-text")
+        fun: document.getElementById("fun-text"),
         happiness: document.getElementById("happiness-text")
     };
 
@@ -51,49 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(fetchStatus, 5000);
 });
 
-//  // Read from data attributes
-//  let currentHunger = parseInt(hungerText.dataset.hunger) || 100;
-//  let currentThirst = parseInt(thirstText.dataset.thirst) || 100;
-//  let currentSocial = parseInt(socialText.dataset.social) || 100;
-//  let currentFun = parseInt(funText.dataset.fun) || 100;
-//
-//  // Set initial widths
-//  hungerBar.style.width = currentHunger + "%";
-//  thirstBar.style.width = currentThirst + "%";
-//  socialBar.style.width = currentSocial + "%";
-//  funBar.style.width = currentFun + "%";
-//
-//  hungerText.textContent = "Hunger: " + currentHunger + "%";
-//  thirstText.textContent = "Thirst: " + currentThirst + "%";
-//  socialText.textContent = "Social: " + currentSocial + "%";
-//  funText.textContent = "Fun: " + currentFun + "%";
-//
-////
-//  function decreaseBar(value, barElement, textElement, label) {
-//    if (value > 0) value--;
-//    barElement.style.width = value + "%";
-//    textElement.textContent = label + ": " + value + "%";
-//    return value;
-//  }
-//
-// // setting intervals for the decrease of values
-//  setInterval(() => currentHunger = decreaseBar(currentHunger, hungerBar, hungerText, "Hunger"), 10000);
-//  setInterval(() => currentThirst = decreaseBar(currentThirst, thirstBar, thirstText, "Thirst"), 20000);
-//  setInterval(() => currentSocial = decreaseBar(currentSocial, socialBar, socialText, "Social"), 10000);
-//  setInterval(() => currentFun = decreaseBar(currentFun, funBar, funText, "Fun"), 10000);
-//
-//  // Happiness calculation based on other values
-//  function updateHappiness() {
-//    const average = Math.round((currentHunger + currentThirst + currentSocial + currentFun) / 4);
-//    happinessBar.style.width = average + "%";
-//    happinessText.textContent = "Happiness: " + average + "%";
-//  }
-//
-//  updateHappiness();
-//  setInterval(updateHappiness, 5000); // updates happiness at a rate quicker than others
-//});
 
 
+// JS FOR SOUNDS
 //<!-- Javascript to play purr sound before redirect  -->
 function playPurrAndRedirect(event) {
     event.preventDefault(); // prevent default navigation
