@@ -23,6 +23,7 @@ public class PetHungerDecay {
             int currentHunger = pet.getHunger();
             int newHunger = Math.max(0, currentHunger - 1); // will reduce hunger by 1% every 10 secs but never go bel 0
             pet.setHunger(newHunger);
+            pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
         }
 

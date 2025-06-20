@@ -23,6 +23,7 @@ public class PetFunDecay {
             int currentFun = pet.getFun();
             int newFun = Math.max(0, currentFun - 1); // will reduce Fun by 1% every 10 secs but never go bel 0
             pet.setFun(newFun);
+            pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
         }
 
