@@ -45,13 +45,16 @@ public class Pet {
     @Column(name = "fun_last_updated")
     private LocalDateTime funLastUpdated;
 
+    @Enumerated(EnumType.STRING)
+    private Trait perk;
+
+    @Enumerated(EnumType.STRING)
+    private Trait flaw;
 
     // fetches the user so it can be assigned to the cat as a foreign key
-    // ManyToOne establishes that one user can have many cats
     // by default, fetchType for ManyToOne is "EAGER" which means that when the pet
     // is called, the whole of the user info is also fetched. Switching to "LAZY"
-    // means we only fetch user data when specifically called upon. It's not
-    // necessary but improves performance
+    // means we only fetch user data when specifically called upon
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -80,7 +83,7 @@ public class Pet {
     }
 
     // Full constructor used in your service/controller
-    public Pet(String name, User user, String image) {
+    public Pet(String name, User user, String image, Trait perk, Trait flaw) {
         this.name = name;
         this.user = user;
         this.image = image;
@@ -93,5 +96,7 @@ public class Pet {
         this.socialLastUpdated = LocalDateTime.now();
         this.fun = 100;
         this.funLastUpdated = LocalDateTime.now();
+        this.perk = perk;
+        this.flaw = flaw;
     }
 }
