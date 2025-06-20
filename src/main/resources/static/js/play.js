@@ -1,83 +1,60 @@
 // This is for JS scripts for the /play endpoint
 // i.e. updating status bars
 
-// js for hunger bar
-
 document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("hunger-bar");
-    const hungerText = document.getElementById("hunger-text");
+  // Grab references to all bars and text
+  const hungerBar = document.getElementById("hunger-bar");
+  const thirstBar = document.getElementById("thirst-bar");
+  const socialBar = document.getElementById("social-bar");
+  const funBar = document.getElementById("fun-bar");
+  const happinessBar = document.getElementById("happiness-bar");
 
-    // Get initial hunger from data attribute
-    let currentHunger = parseInt(window.getComputedStyle(bar).width) || 100;
+  const hungerText = document.getElementById("hunger-text");
+  const thirstText = document.getElementById("thirst-text");
+  const socialText = document.getElementById("social-text");
+  const funText = document.getElementById("fun-text");
+  const happinessText = document.getElementById("happiness-text");
 
+  // Read from data attributes
+  let currentHunger = parseInt(hungerText.dataset.hunger) || 100;
+  let currentThirst = parseInt(thirstText.dataset.thirst) || 100;
+  let currentSocial = parseInt(socialText.dataset.social) || 100;
+  let currentFun = parseInt(funText.dataset.fun) || 100;
 
-    function decreaseHunger() {
-        if (currentHunger > 0) {
-            currentHunger--;
-            bar.style.width = currentHunger + "%";
-            hungerText.textContent = "Hunger: " + currentHunger + "%";
-        }
-    }
+  // Set initial widths
+  hungerBar.style.width = currentHunger + "%";
+  thirstBar.style.width = currentThirst + "%";
+  socialBar.style.width = currentSocial + "%";
+  funBar.style.width = currentFun + "%";
 
-    setInterval(decreaseHunger, 10000); // Every 10 seconds
-});
+  hungerText.textContent = "Hunger: " + currentHunger + "%";
+  thirstText.textContent = "Thirst: " + currentThirst + "%";
+  socialText.textContent = "Social: " + currentSocial + "%";
+  funText.textContent = "Fun: " + currentFun + "%";
 
-// THIRST JS STUFF
-document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("thirst-bar");
-    const thirstText = document.getElementById("thirst-text");
+//
+  function decreaseBar(value, barElement, textElement, label) {
+    if (value > 0) value--;
+    barElement.style.width = value + "%";
+    textElement.textContent = label + ": " + value + "%";
+    return value;
+  }
 
-    // Get initial thirst from data attribute
-    let currentThirst = parseInt(window.getComputedStyle(bar).width) || 100;
+ // setting intervals for the decrease of values
+  setInterval(() => currentHunger = decreaseBar(currentHunger, hungerBar, hungerText, "Hunger"), 10000);
+  setInterval(() => currentThirst = decreaseBar(currentThirst, thirstBar, thirstText, "Thirst"), 20000);
+  setInterval(() => currentSocial = decreaseBar(currentSocial, socialBar, socialText, "Social"), 10000);
+  setInterval(() => currentFun = decreaseBar(currentFun, funBar, funText, "Fun"), 10000);
 
+  // Happiness calculation based on other values
+  function updateHappiness() {
+    const average = Math.round((currentHunger + currentThirst + currentSocial + currentFun) / 4);
+    happinessBar.style.width = average + "%";
+    happinessText.textContent = "Happiness: " + average + "%";
+  }
 
-    function decreaseThirst() {
-        if (currentThirst > 0) {
-            currentThirst--;
-            bar.style.width = currentThirst + "%";
-            thirstText.textContent = "Thirst: " + currentThirst + "%";
-        }
-    }
-
-    setInterval(decreaseThirst, 20000); // Every 10 seconds
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("social-bar");
-    const socialText = document.getElementById("social-text");
-
-    // Get initial social from data attribute
-    let currentSocial = parseInt(window.getComputedStyle(bar).width) || 100;
-
-
-    function decreaseSocial() {
-        if (currentSocial > 0) {
-            currentSocial--;
-            bar.style.width = currentSocial + "%";
-            socialText.textContent = "Social: " + currentSocial + "%";
-        }
-    }
-
-    setInterval(decreaseSocial, 10000); // Every 10 seconds
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("fun-bar");
-    const funText = document.getElementById("fun-text");
-
-    // Get initial fun from data attribute
-    let currentFun = parseInt(window.getComputedStyle(bar).width) || 100;
-
-
-    function decreaseFun() {
-        if (currentFun > 0) {
-            currentFun--;
-            bar.style.width = currentFun + "%";
-            funText.textContent = "Fun: " + currentFun + "%";
-        }
-    }
-
-    setInterval(decreaseFun, 10000); // Every 10 seconds
+  updateHappiness();
+  setInterval(updateHappiness, 5000); // updates happiness at a rate quicker than others
 });
 
 
