@@ -27,11 +27,11 @@ let currentFun, currentHunger, currentSocial, currentThirst;
 //});
 
 document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("hunger-bar");
-    const bar = document.getElementById("social-bar");
-    const bar = document.getElementById("thirst-bar");
-    const bar = document.getElementById("fun-bar");
-    const bar = document.getElementById("happiness-bar");
+    const hungerBar = document.getElementById("hunger-bar");
+    const socialBar = document.getElementById("social-bar");
+    const thirstBar = document.getElementById("thirst-bar");
+    const funBar = document.getElementById("fun-bar");
+    const happinessBar = document.getElementById("happiness-bar");
 
     const hungerText = document.getElementById("hunger-text");
     const socialText = document.getElementById("social-text");
@@ -39,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const funText = document.getElementById("fun-text");
     const happinessText = document.getElementById("happiness-text");
 
-    let currentHunger = parseInt(hungerBar.style.width) || 100;
-    let currentSocial = parseInt(socialBar.style.width) || 100;
-    let currentThirst = parseInt(thirstBar.style.width) || 100;
-    let currentFun = parseInt(funBar.style.width) || 100;
+    let currentHunger = parseInt(window.getComputedStyle(hungerBar).width) || 100;
+    let currentSocial = parseInt(window.getComputedStyle(socialBar).width) || 100;
+    let currentThirst = parseInt(window.getComputedStyle(thirstBar).width) || 100;
+    let currentFun = parseInt(window.getComputedStyle(funBar).width) || 100;
+    let currentHappiness = parseInt(window.getComputedStyle(happinessBar).width) || 100;
 
     setInterval(() => {
         if (currentHunger > 0) currentHunger--;
