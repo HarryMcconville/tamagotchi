@@ -80,6 +80,23 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(decreaseFun, 10000); // Every 10 seconds
 });
 
+// happiness bar
+document.addEventListener("DOMContentLoaded", function () {
+    const bar = document.getElementById("happiness-bar");
+
+    // Get initial happiness from data attribute
+    let currentHappiness = parseInt(window.getComputedStyle(bar).width) || 100;
+
+
+    function calculateHappiness() {
+        currentHappiness = ((currentFun + currentHunger + currentSocial + currentThirst)/4)
+        bar.style.width = currentHappiness + "%";
+        }
+    }
+
+    setInterval(decreaseHappiness, 10000); // Every 10 seconds
+});
+
 // for new pet modal on entering play screen
 document.addEventListener('DOMContentLoaded', function () {
   if (document.getElementById('newPetModal')) {
