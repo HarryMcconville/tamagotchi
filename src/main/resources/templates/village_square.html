@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>The Village</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="village-square-bg">
 <p>Not a yellow raincoat in sight</p>
 
 <p th:text="${flashMessage}" th:if="${flashMessage}"></p>
@@ -31,7 +32,7 @@
 <p th:text="'Available brushes: ' + ${village.brush}"></p>
 <p th:text="'Your collected brushes: ' + ${village.collectedBrush}"></p>
 
-<a href="/village/brush" class="cat-button">Collect catnip</a>
+<a href="/village/brush" class="cat-button">Collect brushes</a>
 
 </body>
 </html>
