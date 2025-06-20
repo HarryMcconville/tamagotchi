@@ -84,6 +84,7 @@ public class PlayController {
             // Update hunger
             activePet.setHunger(100);
             activePet.setLastUpdated(LocalDateTime.now());
+            activePet.setHappiness(activePet.calculateHappiness());
             petRepository.save(activePet);
 
             redirectAttributes.addFlashAttribute("flashMessage", "You have fed " + activePet.getName() + "!");
@@ -122,6 +123,7 @@ public class PlayController {
             // Update thirst
             activePet.setThirst(100);
             activePet.setThirstLastUpdated(LocalDateTime.now());
+            activePet.setHappiness(activePet.calculateHappiness());
             petRepository.save(activePet);
 
             redirectAttributes.addFlashAttribute("flashMessage", "You have refilled " + activePet.getName() + "'s water bowl!");
@@ -158,6 +160,7 @@ public class PlayController {
             // Update social
             activePet.setSocial(100);
             activePet.setSocialLastUpdated(LocalDateTime.now());
+            activePet.setHappiness(activePet.calculateHappiness());
             petRepository.save(activePet);
 
             redirectAttributes.addFlashAttribute("flashMessage", "You have pet " + activePet.getName() + "!");
@@ -194,6 +197,7 @@ public class PlayController {
             // Update fun
             activePet.setFun(100);
             activePet.setFunLastUpdated(LocalDateTime.now());
+            activePet.setHappiness(activePet.calculateHappiness());
             petRepository.save(activePet);
 
             redirectAttributes.addFlashAttribute("flashMessage", "You have played with " + activePet.getName() + "!");

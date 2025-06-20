@@ -23,6 +23,7 @@ public class PetSocialDecay {
             int currentSocial = pet.getThirst();
             int newSocial = Math.max(0, currentSocial - 1); // will reduce Social by 1% every 10 secs but never go bel 0
             pet.setSocial(newSocial);
+            pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
         }
 
