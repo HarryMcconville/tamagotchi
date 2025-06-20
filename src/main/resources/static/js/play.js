@@ -79,3 +79,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(decreaseFun, 10000); // Every 10 seconds
 });
+
+//<!-- Javascript to play purr sound before redirect  -->
+<script>
+    function playPurrAndRedirect(event) {
+        event.preventDefault(); // prevent default navigation
+
+        const audio = document.getElementById('purr');
+        audio.currentTime = 0;
+        audio.play();
+
+        // Redirect after short delay (adjust as needed)
+        setTimeout(() => {
+            window.location.href = "/play/pet";
+        }, 2200);
+    }
+</script>
+
+//<!-- Javascript to play feed sound before redirect  -->
+<script>
+    function playFeedAndRedirect(event) {
+        event.preventDefault(); // prevent default navigation
+
+        const audio = document.getElementById('feed');
+        audio.currentTime = 0;
+        audio.play();
+
+        // Redirect after short delay (adjust as needed)
+        setTimeout(() => {
+            window.location.href = "/play/feed";
+        }, 1500);
+    }
+</script>
+
+//<!-- Javascript to play Water sound before redirect  -->
+<script>
+    function playWaterAndRedirect(event) {
+        event.preventDefault(); // prevent default navigation
+
+        const audio = document.getElementById('water');
+        audio.currentTime = 0;
+        audio.play();
+
+        // Redirect after short delay (adjust as needed)
+        setTimeout(() => {
+            window.location.href = "/play/water";
+        }, 1500);
+    }
+</script>
+
+//<!-- Javascript to play game sound before redirect  -->
+<script>
+    function playGameAndRedirect(event) {
+        event.preventDefault(); // prevent default navigation
+
+        const audio = document.getElementById('game');
+        audio.currentTime = 0;
+        audio.play();
+
+        // Redirect after short delay (adjust as needed)
+        setTimeout(() => {
+            window.location.href = "/play/game";
+        }, 1500);
+    }
+</script>
