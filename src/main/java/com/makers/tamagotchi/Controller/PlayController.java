@@ -106,4 +106,9 @@ public class PlayController {
         }
         return "redirect:/welcome";
     }
+
+    @GetMapping("/play/confirm_shoo")
+    public String confirmShoo(){
+        return "shoo_cat";
+    }
 }
