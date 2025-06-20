@@ -6,10 +6,32 @@
 </head>
 <body>
 <p>Not a yellow raincoat in sight</p>
+
+<p th:text="${flashMessage}" th:if="${flashMessage}"></p>
+
+<!--This handles the cat food -->
 <p th:text="'Available food: ' + ${village.catfood}"></p>
 <p th:text="'Your collected food: ' + ${village.collectedCatFood}"></p>
 
 <a href="/village/catFood" class="cat-button">Collect food</a>
-<p th:text="${flashMessage}" th:if="${flashMessage}"></p>
+
+<!--This handles the milk-->
+<p th:text="'Available milk: ' + ${village.milk}"></p>
+<p th:text="'Your collected milk: ' + ${village.collectedMilk}"></p>
+
+<a href="/village/milk" class="cat-button">Collect milk</a>
+
+<!--This handles the catnip-->
+<p th:text="'Available catnip: ' + ${village.catnip}"></p>
+<p th:text="'Your collected catnip: ' + ${village.collectedCatnip}"></p>
+
+<a href="/village/catnip" class="cat-button">Collect catnip</a>
+
+<!--This handles the brush-->
+<p th:text="'Available brushes: ' + ${village.brush}"></p>
+<p th:text="'Your collected brushes: ' + ${village.collectedBrush}"></p>
+
+<a href="/village/brush" class="cat-button">Collect catnip</a>
+
 </body>
 </html>
