@@ -1,83 +1,49 @@
 // This is for JS scripts for the /play endpoint
 // i.e. updating status bars
 
-// js for hunger bar
-
+// NEW js ajax to link front end to db rather than be separate
 document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("hunger-bar");
-    const hungerText = document.getElementById("hunger-text");
+    const bars = {
+        hunger: document.getElementById("hunger-bar"),
+        thirst: document.getElementById("thirst-bar"),
+        social: document.getElementById("social-bar"),
+        fun: document.getElementById("fun-bar")
+    };
 
-    // Get initial hunger from data attribute
-    let currentHunger = parseInt(window.getComputedStyle(bar).width) || 100;
+    const texts = {
+        hunger: document.getElementById("hunger-text"),
+        thirst: document.getElementById("thirst-text"),
+        social: document.getElementById("social-text"),
+        fun: document.getElementById("fun-text")
+    };
 
-
-    function decreaseHunger() {
-        if (currentHunger > 0) {
-            currentHunger--;
-            bar.style.width = currentHunger + "%";
-            hungerText.textContent = "Hunger: " + currentHunger + "%";
+    function updateStatusBars(data) {
+        for (const key in bars) {
+            if (data[key] !== undefined) {
+                const value = data[key];
+                bars[key].style.width = value + "%";
+                texts[key].textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}%`;
+            }
+        }
+    }
+// this method is what will fetch the data from the db, defined in the Ajax controller route /api/status
+    async function fetchStatus() {
+        try {
+            const response = await fetch("/api/status");
+            if (!response.ok) throw new Error("Failed to fetch pet status");
+            const data = await response.json();
+            updateStatusBars(data);
+        } catch (error) {
+            console.error("Error fetching status:", error);
         }
     }
 
-    setInterval(decreaseHunger, 10000); // Every 10 seconds
-});
+    // starting load from db
+    fetchStatus();
 
-// THIRST JS STUFF
-document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("thirst-bar");
-    const thirstText = document.getElementById("thirst-text");
-
-    // Get initial thirst from data attribute
-    let currentThirst = parseInt(window.getComputedStyle(bar).width) || 100;
-
-
-    function decreaseThirst() {
-        if (currentThirst > 0) {
-            currentThirst--;
-            bar.style.width = currentThirst + "%";
-            thirstText.textContent = "Thirst: " + currentThirst + "%";
-        }
-    }
-
-    setInterval(decreaseThirst, 20000); // Every 10 seconds
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("social-bar");
-    const socialText = document.getElementById("social-text");
-
-    // Get initial social from data attribute
-    let currentSocial = parseInt(window.getComputedStyle(bar).width) || 100;
-
-
-    function decreaseSocial() {
-        if (currentSocial > 0) {
-            currentSocial--;
-            bar.style.width = currentSocial + "%";
-            socialText.textContent = "Social: " + currentSocial + "%";
-        }
-    }
-
-    setInterval(decreaseSocial, 10000); // Every 10 seconds
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.getElementById("fun-bar");
-    const funText = document.getElementById("fun-text");
-
-    // Get initial fun from data attribute
-    let currentFun = parseInt(window.getComputedStyle(bar).width) || 100;
-
-
-    function decreaseFun() {
-        if (currentFun > 0) {
-            currentFun--;
-            bar.style.width = currentFun + "%";
-            funText.textContent = "Fun: " + currentFun + "%";
-        }
-    }
-
-    setInterval(decreaseFun, 10000); // Every 10 seconds
+    // and then this interval sets how often it will ping the backend for data updates.
+    // currently set to every 5 seconds
+    setInterval(fetchStatus, 5000);
 });
 
 
