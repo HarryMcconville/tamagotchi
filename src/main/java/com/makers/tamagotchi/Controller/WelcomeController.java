@@ -33,15 +33,14 @@ public class WelcomeController {
     private VillageRepository villageRepository;
     
     private Trait[] getRandomTraits() {
-        List<Trait> traits = List.of(Trait.values());
         Random random = new Random();
 
-        Trait perk = traits.get(random.nextInt(traits.size()));
-        Trait flaw;
+        Trait perk = Trait.getPerks().get(random.nextInt(Trait.getPerks().size()));
 
+        Trait flaw;
         do {
-            flaw = traits.get(random.nextInt(traits.size()));
-        } while (flaw == perk);
+            flaw = Trait.getFlaws().get(random.nextInt(Trait.getFlaws().size()));
+        } while (flaw.getStatType() == perk.getStatType());
 
         return new Trait[]{perk, flaw};
     }

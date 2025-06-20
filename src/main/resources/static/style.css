@@ -1,11 +1,15 @@
-html, body{
+html, body {
     height: 100%;
     margin: 0;
-    background-image: url(/images/bg-placeholder.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
+}
+body.living-room {
+    background-image: url(/images/bg-placeholder.png);
+}
+body.goodbye-page {
+    background-image: url(/images/goodbye-placeholder.jpg);
 }
 
 body.village-square-bg {
@@ -19,7 +23,7 @@ body.village-square-bg {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100px;
+    width: 110px;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
@@ -99,6 +103,7 @@ a.cat-button:active::before {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .cat-image {
@@ -128,7 +133,7 @@ a.cat-button:active::before {
 .food-bowl-position {
     position: absolute;
     top: 80%;
-    left: 18%;
+    left: 19%;
     transform: translate(-50%, -50%);
 }
 
@@ -150,7 +155,7 @@ a.cat-button:active::before {
 .water-bowl-position {
     position: absolute;
     top: 80%;
-    left: 13%;
+    left: 12%;
     transform: translate(-50%, -50%);
 }
 
@@ -189,6 +194,51 @@ a.cat-button:active::before {
   transition: border 0.2s ease-in-out;
 }
 
+.tooltip {
+  position: absolute;
+  bottom: 100%; /* show above the item */
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  background-color: #89CFF0;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+
+.water-bowl-position:hover .tooltip {
+  opacity: 1;
+}
+.food-bowl-position:hover .tooltip {
+  opacity: 1;
+}
+.cat-position:hover .tooltip {
+  opacity: 1;
+}
+.yarn-position:hover .tooltip {
+  opacity: 1;
+}
+
+.bindle-position {
+    position: absolute;
+    top: 59%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.bindle-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+
+}
 
 
 h2 {

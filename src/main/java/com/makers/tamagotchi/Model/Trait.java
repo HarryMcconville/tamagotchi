@@ -1,85 +1,103 @@
 package com.makers.tamagotchi.Model;
 
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
 public enum Trait {
 
-    // Hunger Depletion
-    Efficient_Metabolism("HUNGER", EffectType.DEPLETION, 0.75,
+    // Hunger Depletion (Perks and Flaws)
+    Efficient_Metabolism(StatType.HUNGER, EffectType.DEPLETION, 0.75, TraitType.PERK,
             "Stays feeling full. Hunger drains 25% more slowly."),
-    Always_Peckish("HUNGER", EffectType.DEPLETION, 1.25,
+    Always_Peckish(StatType.HUNGER, EffectType.DEPLETION, 1.25, TraitType.FLAW,
             "This cat is the snacky type. Hunger drains 25% faster."),
 
     // Hunger Replenishment
-    Easy_Feeder("HUNGER", EffectType.REPLENISHMENT, 1.25,
+    Easy_Feeder(StatType.HUNGER, EffectType.REPLENISHMENT, 1.25, TraitType.PERK,
             "This cat just loves to eat. Feeding restores 25% more hunger."),
-    Picky_Eater("HUNGER", EffectType.REPLENISHMENT, 0.75,
+    Picky_Eater(StatType.HUNGER, EffectType.REPLENISHMENT, 0.75, TraitType.FLAW,
             "Very choosy eater. Feeding restores 25% less hunger."),
 
     // Thirst Depletion
-    Camel_Cat("THIRST", EffectType.DEPLETION, 0.75,
+    Camel_Cat(StatType.THIRST, EffectType.DEPLETION, 0.75, TraitType.PERK,
             "Ideal desert adventure companion. Thirst drains 25% more slowly."),
-    Parched_Paws("THIRST", EffectType.DEPLETION, 1.25,
+    Parched_Paws(StatType.THIRST, EffectType.DEPLETION, 1.25, TraitType.FLAW,
             "Quickly gets thirsty. Thirst drains 25% faster."),
 
     // Thirst Replenishment
-    Gulper("THIRST", EffectType.REPLENISHMENT, 1.25,
+    Gulper(StatType.THIRST, EffectType.REPLENISHMENT, 1.25, TraitType.PERK,
             "Efficient lapping technique. Drinking restores 25% more thirst."),
-    Sloppy_Drinker("THIRST", EffectType.REPLENISHMENT, 0.75,
+    Sloppy_Drinker(StatType.THIRST, EffectType.REPLENISHMENT, 0.75, TraitType.FLAW,
             "This cat spills more than it drinks. Drinking restores 25% less thirst."),
 
     // Fun Depletion
-    Low_Maintenance("FUN", EffectType.DEPLETION, 0.75,
+    Low_Maintenance(StatType.FUN, EffectType.DEPLETION, 0.75, TraitType.PERK,
             "Not easily bored. Fun drains 25% more slowly."),
-    Restless_Spirit("FUN", EffectType.DEPLETION, 1.25,
+    Restless_Spirit(StatType.FUN, EffectType.DEPLETION, 1.25, TraitType.FLAW,
             "Very playful. Fun drains 25% faster."),
 
     // Fun Replenishment
-    Easily_Amused("FUN", EffectType.REPLENISHMENT, 1.25,
+    Easily_Amused(StatType.FUN, EffectType.REPLENISHMENT, 1.25, TraitType.PERK,
             "Finds joy easily. Fun restores 25% more."),
-    Hard_To_Impress("FUN", EffectType.REPLENISHMENT, 0.75,
+    Hard_To_Impress(StatType.FUN, EffectType.REPLENISHMENT, 0.75, TraitType.FLAW,
             "Hard to please. Fun restores 25% less."),
 
     // Social Depletion
-    Loner("SOCIAL", EffectType.DEPLETION, 0.75,
+    Loner(StatType.SOCIAL, EffectType.DEPLETION, 0.75, TraitType.PERK,
             "Prefers solitude. Social drains 25% more slowly."),
-    Clingy_Whiskers("SOCIAL", EffectType.DEPLETION, 1.25,
+    Clingy_Whiskers(StatType.SOCIAL, EffectType.DEPLETION, 1.25, TraitType.FLAW,
             "Craves attention. Social drains 25% faster."),
 
     // Social Replenishment
-    Love_Bug("SOCIAL", EffectType.REPLENISHMENT, 1.25,
+    Love_Bug(StatType.SOCIAL, EffectType.REPLENISHMENT, 1.25, TraitType.PERK,
             "Loves affection. Social restores 25% more."),
-    Stubborn_Stranger("SOCIAL", EffectType.REPLENISHMENT, 0.75,
+    Stubborn_Stranger(StatType.SOCIAL, EffectType.REPLENISHMENT, 0.75, TraitType.FLAW,
             "Difficult to bond with. Social restores 25% less.");
 
-    private final String stat;
+    private final StatType statType;
     private final EffectType effectType;
     private final double modifier;
+    private final TraitType traitType;
     private final String description;
 
-    Trait(String stat, EffectType effectType, double modifier, String description) {
-        this.stat = stat;
+    Trait(StatType statType, EffectType effectType, double modifier, TraitType traitType, String description) {
+        this.statType = statType;
         this.effectType = effectType;
         this.modifier = modifier;
+        this.traitType = traitType;
         this.description = description;
-    }
-
-    public String getStat() {
-        return stat;
-    }
-
-    public EffectType getEffectType() {
-        return effectType;
-    }
-
-    public double getModifier() {
-        return modifier;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public enum EffectType {
         DEPLETION,
         REPLENISHMENT
+    }
+
+    public enum TraitType {
+        PERK,
+        FLAW
+    }
+
+    public enum StatType {
+        HUNGER,
+        THIRST,
+        FUN,
+        SOCIAL
+    }
+
+    // Helper methods (optional)
+    public static List<Trait> getPerks() {
+        return Arrays.stream(values())
+                .filter(t -> t.getTraitType() == TraitType.PERK)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Trait> getFlaws() {
+        return Arrays.stream(values())
+                .filter(t -> t.getTraitType() == TraitType.FLAW)
+                .collect(Collectors.toList());
     }
 }
