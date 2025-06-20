@@ -216,6 +216,17 @@ public class PlayController {
         }
         return "redirect:/welcome";
     }
+
+//    @GetMapping("/play/rehome")
+//    public String rehomeCat(@ModelAttribute("activePet") Pet activePet) {
+//        int activePetHappiness = activePet.getHappiness();
+//        if (activePet != null)
+//            if (activePetHappiness == 0) {
+//                activePet.setIsActive(false);
+//                petRepository.save(activePet);
+//            }
+//        return "redirect:/welcome";
+//    }
 }
 
 
