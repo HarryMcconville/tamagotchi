@@ -11,6 +11,14 @@ body.living-room {
 body.goodbye-page {
     background-image: url(/images/goodbye-placeholder.jpg);
 }
+
+body.village-square-bg {
+    background-image: url(/images/bg-village-square.png); /* Your new image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .sidebar {
     position: fixed;
     top: 0;

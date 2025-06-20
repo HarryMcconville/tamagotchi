@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(decreaseFun, 10000); // Every 10 seconds
 });
 
+
 //<!-- Javascript to play purr sound before redirect  -->
 function playPurrAndRedirect(event) {
     event.preventDefault(); // prevent default navigation
@@ -135,3 +136,11 @@ function playGameAndRedirect(event) {
         window.location.href = "/play/game";
     }, 1500);
 }
+
+// for new pet modal on entering play screen
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById('newPetModal')) {
+    var newPetModal = new bootstrap.Modal(document.getElementById('newPetModal'));
+    newPetModal.show();
+  }
+});
