@@ -1,6 +1,8 @@
 package com.makers.tamagotchi.Controller;
 
 import com.makers.tamagotchi.Model.Pet;
+import com.makers.tamagotchi.Model.Trait;
+import com.makers.tamagotchi.Model.Trait.StatType;
 import com.makers.tamagotchi.Model.Village;
 import com.makers.tamagotchi.Repository.PetRepository;
 import com.makers.tamagotchi.Repository.UserRepository;
@@ -58,6 +60,22 @@ public class PlayController {
         return getActivePet(email);
     }
 
+    // helper method to check for perk or flaw affecting restoration rate for stat
+    private int calculateRestoredAmount(Pet pet, StatType statType, int baseAmount) {
+        Trait perk = pet.getPerk();
+        Trait flaw = pet.getFlaw();
+
+        double modifier = 1.0;
+
+        if (perk != null && perk.getStatType() == statType) {
+            modifier = perk.getModifier();  // e.g. 1.25
+        } else if (flaw != null && flaw.getStatType() == statType) {
+            modifier = flaw.getModifier();  // e.g. 0.75
+        }
+
+        return (int) (baseAmount * modifier);
+    }
+
     @GetMapping("/play")
     public String livingRoom() {
         return "living_room";
@@ -67,6 +85,10 @@ public class PlayController {
     public String feedCat(@ModelAttribute("pet") Pet pet,
                           @AuthenticationPrincipal(expression = "attributes['email']") String email,
                           RedirectAttributes redirectAttributes) {
+
+        int restoredAmount = calculateRestoredAmount(pet, StatType.HUNGER, 20);
+        int newHunger = Math.min(100, pet.getHunger() + restoredAmount);
+        pet.setHunger(newHunger);
 
         Village activeVillage = getActiveVillage(email);
 
@@ -99,6 +121,12 @@ public class PlayController {
                            @AuthenticationPrincipal(expression = "attributes['email']") String email,
                            RedirectAttributes redirectAttributes) {
 
+        int restoredAmount = calculateRestoredAmount(pet, StatType.THIRST, 20);
+        int newThirst = Math.min(100, pet.getThirst() + restoredAmount);
+        pet.setThirst(newThirst);
+
+        pet.setLastUpdated(LocalDateTime.now());
+      
         Village activeVillage = getActiveVillage(email);
 
         if (activeVillage == null) {
@@ -130,6 +158,11 @@ public class PlayController {
                          @AuthenticationPrincipal(expression = "attributes['email']") String email,
                          RedirectAttributes redirectAttributes) {
 
+        int restoredAmount = calculateRestoredAmount(pet, StatType.SOCIAL, 20);
+        int newSocial = Math.min(100, pet.getSocial() + restoredAmount);
+        pet.setSocial(newSocial);
+
+        pet.setLastUpdated(LocalDateTime.now());
         Village activeVillage = getActiveVillage(email);
 
         if (activeVillage == null) {
@@ -161,6 +194,11 @@ public class PlayController {
                                   @AuthenticationPrincipal(expression = "attributes['email']") String email,
                                   RedirectAttributes redirectAttributes) {
 
+        int restoredAmount = calculateRestoredAmount(pet, StatType.FUN, 20);
+        int newFun = Math.min(100, pet.getFun() + restoredAmount);
+        pet.setFun(newFun);
+
+        pet.setLastUpdated(LocalDateTime.now());
         Village activeVillage = getActiveVillage(email);
 
         if (activeVillage == null) {

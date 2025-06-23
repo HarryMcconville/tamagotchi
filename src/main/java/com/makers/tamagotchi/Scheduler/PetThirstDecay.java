@@ -1,6 +1,7 @@
 package com.makers.tamagotchi.Scheduler;
 
 import com.makers.tamagotchi.Model.Pet;
+import com.makers.tamagotchi.Model.Trait.StatType;
 import com.makers.tamagotchi.Repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,6 +15,9 @@ public class PetThirstDecay {
     @Autowired
     private PetRepository petRepository;
 
+    @Autowired
+    private PetDecayService petDecayService;
+
     // can run every 5 mins just as a test but we can change this. the time is set to milliseconds
     @Scheduled(fixedRate = 20000) // 5 minutes = 300,000 ms but for testing i;ve set it to 20secs
     @Scheduled(fixedRate = 20000) // 20 seconds for testing
@@ -21,6 +25,14 @@ public class PetThirstDecay {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
+
+            int baseDecay = 4;
+            double modifier = petDecayService.getDecayModifier(pet, StatType.THIRST);
+
+            int decayAmount = (int) Math.round(baseDecay * modifier);
+            int currentThirst = pet.getThirst();
+            int newThirst = Math.max(0, currentThirst - decayAmount);
+
             // Skip inactive pets
             if (!Boolean.TRUE.equals(pet.getIsActive())) {
                 continue;
@@ -28,12 +40,17 @@ public class PetThirstDecay {
 
             int currentThirst = pet.getThirst();
             int newThirst = Math.max(0, currentThirst - 1); // reduce thirst by 1%
+
             pet.setThirst(newThirst);
             pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
+
+            if (modifier != 1.0) {
+                String traitName = petDecayService.getActiveDecayTraitName(pet, StatType.THIRST);
+                System.out.println("Thirst decayed for pet '" + pet.getName() + "' by " + decayAmount + "% with " + traitName + ".");
+            } else {
+                System.out.println("Thirst decayed for pet '" + pet.getName() + "' by " + decayAmount + "%.");
+            }
         }
-
-        System.out.println("Thirst decayed for active pets by 1%.");
     }
-
 }
