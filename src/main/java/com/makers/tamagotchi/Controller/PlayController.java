@@ -1,6 +1,8 @@
 package com.makers.tamagotchi.Controller;
 
 import com.makers.tamagotchi.Model.Pet;
+import com.makers.tamagotchi.Model.Trait;
+import com.makers.tamagotchi.Model.Trait.StatType;
 import com.makers.tamagotchi.Repository.PetRepository;
 import com.makers.tamagotchi.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,22 @@ public class PlayController {
         return getActivePet(email);
     }
 
+    // helper method to check for perk or flaw affecting restoration rate for stat
+    private int calculateRestoredAmount(Pet pet, StatType statType, int baseAmount) {
+        Trait perk = pet.getPerk();
+        Trait flaw = pet.getFlaw();
+
+        double modifier = 1.0;
+
+        if (perk != null && perk.getStatType() == statType) {
+            modifier = perk.getModifier();  // e.g. 1.25
+        } else if (flaw != null && flaw.getStatType() == statType) {
+            modifier = flaw.getModifier();  // e.g. 0.75
+        }
+
+        return (int) (baseAmount * modifier);
+    }
+
     @GetMapping("/play")
     public String livingRoom() {
         return "living_room";
@@ -53,7 +71,10 @@ public class PlayController {
     public String feedCat(@ModelAttribute("pet") Pet pet,
                           RedirectAttributes redirectAttributes) {
 
-        pet.setHunger(100);
+        int restoredAmount = calculateRestoredAmount(pet, StatType.HUNGER, 20);
+        int newHunger = Math.min(100, pet.getHunger() + restoredAmount);
+        pet.setHunger(newHunger);
+
         pet.setLastUpdated(LocalDateTime.now());
         petRepository.save(pet);
 
@@ -65,9 +86,11 @@ public class PlayController {
     public String waterCat(@ModelAttribute("pet") Pet pet,
                            RedirectAttributes redirectAttributes) {
 
-        pet.setThirst(100);
-        pet.setThirstLastUpdated(LocalDateTime.now());
-        pet.setHappiness(pet.calculateHappiness());
+        int restoredAmount = calculateRestoredAmount(pet, StatType.THIRST, 20);
+        int newThirst = Math.min(100, pet.getThirst() + restoredAmount);
+        pet.setThirst(newThirst);
+
+        pet.setLastUpdated(LocalDateTime.now());
         petRepository.save(pet);
 
         redirectAttributes.addFlashAttribute("flashMessage", "You have refilled " + pet.getName() + "'s water bowl!");
@@ -78,9 +101,11 @@ public class PlayController {
     public String petCat(@ModelAttribute("pet") Pet pet,
                          RedirectAttributes redirectAttributes) {
 
-        pet.setSocial(100);
-        pet.setSocialLastUpdated(LocalDateTime.now());
-        pet.setHappiness(pet.calculateHappiness());
+        int restoredAmount = calculateRestoredAmount(pet, StatType.SOCIAL, 20);
+        int newSocial = Math.min(100, pet.getSocial() + restoredAmount);
+        pet.setSocial(newSocial);
+
+        pet.setLastUpdated(LocalDateTime.now());
         petRepository.save(pet);
 
         redirectAttributes.addFlashAttribute("flashMessage", "You have pet " + pet.getName() + "!");
@@ -91,13 +116,14 @@ public class PlayController {
     public String playGameWithCat(@ModelAttribute("pet") Pet pet,
                                   RedirectAttributes redirectAttributes) {
 
-        pet.setFun(100);
-        pet.setFunLastUpdated(LocalDateTime.now());
-        pet.setHappiness(pet.calculateHappiness());
+        int restoredAmount = calculateRestoredAmount(pet, StatType.FUN, 20);
+        int newFun = Math.min(100, pet.getFun() + restoredAmount);
+        pet.setFun(newFun);
+
+        pet.setLastUpdated(LocalDateTime.now());
         petRepository.save(pet);
 
         redirectAttributes.addFlashAttribute("flashMessage", "You have played with " + pet.getName() + "!");
-
         return "redirect:/play";
     }
 
