@@ -23,6 +23,7 @@ public class PetThirstDecay {
             int currentThirst = pet.getThirst();
             int newThirst = Math.max(0, currentThirst - 1); // will reduce thirst by 1% every 20 secs but never go bel 0
             pet.setThirst(newThirst);
+            pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
         }
 

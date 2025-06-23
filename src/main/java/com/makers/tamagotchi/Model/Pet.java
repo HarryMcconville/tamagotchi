@@ -45,6 +45,9 @@ public class Pet {
     @Column(name = "fun_last_updated")
     private LocalDateTime funLastUpdated;
 
+    // happiness level
+    private int happiness;
+
     @Enumerated(EnumType.STRING)
     private Trait perk;
 
@@ -75,6 +78,7 @@ public class Pet {
         this.socialLastUpdated = LocalDateTime.now();
         this.fun = 100;
         this.funLastUpdated = LocalDateTime.now();
+        this.happiness = calculateHappiness();
     }
 
     // Referring to Pet Id on db
@@ -96,7 +100,12 @@ public class Pet {
         this.socialLastUpdated = LocalDateTime.now();
         this.fun = 100;
         this.funLastUpdated = LocalDateTime.now();
+        this.happiness = calculateHappiness();
         this.perk = perk;
         this.flaw = flaw;
+    }
+    public int calculateHappiness(){
+        int happinessResult = ((this.hunger + this.thirst + this.social + this.fun)/4);
+        return happinessResult;
     }
 }

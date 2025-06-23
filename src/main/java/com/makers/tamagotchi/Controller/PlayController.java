@@ -67,6 +67,7 @@ public class PlayController {
 
         pet.setThirst(100);
         pet.setThirstLastUpdated(LocalDateTime.now());
+        pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
 
         redirectAttributes.addFlashAttribute("flashMessage", "You have refilled " + pet.getName() + "'s water bowl!");
@@ -79,6 +80,7 @@ public class PlayController {
 
         pet.setSocial(100);
         pet.setSocialLastUpdated(LocalDateTime.now());
+        pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
 
         redirectAttributes.addFlashAttribute("flashMessage", "You have pet " + pet.getName() + "!");
@@ -91,6 +93,7 @@ public class PlayController {
 
         pet.setFun(100);
         pet.setFunLastUpdated(LocalDateTime.now());
+        pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
 
         redirectAttributes.addFlashAttribute("flashMessage", "You have played with " + pet.getName() + "!");

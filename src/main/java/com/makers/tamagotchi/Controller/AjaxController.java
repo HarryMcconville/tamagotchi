@@ -36,7 +36,7 @@ public class AjaxController {
                 status.put("thirst", activePet.getThirst());
                 status.put("social", activePet.getSocial());
                 status.put("fun", activePet.getFun());
-//                status.put("happiness", activePet.getHappiness()); --- commented out until Maddy looks at.
+                status.put("happiness", activePet.getHappiness());
             }
         }
 

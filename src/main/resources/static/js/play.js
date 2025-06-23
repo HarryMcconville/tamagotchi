@@ -1,22 +1,27 @@
 // This is for JS scripts for the /play endpoint
 // i.e. updating status bars
 
+// JS FOR STATUS BARS
 // NEW js ajax to link front end to db rather than be separate
 document.addEventListener("DOMContentLoaded", function () {
+  // Grab references to all bars and text
     const bars = {
         hunger: document.getElementById("hunger-bar"),
         thirst: document.getElementById("thirst-bar"),
         social: document.getElementById("social-bar"),
-        fun: document.getElementById("fun-bar")
+        fun: document.getElementById("fun-bar"),
+        happiness: document.getElementById("happiness-bar")
     };
 
     const texts = {
         hunger: document.getElementById("hunger-text"),
         thirst: document.getElementById("thirst-text"),
         social: document.getElementById("social-text"),
-        fun: document.getElementById("fun-text")
+        fun: document.getElementById("fun-text"),
+        happiness: document.getElementById("happiness-text")
     };
 
+    // Updating the status bars
     function updateStatusBars(data) {
         for (const key in bars) {
             if (data[key] !== undefined) {
@@ -26,7 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
-// this method is what will fetch the data from the db, defined in the Ajax controller route /api/status
+
+    // this method is what will fetch the data from the db, defined in the Ajax controller route /api/status
     async function fetchStatus() {
         try {
             const response = await fetch("/api/status");
@@ -47,6 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+// JS FOR SOUNDS
 //<!-- Javascript to play purr sound before redirect  -->
 function playPurrAndRedirect(event) {
     event.preventDefault(); // prevent default navigation
