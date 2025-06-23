@@ -124,7 +124,7 @@
 
 <h2 class="alert alert-primary" role="alert" th:text="${flashMessage}" th:if="${flashMessage}"></h2>
 
-<!-- shows the correct cat and cuddle button -->
+<!-- shows the correct cat, cuddle button, and thought bubble -->
 <div class="cat-position">
     <a href="#" onclick="playPurrAndRedirect(event)">
         <img th:src="@{${pet.happiness} < 60 ? '/images/sadCats/' + ${pet.image} : '/images/cats/' + ${pet.image}}"

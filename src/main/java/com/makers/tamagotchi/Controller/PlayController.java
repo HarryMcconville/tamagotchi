@@ -51,7 +51,7 @@ public class PlayController {
     public String livingRoom(@ModelAttribute("pet") Pet pet, Model model) {
         int happiness = pet.getHappiness();
         List<String> messages;
-
+//        showing status messages in thought bubble
         if (happiness < 5) {
             messages = List.of(
                     "I think it’s time to pack my whiskers and tail it outta here...",
