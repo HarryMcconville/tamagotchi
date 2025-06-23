@@ -139,9 +139,12 @@
 <!-- shows the correct cat, cuddle button, and thought bubble -->
 <div class="cat-position">
     <a href="#" id="pet-btn">
-        <img th:src="@{${pet.happiness} < 60 ? '/images/sadCats/' + ${pet.image} : '/images/cats/' + ${pet.image}}"
-             alt="Image of Cat"
-             class="cat-image">
+        <img id="cat-image"
+             th:src="@{/images/sadCats/{img}(img=${pet.image})}"
+             th:attr="data-image-name=${pet.image}"
+             class="cat-image"
+             alt="Image of Cat">
+
     </a>
     <span class="tooltip" th:text="'Cuddle ' + ${pet.name} + '!'"></span>
     <div class="thought-bubble-container">

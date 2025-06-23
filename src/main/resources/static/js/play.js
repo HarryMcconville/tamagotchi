@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data[key] !== undefined) {
                 const value = data[key];
                 const bar = bars[key];
+                const catImage = document.getElementById("cat-image");
+                const imageName = catImage.dataset.imageName; // e.g. "yellow-cat.png"
 
                 // Update width
                 bar.style.width = value + "%";
@@ -49,8 +51,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Update text
                 texts[key].textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}%`;
                 if (key === "happiness") {
-                                currentHappiness = value; // Store the latest happiness
-                            }
+                    currentHappiness = value; // Store the latest happiness
+
+                    if (catImage) {
+                            const folder = value < 60 ? "sadCats" : "cats";
+                            catImage.src = `/images/${folder}/${imageName}`;
+                        }
+                }
             }
         }
     }
