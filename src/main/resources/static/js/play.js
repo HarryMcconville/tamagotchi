@@ -38,6 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch("/api/status");
             if (!response.ok) throw new Error("Failed to fetch pet status");
             const data = await response.json();
+
+            // this checks happiness level and redirects if 0
+            if (data.happiness === 0) {
+                window.location.href = "/play/relocation";
+                return;
+            }
+
             updateStatusBars(data);
         } catch (error) {
             console.error("Error fetching status:", error);

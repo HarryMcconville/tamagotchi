@@ -117,7 +117,7 @@
     </div>
 
     <div>
-        <a href="/logout"><button class="btn btn-info" type="buttom">Logout</button></a>
+        <a href="/logout"><button class="btn btn-info" type="button">Logout</button></a>
     </div>
 
     <div class="mt-3 text-center">
@@ -129,12 +129,18 @@
 
 <h2 class="alert alert-primary" role="alert" th:text="${flashMessage}" th:if="${flashMessage}"></h2>
 
-<!-- shows the correct cat  -->
+<!-- shows the correct cat, cuddle button, and thought bubble -->
 <div class="cat-position">
     <a href="#" onclick="playPurrAndRedirect(event)">
-        <img th:src="@{'/images/cats/' + ${pet.image}}" alt="Image of Cat" class="cat-image">
+        <img th:src="@{${pet.happiness} < 60 ? '/images/sadCats/' + ${pet.image} : '/images/cats/' + ${pet.image}}"
+             alt="Image of Cat"
+             class="cat-image">
     </a>
     <span class="tooltip" th:text="'Cuddle ' + ${pet.name} + '!'"></span>
+    <div class="thought-bubble-container">
+        <img src="/images/thought-bubble.png" alt="Thought bubble" class="bubble-img">
+        <span class="bubble-text" th:text="${statusMessage}"></span>
+    </div>
     <audio id="purr" src="/audio/purr.mp3" preload="auto"></audio>
 </div>
 

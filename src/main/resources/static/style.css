@@ -213,6 +213,34 @@ a.cat-button:active::before {
   z-index: 20;
 }
 
+.thought-bubble-container {
+    position: absolute;
+    bottom: 90%;              /* this places it above the cat image */
+    right: 20%;
+    transform: translateX(-50%) translateY(-10px); /* optional upward shift */
+    width: 360px;              /* make bubble bigger */
+    height: 280px;
+    z-index: 1;
+}
+
+.bubble-img {
+    width: 100%;
+    height: 100%;
+}
+
+.bubble-text {
+    position: absolute;
+    top: 36%;
+    left: 47%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+    width: 50%;
+    font-size: 15px;
+    color: #333;
+    padding: 20px;
+}
+
+
 .water-bowl-position:hover .tooltip {
   opacity: 1;
 }
