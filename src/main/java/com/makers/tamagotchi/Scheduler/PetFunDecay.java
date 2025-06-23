@@ -28,6 +28,11 @@ public class PetFunDecay {
             double modifier = petDecayService.getDecayModifier(pet, StatType.FUN);
 
             int decayAmount = (int) Math.round(baseDecay * modifier);
+
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {// only apply decay if pet is active.
+                continue;
+            }
+
             int currentFun = pet.getFun();
             int newFun = Math.max(0, currentFun - decayAmount);
 

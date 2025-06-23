@@ -20,16 +20,26 @@ public class PetThirstDecay {
 
     // can run every 5 mins just as a test but we can change this. the time is set to milliseconds
     @Scheduled(fixedRate = 20000) // 5 minutes = 300,000 ms but for testing i;ve set it to 20secs
+    @Scheduled(fixedRate = 20000) // 20 seconds for testing
     public void decayThirst() {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
+
             int baseDecay = 4;
             double modifier = petDecayService.getDecayModifier(pet, StatType.THIRST);
 
             int decayAmount = (int) Math.round(baseDecay * modifier);
             int currentThirst = pet.getThirst();
             int newThirst = Math.max(0, currentThirst - decayAmount);
+
+            // Skip inactive pets
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {
+                continue;
+            }
+
+            int currentThirst = pet.getThirst();
+            int newThirst = Math.max(0, currentThirst - 1); // reduce thirst by 1%
 
             pet.setThirst(newThirst);
             pet.setHappiness(pet.calculateHappiness());

@@ -28,6 +28,11 @@ public class PetHungerDecay {
             double modifier = petDecayService.getDecayModifier(pet, StatType.HUNGER);
 
             int decayAmount = (int) Math.round(baseDecay * modifier);
+
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {// only apply decay if pet is active.
+                continue;
+            }
+
             int currentHunger = pet.getHunger();
             int newHunger = Math.max(0, currentHunger - decayAmount);
 

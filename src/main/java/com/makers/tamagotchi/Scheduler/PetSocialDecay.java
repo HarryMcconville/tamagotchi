@@ -24,12 +24,20 @@ public class PetSocialDecay {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
+          
             int baseDecay = 4;
             double modifier = petDecayService.getDecayModifier(pet, StatType.SOCIAL);
 
             int decayAmount = (int) Math.round(baseDecay * modifier);
             int currentSocial = pet.getSocial();
             int newSocial = Math.max(0, currentSocial - decayAmount);
+
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {// only apply decay if pet is active.
+                continue;
+            }
+
+            int currentSocial = pet.getThirst();
+            int newSocial = Math.max(0, currentSocial - 1); // will reduce Social by 1% every 10 secs but never go bel 0
 
             pet.setSocial(newSocial);
             pet.setHappiness(pet.calculateHappiness());

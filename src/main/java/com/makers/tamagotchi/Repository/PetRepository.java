@@ -8,4 +8,6 @@ import java.util.List;
 public interface PetRepository extends JpaRepository<Pet, Long>{
 
     List<Pet> findAllByUser(User user);
+    List<Pet> findAllByUserAndIsActive(User user, boolean isActive);
+
 }
