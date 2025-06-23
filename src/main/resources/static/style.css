@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&display=swap');
+
+
 html, body {
     height: 100%;
     margin: 0;
@@ -259,4 +262,117 @@ h2 {
     height: 100%;
     background-color: limegreen;
     transition: width 0.3s ease;
+}
+
+
+/* memories popup stuff */
+
+
+#scrapbook-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#scrapbook-inner {
+    background: white;
+    padding: 2rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+    position: relative;
+}
+
+.scrapbook-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #4e342e;
+    font-family: 'Delius Swash Caps', cursive;
+    margin-bottom: 20px;
+}
+
+.scrapbook-pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.memory-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 180px;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Delius Swash Caps', cursive;
+}
+
+.polaroid {
+    background: white;
+    padding: 10px 10px 30px 10px;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    position: relative;
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.polaroid.tilt-left {
+    transform: rotate(-3deg);
+}
+
+.polaroid.tilt-right {
+    transform: rotate(3deg);
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.polaroid-caption {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Delius Swash Caps', cursive;
+}
+
+.memory-details p {
+    font-size: 0.85rem;
+    margin: 4px 0;
+    font-family: 'Delius Swash Caps', cursive;
+    color: #444;
+}
+
+.btn-close-scrapbook {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
 }

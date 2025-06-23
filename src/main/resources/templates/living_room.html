@@ -120,6 +120,11 @@
         <a href="/logout"><button class="btn btn-info" type="buttom">Logout</button></a>
     </div>
 
+    <div class="mt-3 text-center">
+        <button class="btn btn-warning" onclick="openScrapbook()">📖 View Memories</button>
+    </div>
+
+
 </div>
 
 <h2 class="alert alert-primary" role="alert" th:text="${flashMessage}" th:if="${flashMessage}"></h2>
@@ -208,6 +213,14 @@
 
 
 <script src="/js/play.js"></script>
+
+<!-- Scrapbook Popup -->
+<div id="scrapbook-overlay">
+    <div id="scrapbook-inner">
+        <button onclick="closeScrapbook()" style="position:absolute; top:10px; right:15px;" class="btn btn-sm btn-outline-secondary">Close</button>
+        <div id="scrapbook-inner-content"></div>
+    </div>
+</div>
 
 
 </body>

@@ -1,0 +1,21 @@
+<!-- src/main/resources/templates/fragments/memories-fragment.html -->
+<div th:fragment="memoriesContent" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="scrapbook-pages">
+        <div th:each="entry : ${pastPetsWithDuration}" class="memory-card">
+            <div class="polaroid">
+                <img th:src="@{'/images/cats/' + ${entry.pet.image}}" alt="Image of Cat" />
+                <div class="polaroid-caption" th:text="${entry.pet.name}">Cat Name</div>
+            </div>
+            <div class="memory-details mt-2">
+                <p><small><strong>Perk:</strong> <span th:text="${entry.pet.perk}"></span></small></p>
+                <p><small><strong>Flaw:</strong> <span th:text="${entry.pet.flaw}"></span></small></p>
+                <p><small><strong>Happiness:</strong> <span th:text="${entry.pet.happiness} + '%'"></span></small></p>
+                <p><small><strong>Days Together:</strong> <span th:text="${entry.daysOwned} + ' day(s)'"></span></small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <a href="/play" class="btn btn-secondary back-btn">Back to Cat Home</a>
+</div>

@@ -118,3 +118,35 @@ document.addEventListener('DOMContentLoaded', function () {
     newPetModal.show();
   }
 });
+
+
+// memories popup stuff
+function openScrapbook() {
+    fetch('/memories/fragment')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const innerContent = doc.querySelector('body').innerHTML;
+
+            document.getElementById('scrapbook-inner-content').innerHTML = innerContent;
+            document.getElementById('scrapbook-overlay').style.display = 'flex';
+
+
+            const cards = document.querySelectorAll('#scrapbook-inner-content .polaroid');
+            cards.forEach(card => {
+                const tilt = Math.random() < 0.5 ? 'tilt-left' : 'tilt-right';
+                card.classList.add(tilt);
+            });
+        })
+        .catch(err => {
+            document.getElementById('scrapbook-inner-content').innerHTML = 'Failed to load memories.';
+            console.error(err);
+        });
+}
+
+function closeScrapbook() {
+    document.getElementById('scrapbook-overlay').style.display = 'none';
+}
+
+

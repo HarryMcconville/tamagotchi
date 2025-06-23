@@ -67,6 +67,10 @@ public class Pet {
 
     private String image;
 
+    // 'created at' method to show Total time owned in memories
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
     // Empty constructor with defaults
     public Pet() {
         this.hunger = 100;
@@ -107,5 +111,11 @@ public class Pet {
     public int calculateHappiness(){
         int happinessResult = ((this.hunger + this.thirst + this.social + this.fun)/4);
         return happinessResult;
+    }
+
+    //created at constructor:
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 }
