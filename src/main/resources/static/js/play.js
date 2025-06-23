@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const value = data[key];
                 bars[key].style.width = value + "%";
                 texts[key].textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}%`;
+                if (key === "happiness") {
+                                currentHappiness = value; // Store the latest happiness
+                            }
             }
         }
     }
@@ -49,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             updateStatusBars(data);
+            updateThoughtBubble(data.happiness)
         } catch (error) {
             console.error("Error fetching status:", error);
         }
@@ -56,9 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // getting bubble text to do with happiness
     const bubbleText = document.querySelector(".bubble-text");
 
-    async function updateThoughtBubble() {
+    async function updateThoughtBubble(happiness) {
         try {
-            const response = await fetch("/api/status-message");
+            const response = await fetch(`/api/status-message?happiness=${happiness}`);
             if (!response.ok) throw new Error("Failed to fetch message");
             const data = await response.json();
             bubbleText.textContent = data.message;
@@ -71,13 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // starting load from db
     fetchStatus();
 
-    // update thought bubble
-    updateThoughtBubble();
 
     // and then this interval sets how often it will ping the backend for data updates.
     // currently set to every 5 seconds
     setInterval(fetchStatus, 5000);
-    setInterval(updateThoughtBubble, 15000);
 });
 
     // Shared function to handle interaction with pet (AJAX + sound + flash message)
