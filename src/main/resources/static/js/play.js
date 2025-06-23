@@ -39,18 +39,43 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch("/api/status");
             if (!response.ok) throw new Error("Failed to fetch pet status");
             const data = await response.json();
+
+            // this checks happiness level and redirects if 0
+            if (data.happiness === 0) {
+                window.location.href = "/play/relocation";
+                return;
+            }
+
             updateStatusBars(data);
         } catch (error) {
             console.error("Error fetching status:", error);
         }
     }
+    // getting bubble text to do with happiness
+    const bubbleText = document.querySelector(".bubble-text");
+
+    async function updateThoughtBubble() {
+        try {
+            const response = await fetch("/api/status-message");
+            if (!response.ok) throw new Error("Failed to fetch message");
+            const data = await response.json();
+            bubbleText.textContent = data.message;
+        } catch (err) {
+            console.error("Couldn’t update thought bubble:", err);
+        }
+    }
+
 
     // starting load from db
     fetchStatus();
 
+    // update thought bubble
+    updateThoughtBubble();
+
     // and then this interval sets how often it will ping the backend for data updates.
     // currently set to every 5 seconds
     setInterval(fetchStatus, 5000);
+    setInterval(updateThoughtBubble, 15000);
 });
 
 // Shared function to handle interaction with pet (AJAX + sound + flash message)

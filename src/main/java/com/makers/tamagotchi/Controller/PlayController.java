@@ -10,12 +10,15 @@ import com.makers.tamagotchi.Repository.VillageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 public class PlayController {
@@ -241,5 +244,15 @@ public class PlayController {
     @GetMapping("/play/confirm_shoo")
     public String confirmShoo(){
         return "shoo_cat";
+    }
+
+    @GetMapping("/play/relocation")
+    public String relocateCat(@ModelAttribute("pet") Pet pet) {
+        int happinessStatus = pet.getHappiness();
+        if (happinessStatus == 0) {
+            return "cat_relocated"; }
+        else {
+            return "redirect:/play";
+        }
     }
 }
