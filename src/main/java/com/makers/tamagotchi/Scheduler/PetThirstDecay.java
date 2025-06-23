@@ -26,20 +26,17 @@ public class PetThirstDecay {
 
         for (Pet pet : pets) {
 
+            // Skip inactive pets
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {
+                continue;
+            }
+
             int baseDecay = 4;
             double modifier = petDecayService.getDecayModifier(pet, StatType.THIRST);
 
             int decayAmount = (int) Math.round(baseDecay * modifier);
             int currentThirst = pet.getThirst();
             int newThirst = Math.max(0, currentThirst - decayAmount);
-
-            // Skip inactive pets
-            if (!Boolean.TRUE.equals(pet.getIsActive())) {
-                continue;
-            }
-
-            int currentThirst = pet.getThirst();
-            int newThirst = Math.max(0, currentThirst - 1); // reduce thirst by 1%
 
             pet.setThirst(newThirst);
             pet.setHappiness(pet.calculateHappiness());

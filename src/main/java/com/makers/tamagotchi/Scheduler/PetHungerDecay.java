@@ -24,14 +24,15 @@ public class PetHungerDecay {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
-            int baseDecay = 4;
-            double modifier = petDecayService.getDecayModifier(pet, StatType.HUNGER);
-
-            int decayAmount = (int) Math.round(baseDecay * modifier);
 
             if (!Boolean.TRUE.equals(pet.getIsActive())) {// only apply decay if pet is active.
                 continue;
             }
+
+            int baseDecay = 4;
+            double modifier = petDecayService.getDecayModifier(pet, StatType.HUNGER);
+
+            int decayAmount = (int) Math.round(baseDecay * modifier);
 
             int currentHunger = pet.getHunger();
             int newHunger = Math.max(0, currentHunger - decayAmount);
