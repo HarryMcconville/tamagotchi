@@ -5,6 +5,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.Files;
@@ -50,8 +51,7 @@ public class CatController {
     }
 
     @GetMapping("/api/status-message")
-    public Map<String, String> getRandomStatusMessage(@ModelAttribute("pet") Pet pet) {
-        int happiness = pet.getHappiness();
+    public Map<String, String> getRandomStatusMessage(@RequestParam("happiness") int happiness) {
         List<String> messages;
 
         //        showing status messages in thought bubble
@@ -130,5 +130,4 @@ public class CatController {
         String message = messages.get(new Random().nextInt(messages.size()));
         return Map.of("message", message);
     }
-
 }
