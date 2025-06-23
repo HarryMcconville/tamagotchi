@@ -1,5 +1,7 @@
 // This is for JS scripts for the /play endpoint
 // i.e. updating status bars
+
+// The required csrf tokens to get past spring security
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
 const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
 // JS FOR STATUS BARS
@@ -78,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateThoughtBubble, 15000);
 });
 
-// Shared function to handle interaction with pet (AJAX + sound + flash message)
+    // Shared function to handle interaction with pet (AJAX + sound + flash message)
     async function interact(endpoint, soundId) {
         const flashMessage = document.getElementById("flash-message");
         const audio = document.getElementById(soundId);
@@ -86,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
             audio.currentTime = 0;
             audio.play();
         }
-
+    // making sure we are making a POST request and we are using the correct csrf credentials
         try {
             const response = await fetch(endpoint, {
                 method: "POST",
