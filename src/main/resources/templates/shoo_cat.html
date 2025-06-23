@@ -11,10 +11,10 @@
 
 <div class="container d-flex justify-content-center">
     <div class="p-4 bg-white rounded shadow mb-4">
-        <h1 class="text-center mb-4">Are you sure you want to Shoo this little cat?</h1>
-        <form>
-            <a href="/play/shoo"><button type="button">Yes</button> </a>
-            <a href="/play"><button type="button">No</button></a>
+        <h1 class="text-center mb-4" th:text="'Are you sure you want to shoo ' + ${pet.name} + ' away?'"></h1>
+        <form class="text-center mb-4">
+            <a href="/play/shoo"><button class="btn btn-info" type="button">Yes</button></a>
+            <a href="/play"><button class="btn btn-info" type="button">No</button></a>
         </form>
     </div>
 </div>
