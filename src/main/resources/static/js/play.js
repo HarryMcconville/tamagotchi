@@ -1,6 +1,9 @@
 // This is for JS scripts for the /play endpoint
 // i.e. updating status bars
 
+// The required csrf tokens to get past spring security
+const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
 // JS FOR STATUS BARS
 // NEW js ajax to link front end to db rather than be separate
 document.addEventListener("DOMContentLoaded", function () {
@@ -77,64 +80,51 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateThoughtBubble, 15000);
 });
 
+    // Shared function to handle interaction with pet (AJAX + sound + flash message)
+    async function interact(endpoint, soundId) {
+        const flashMessage = document.getElementById("flash-message");
+        const audio = document.getElementById(soundId);
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
+    // making sure we are making a POST request and we are using the correct csrf credentials
+        try {
+            const response = await fetch(endpoint, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                [csrfHeader]: csrfToken
+                }
+            });
 
+            if (response.ok) {
+                const data = await response.json();
 
-// JS FOR SOUNDS
-//<!-- Javascript to play purr sound before redirect  -->
-function playPurrAndRedirect(event) {
-    event.preventDefault(); // prevent default navigation
+                if (flashMessage && data.message) {
+                    flashMessage.textContent = data.message;
+                    flashMessage.style.display = "block";
 
-    const audio = document.getElementById('purr');
-    audio.currentTime = 0;
-    audio.play();
+                    // hide flash message after 3 seconds
+                    setTimeout(() => {
+                        flashMessage.style.display = "none";
+                    }, 3000);
+                }
 
-    // Redirect after short delay (adjust as needed)
-    setTimeout(() => {
-        window.location.href = "/play/pet";
-    }, 2200);
-}
+                fetchStatus(); // refresh bars immediately
+            } else {
+                console.error("Interaction failed with status:", response.status);
+            }
+        } catch (error) {
+            console.error("Interaction error:", error);
+        }
+    }
 
-//<!-- Javascript to play feed sound before redirect  -->
-function playFeedAndRedirect(event) {
-    event.preventDefault(); // prevent default navigation
-
-    const audio = document.getElementById('feed');
-    audio.currentTime = 0;
-    audio.play();
-
-    // Redirect after short delay (adjust as needed)
-    setTimeout(() => {
-        window.location.href = "/play/feed";
-    }, 1500);
-}
-
-//<!-- Javascript to play Water sound before redirect  -->
-function playWaterAndRedirect(event) {
-    event.preventDefault(); // prevent default navigation
-
-    const audio = document.getElementById('water');
-    audio.currentTime = 0;
-    audio.play();
-
-    // Redirect after short delay (adjust as needed)
-    setTimeout(() => {
-        window.location.href = "/play/water";
-    }, 1500);
-}
-
-//<!-- Javascript to play game sound before redirect  -->
-function playGameAndRedirect(event) {
-    event.preventDefault(); // prevent default navigation
-
-    const audio = document.getElementById('game');
-    audio.currentTime = 0;
-    audio.play();
-
-    // Redirect after short delay (adjust as needed)
-    setTimeout(() => {
-        window.location.href = "/play/game";
-    }, 1500);
-}
+    // Attach click events to buttons
+    document.getElementById("feed-btn")?.addEventListener("click", () => interact("/play/feed", "feed"));
+    document.getElementById("pet-btn")?.addEventListener("click", () => interact("/play/pet", "purr"));
+    document.getElementById("water-btn")?.addEventListener("click", () => interact("/play/water", "water"));
+    document.getElementById("game-btn")?.addEventListener("click", () => interact("/play/game", "game"));
 
 // for new pet modal on entering play screen
 document.addEventListener('DOMContentLoaded', function () {
