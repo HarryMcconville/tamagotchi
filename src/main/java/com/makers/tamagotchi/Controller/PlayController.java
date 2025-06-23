@@ -6,6 +6,7 @@ import com.makers.tamagotchi.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,7 +46,29 @@ public class PlayController {
     }
 
     @GetMapping("/play")
-    public String livingRoom() {
+    public String livingRoom(@ModelAttribute("pet") Pet pet, Model model) {
+        int happiness = pet.getHappiness();
+        String statusMessage;
+
+        if (happiness < 5) {
+            statusMessage = "I think it’s time to pack my whiskers and tail it outta here...";
+        } else if (happiness < 15) {
+            statusMessage = "I packed my favorite toy mouse… just in case I need to move my paws.";
+        } else if (happiness < 30) {
+            statusMessage = "Just wondering if anyone’s posted an ad for a lonely but loveable kitty...";
+        } else if (happiness < 45) {
+            statusMessage = "I'm feline a little unloved... maybe it's time to prowl elsewhere.";
+        } else if (happiness < 60) {
+            statusMessage = "Why do my fur-iends get more treats and chin scritches than me?";
+        } else if (happiness < 75) {
+            statusMessage = "Can I get a little more purr-sonal attention, please?";
+        } else if (happiness < 90) {
+            statusMessage = "I’m a pretty pawsitive kitty right meow!";
+        } else {
+            statusMessage = "This is pawsitively the purrrfect life!";
+        }
+
+        model.addAttribute("statusMessage", statusMessage);
         return "living_room";
     }
 
