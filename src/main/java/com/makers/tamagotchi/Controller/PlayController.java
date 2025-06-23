@@ -114,4 +114,14 @@ public class PlayController {
     public String confirmShoo(){
         return "shoo_cat";
     }
+
+    @GetMapping("/play/relocation")
+    public String relocateCat(@ModelAttribute("pet") Pet pet) {
+        int happinessStatus = pet.getHappiness();
+        if (happinessStatus == 0) {
+            return "cat_relocated"; }
+        else {
+            return "redirect:/play";
+        }
+    }
 }
