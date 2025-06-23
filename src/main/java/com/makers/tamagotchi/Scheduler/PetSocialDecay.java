@@ -19,7 +19,7 @@ public class PetSocialDecay {
     private PetDecayService petDecayService;
 
     // can run every 5 mins just as a test but we can change this. the time is set to milliseconds
-    @Scheduled(fixedRate = 10000) // 5 minutes = 300,000 ms but for testing i;ve set it to 10secs
+    @Scheduled(fixedRate = 60000) // 5 minutes = 300,000 ms but for testing i;ve set it to 10secs
     public void decaySocial() {
         List<Pet> pets = petRepository.findAll();
 
