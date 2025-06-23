@@ -26,11 +26,29 @@ document.addEventListener("DOMContentLoaded", function () {
         for (const key in bars) {
             if (data[key] !== undefined) {
                 const value = data[key];
-                bars[key].style.width = value + "%";
+                const bar = bars[key];
+
+                // Update width
+                bar.style.width = value + "%";
+
+                // Remove old color classes
+                bar.classList.remove("bar-green", "bar-orange", "bar-red");
+
+                // Add new color class based on value
+                if (value > 50) {
+                    bar.classList.add("bar-green");
+                } else if (value > 20) {
+                    bar.classList.add("bar-orange");
+                } else {
+                    bar.classList.add("bar-red");
+                }
+
+                // Update text
                 texts[key].textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}%`;
             }
         }
     }
+
 
     // this method is what will fetch the data from the db, defined in the Ajax controller route /api/status
     async function fetchStatus() {

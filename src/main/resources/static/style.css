@@ -288,8 +288,19 @@ h2 {
 
 .hunger-bar-inner {
     height: 100%;
-    background-color: limegreen;
     transition: width 0.3s ease;
+}
+
+.bar-green {
+    background-color: #4caf50 !important; /* Green */
+}
+
+.bar-orange {
+    background-color: #ff9800 !important; /* Orange */
+}
+
+.bar-red {
+    background-color: #f44336 !important; /* Red */
 }
 
 
