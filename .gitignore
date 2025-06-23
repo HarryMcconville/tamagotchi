@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 application.yml
-.DS_store
+*.DS_store
 
 ### STS ###
 .apt_generated
