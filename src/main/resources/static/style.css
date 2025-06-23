@@ -9,7 +9,7 @@ html, body {
     background-repeat: no-repeat;
 }
 body.living-room {
-    background-image: url(/images/bg-placeholder.png);
+    background-image: url(/images/living-room.jpg   );
 }
 body.goodbye-page {
     background-image: url(/images/goodbye-placeholder.jpg);
