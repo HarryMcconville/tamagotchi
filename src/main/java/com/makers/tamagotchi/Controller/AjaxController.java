@@ -61,6 +61,7 @@ public class AjaxController {
 
         return (int) (baseAmount * modifier);
     }
+
     // this controller gets all the status figures from the database that the javascript will fetch from.
     @GetMapping("/api/status")
     public Map<String, Object> getPetStatus(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
@@ -76,7 +77,6 @@ public class AjaxController {
         }
         return status;
     }
-
 
     @PostMapping("/play/feed")
     @ResponseBody
@@ -100,7 +100,14 @@ public class AjaxController {
         activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setHunger(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.HUNGER, baseRestoration);
+
+        int currentHunger = pet.getHunger();
+        int newHunger = Math.min(100, currentHunger + restoredAmount);
+
+        pet.setHunger(newHunger);
         pet.setLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
@@ -136,7 +143,14 @@ public class AjaxController {
         activeVillage.setCollectedMilk(activeVillage.getCollectedMilk() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setThirst(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.THIRST, baseRestoration);
+
+        int currentThirst = pet.getThirst();
+        int newThirst = Math.min(100, currentThirst + restoredAmount);
+
+        pet.setThirst(newThirst);
         pet.setThirstLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
@@ -172,7 +186,14 @@ public class AjaxController {
         activeVillage.setCollectedBrush(activeVillage.getCollectedBrush() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setSocial(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.SOCIAL, baseRestoration);
+
+        int currentSocial = pet.getSocial();
+        int newSocial = Math.min(100, currentSocial + restoredAmount);
+
+        pet.setSocial(newSocial);
         pet.setSocialLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
@@ -207,7 +228,14 @@ public class AjaxController {
         activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setFun(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.FUN, baseRestoration);
+
+        int currentFun = pet.getFun();
+        int newFun = Math.min(100, currentFun + restoredAmount);
+
+        pet.setFun(newFun);
         pet.setFunLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
