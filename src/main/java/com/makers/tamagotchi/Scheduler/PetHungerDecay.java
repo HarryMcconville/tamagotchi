@@ -20,6 +20,10 @@ public class PetHungerDecay {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {// only apply decay if pet is active.
+                continue;
+            }
+
             int currentHunger = pet.getHunger();
             int newHunger = Math.max(0, currentHunger - 1); // will reduce hunger by 1% every 10 secs but never go bel 0
             pet.setHunger(newHunger);

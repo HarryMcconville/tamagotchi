@@ -188,13 +188,17 @@ public class PlayController {
     }
 
     @GetMapping("/play/shoo")
-    public String shooCat(@ModelAttribute("pet") Pet pet) {
-        if (pet != null) {
-            pet.setIsActive(false);
-            petRepository.save(pet);
+    public String shooCat(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
+        try {
+            Pet activePet = getActivePet(email); // had to change this just for the memories page.
+            activePet.setIsActive(false);
+            petRepository.save(activePet);
+        } catch (NoActivePetException e) {
+            // fallback if no active pet exists
         }
         return "redirect:/welcome";
     }
+
 
     @GetMapping("/play/confirm_shoo")
     public String confirmShoo(){

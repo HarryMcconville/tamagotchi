@@ -20,6 +20,10 @@ public class PetFunDecay {
         List<Pet> pets = petRepository.findAll();
 
         for (Pet pet : pets) {
+            if (!Boolean.TRUE.equals(pet.getIsActive())) {// only apply decay if pet is active.
+                continue;
+            }
+
             int currentFun = pet.getFun();
             int newFun = Math.max(0, currentFun - 1); // will reduce Fun by 1% every 10 secs but never go bel 0
             pet.setFun(newFun);
