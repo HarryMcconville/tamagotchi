@@ -172,6 +172,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("pet-btn")?.addEventListener("click", () => interact("/play/pet", "purr"));
     document.getElementById("water-btn")?.addEventListener("click", () => interact("/play/water", "water"));
     document.getElementById("game-btn")?.addEventListener("click", () => interact("/play/game", "game"));
+    document.getElementById("gatherFood-btn")?.addEventListener("click", () => interact("/village/catFood", "feed"));
+    document.getElementById("gatherMilk-btn")?.addEventListener("click", () => interact("/village/milk", "water"));
+    document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "water"));
+    document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "game"));
 
 // for new pet modal on entering play screen
 document.addEventListener('DOMContentLoaded', function () {

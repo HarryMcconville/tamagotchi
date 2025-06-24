@@ -18,7 +18,7 @@ body.welcome-page {
 }
 
 body.village-square-bg {
-    background-image: url(/images/bg-village-square.png); /* Your new image */
+    background-image: url(/images/pastel-bg.png); /* Your new image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -169,7 +169,18 @@ body.village-square-bg {
 .catnip-position:hover .tooltip {
   opacity: 1;
 }
-
+.well-position:hover .tooltip {
+  opacity: 1;
+}
+.greenhouse-position:hover .tooltip {
+  opacity: 1;
+}
+.shop-position:hover .tooltip {
+  opacity: 1;
+}
+.food-position:hover .tooltip {
+  opacity: 1;
+}
 /* Cat thought bubble styling */
 
 .thought-bubble-container {
@@ -280,6 +291,99 @@ h2 {
 .page-bottom-right-buttons .btn-warning:hover {
   background-color: #cca944;
 }
+
+/* Village styling */
+.well-position {
+    position: absolute;
+    top: 63%;
+    left: 34%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.well-image {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+
+}
+
+.well-image:hover {
+    max-width: 230px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.greenhouse-position {
+    position: absolute;
+    top: 65%;
+    left: 77%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.greenhouse-image {
+    max-width: 240px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+}
+
+.greenhouse-image:hover {
+    max-width: 270px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.shop-position {
+    position: absolute;
+    top: 54%;
+    left: 61%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.shop-image {
+    max-width: 190px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+}
+
+.shop-image:hover {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.food-position {
+    position: absolute;
+    top: 55%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.food-image {
+    max-width: 170px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+}
+
+.food-image:hover {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    display: block;
 
 /* Village button styling */
 /* Container: top-right corner */

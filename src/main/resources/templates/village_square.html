@@ -5,13 +5,16 @@
     <title>The Village</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/sidebar.css">
+
+    <!-- Required csrf tokens to allow spring security -->
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <body class="village-square-bg">
 <audio id="bg-music" src="/audio/village_bg_music_placeholder.mp3" loop autoplay></audio>
 
 <div class="sidebar">
     <div class="pet-name">
-        <p>Not a yellow raincoat in sight</p>
     </div>
 
     <div class="status-section">
@@ -20,19 +23,13 @@
 
     <!--This handles the cat food -->
     <p th:text="'Available food: ' + ${village.catfood}"></p>
-    <a href="/village/catFood" class="cat-button">Collect food</a>
-
     <!--This handles the milk-->
     <p th:text="'Available milk: ' + ${village.milk}"></p>
-    <a href="/village/milk" class="cat-button">Collect milk</a>
-
     <!--This handles the catnip-->
     <p th:text="'Available catnip: ' + ${village.catnip}"></p>
-    <a href="/village/catnip" class="cat-button">Collect catnip</a>
 
     <!--This handles the brush-->
     <p th:text="'Available brushes: ' + ${village.brush}"></p>
-    <a href="/village/brush" class="cat-button">Collect brushes</a>
 
         <!-- Resource Grid -->
         <div class="resource-grid">
@@ -42,7 +39,7 @@
                 <span class="resource-count" th:text="${village.collectedCatFood}">0</span>
             </div>
             <div class="resource-item">
-                <img src="/images/milk-icon-.png" alt="Milk" class="resource-icon">
+                <img src="/images/milk-bottle-icon.png" alt="Milk" class="resource-icon">
                 <span class="resource-label">Milk:</span>
                 <span class="resource-count" th:text="${village.collectedMilk}">0</span>
             </div>
@@ -59,6 +56,34 @@
         </div>
     </div>
 </div>
+<h2 id="flash-message" class="alert alert-primary" style="display:none;"></h2>
+
+    <div class="well-position">
+        <a href="#" id="gatherMilk-btn"><img src="/images/milk_well.png" class="well-image"></a>
+<!--        <span class="tooltip" th:text="'There is ' + ${village.milk} + ' bottles worth of milk in the well!'"></span>-->
+        <audio id="feed" src="/audio/feed.mp3" preload="auto"></audio>
+    </div>
+
+
+    <div class="greenhouse-position">
+        <a href="#" id="gatherCatnip-btn"><img src="/images/greenhouse.png" class="greenhouse-image"></a>
+<!--        <span class="tooltip" th:text="'There are ' + ${village.catnip} + ' packets worth of catnip in the greenhouse!'"></span>-->
+        <!--    <audio id="feed" src="/audio/feed.mp3" preload="auto"></audio>-->
+    </div>
+
+    <div class="shop-position">
+        <a href="#" id="gatherBrushes-btn"><img src="/images/brushes-r-us.png" class="shop-image"></a>
+<!--        <span class="tooltip" th:text="'There are ' + ${village.brush} + ' brushes left in the shop!'"></span>-->
+        <!--    <audio id="feed" src="/audio/feed.mp3" preload="auto"></audio>-->
+    </div>
+    <div class="food-position">
+        <a href="#" id="gatherFood-btn"><img src="/images/cat-food-tree.png" class="food-image"></a>
+<!--        <span class="tooltip" th:text="'There are ' + ${village.brush} + ' packs of food left on the tree!'"></span>-->
+        <!--    <audio id="feed" src="/audio/feed.mp3" preload="auto"></audio>-->
+    </div>
+
+<script src="/js/village.js"></script>
 
 </body>
 </html>
+
