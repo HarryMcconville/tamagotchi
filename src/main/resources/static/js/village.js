@@ -6,6 +6,34 @@ const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttrib
 
 document.addEventListener("DOMContentLoaded", function () {
 
+
+    // Function to fetch initial status and update tooltips
+        async function fetchStatus() {
+            try {
+                const response = await fetch("/api/status", {
+                    method: "GET",
+                    credentials: "include"
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    updateResourceCounts(data);
+                }
+            } catch (error) {
+                console.error("Failed to load initial status:", error);
+            }
+        }
+
+        // Load initial status when page loads
+        fetchStatus();
+
+        // and then this interval sets how often it will ping the backend for data updates.
+            // currently set to every 5 seconds
+            setInterval(() => {
+                fetchStatus();
+            }, 5000);
+
+
     // Function to update resource counts in the sidebar
     function updateResourceCounts(data) {
         // Update collected resources in the resource grid
@@ -14,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const parentItem = element.closest('.resource-item');
             const label = parentItem.querySelector('.resource-label').textContent;
 
-            if (label.includes('Catfood') && data.collectedCatFood !== undefined) {
+            if (label.includes('Cat Food') && data.collectedCatFood !== undefined) {
                 element.textContent = data.collectedCatFood;
             } else if (label.includes('Milk') && data.collectedMilk !== undefined) {
                 element.textContent = data.collectedMilk;
@@ -26,34 +54,34 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Update tooltips with village resource amounts
-        if (data.villageMilk !== undefined) {
-            const milkTooltip = document.querySelector('.well-position .tooltip');
-            if (milkTooltip) {
-                milkTooltip.textContent = `There is ${data.villageMilk} bottles worth of milk in the well!`;
+            if (data.villageMilk !== undefined) {
+                const milkTooltip = document.querySelector('.well-position .tooltip');
+                if (milkTooltip) {
+                    milkTooltip.textContent = `There is ${data.villageMilk} bottles worth of milk in the well!`;
+                }
             }
-        }
 
-        if (data.villageCatFood !== undefined) {
-            const foodTooltip = document.querySelector('.food-position .tooltip');
-            if (foodTooltip) {
-                foodTooltip.textContent = `There are ${data.villageCatFood} packs of food left on the tree!`;
+            if (data.villageCatfood !== undefined) {
+                const foodTooltip = document.querySelector('.food-position .tooltip');
+                if (foodTooltip) {
+                    foodTooltip.textContent = `There are ${data.villageCatfood} packs of food left on the tree!`;
+                }
             }
-        }
 
-        if (data.villageCatnip !== undefined) {
-            const catnipTooltip = document.querySelector('.greenhouse-position .tooltip');
-            if (catnipTooltip) {
-                catnipTooltip.textContent = `There are ${data.villageCatnip} packets worth of catnip in the greenhouse!`;
+            if (data.villageCatnip !== undefined) {
+                const catnipTooltip = document.querySelector('.greenhouse-position .tooltip');
+                if (catnipTooltip) {
+                    catnipTooltip.textContent = `There are ${data.villageCatnip} packets worth of catnip in the greenhouse!`;
+                }
             }
-        }
 
-        if (data.villagebrush !== undefined) {
-            const brushTooltip = document.querySelector('.shop-position .tooltip');
-            if (brushTooltip) {
-                brushTooltip.textContent = `There are ${data.villagebrush} brushes left in the shop!`;
+            if (data.villageBrush !== undefined) {
+                const brushTooltip = document.querySelector('.shop-position .tooltip');
+                if (brushTooltip) {
+                    brushTooltip.textContent = `There are ${data.villageBrush} brushes left in the shop!`;
+                }
             }
         }
-    }
 
     // Shared function to handle interaction with village resources (AJAX + sound + flash message)
     async function interact(endpoint, soundId) {
@@ -96,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Interaction error:", error);
         }
     }
-        document.getElementById("gatherFood-btn")?.addEventListener("click", () => interact("/village/catfood", "feed"));
-        document.getElementById("gatherMilk-btn")?.addEventListener("click", () => interact("/village/milk", "water"));
-        document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "water"));
-        document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "game"));
+        document.getElementById("gatherFood-btn")?.addEventListener("click", () => interact("/village/catfood", "pick-food"));
+        document.getElementById("gatherMilk-btn")?.addEventListener("click", () => interact("/village/milk", "pour-milk"));
+        document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "pick-catnip"));
+        document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "buy-brush"));
 });

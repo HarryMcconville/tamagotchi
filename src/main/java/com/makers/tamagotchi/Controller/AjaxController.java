@@ -195,8 +195,8 @@ public class AjaxController {
         }
 
         // Check if shop has no brushes
-        if (activeVillage.getCatnip() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "There is no Catnip left in the greenhouse! Try again later"));
+        if (activeVillage.getBrush() <= 0) {
+            return ResponseEntity.ok(Map.of("message", "There are no Brushes left in the shop! Try again later"));
         }
 
         // Take 1 catnip from the greenhouse and add 1 to your inventory
