@@ -61,7 +61,24 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+    // updating village resources
+    function updateResourcesUI(data) {
+        document.getElementById("catfood-count").textContent = data.catFood ?? 0;
+        document.getElementById("milk-count").textContent = data.milk ?? 0;
+        document.getElementById("catnip-count").textContent = data.catnip ?? 0;
+        document.getElementById("brush-count").textContent = data.brush ?? 0;
+    }
 
+    async function fetchResources() {
+        try {
+            const response = await fetch("/api/village_resources");
+            if (!response.ok) throw new Error("Failed to fetch resources");
+            const data = await response.json();
+            updateResourcesUI(data);
+        } catch (err) {
+            console.error("Could not update resources:", err);
+        }
+    }
 
     // this method is what will fetch the data from the db, defined in the Ajax controller route /api/status
     async function fetchStatus() {
@@ -103,7 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // and then this interval sets how often it will ping the backend for data updates.
     // currently set to every 5 seconds
-    setInterval(fetchStatus, 5000);
+    setInterval(() => {
+        fetchStatus();
+        fetchResources();
+    }, 5000);
+
 });
 
     // Shared function to handle interaction with pet (AJAX + sound + flash message)

@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -220,6 +222,30 @@ public class VillageController {
             return "redirect:/village";
         }
     }
+
+    @GetMapping("/api/village_resources")
+    @ResponseBody
+    public Map<String, Integer> getResourceCounts(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
+        Optional<User> userOpt = userRepository.findUserByEmail(email);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            List<Village> villages = villageRepository.findAllByUser(user);
+            Village activeVillage = villages.stream().filter(Village::getIsActive).findFirst().orElse(null);
+
+            if (activeVillage != null) {
+                return Map.of(
+                        "catFood", activeVillage.getCollectedCatFood(),
+                        "milk", activeVillage.getCollectedMilk(),
+                        "catnip", activeVillage.getCollectedCatnip(),
+                        "brush", activeVillage.getCollectedBrush()
+                );
+            }
+        }
+
+        return Map.of(); // empty map if user or village not found
+    }
+
 
 }
 
