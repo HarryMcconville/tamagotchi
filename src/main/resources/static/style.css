@@ -13,6 +13,9 @@ body.living-room {
 body.goodbye-page {
     background-image: url(/images/goodbye-placeholder.jpg);
 }
+body.welcome-page {
+    background-color: #94e3fe
+}
 
 body.village-square-bg {
     background-image: url(/images/bg-village-square.png); /* Your new image */
@@ -101,9 +104,9 @@ body.village-square-bg {
     display: block;
 }
 
-/* Ball of yarn styling */
+/* Catnip styling */
 
-.yarn-image {
+.catnip-image {
     max-width: 100px;
     width: 100%;
     height: auto;
@@ -111,14 +114,14 @@ body.village-square-bg {
     transition: max-width 0.3s ease;
 }
 
-.yarn-position {
+.catnip-position {
     position: absolute;
     top: 70%;
     left: 70%;
     transform: translate(-50%, -50%);
 }
 
-.yarn-image:hover {
+.catnip-image:hover {
     max-width: 120px;
     width: 100%;
     height: auto;
@@ -163,7 +166,7 @@ body.village-square-bg {
   opacity: 1;
 }
 
-.yarn-position:hover .tooltip {
+.catnip-position:hover .tooltip {
   opacity: 1;
 }
 
