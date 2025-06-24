@@ -118,4 +118,11 @@ public class Pet {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+    //empty user constructor for tests
+    public Pet(String name, User user){
+        this();
+        this.name = name;
+        this.user = user;
+    }
 }

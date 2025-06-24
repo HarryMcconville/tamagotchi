@@ -182,4 +182,10 @@ public class WelcomeController {
 
         return "redirect:/play";
     }
+
+    @RequestMapping("/")
+    public String redirectToWelcome() {
+        return "redirect:/welcome";
+    }
+
 }

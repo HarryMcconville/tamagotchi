@@ -232,3 +232,12 @@ document.addEventListener('DOMContentLoaded', () => {
         shooLink.addEventListener('click', playMeowAndRedirect);
     }
 });
+
+// script for showing traits reminder
+function showSidebarMessage() {
+  document.getElementById("traits-reminder").style.display = "block";
+}
+
+function hideSidebarMessage() {
+  document.getElementById("traits-reminder").style.display = "none";
+}
