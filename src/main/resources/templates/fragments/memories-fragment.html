@@ -1,6 +1,13 @@
 <!-- src/main/resources/templates/fragments/memories-fragment.html -->
 <div th:fragment="memoriesContent" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="scrapbook-pages">
+
+        <!-- Empty state message -->
+        <div th:if="${#lists.isEmpty(pastPetsWithDuration)}" class="text-center mt-3">
+            <p>You'll see your past pets here if they leave!</p>
+        </div>
+
+        <!-- Loop through past pets -->
         <div th:each="entry : ${pastPetsWithDuration}" class="memory-card">
             <div class="polaroid">
                 <img th:src="@{'/images/cats/' + ${entry.pet.image}}" alt="Image of Cat" />
