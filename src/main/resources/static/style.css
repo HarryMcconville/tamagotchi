@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&display=swap');
 
-
 html, body {
     height: 100%;
     margin: 0;
@@ -22,84 +21,14 @@ body.village-square-bg {
     background-repeat: no-repeat;
 }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 110px;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    z-index: 10;
-}
+/* Interaction confirmation message styling */
+
 .alert {
     position: relative;
     z-index: 0; /* or -1 if needed */
 }
-a.cat-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-decoration: none;
-  color: #224a60; /* dark baby blue text */
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 1.25em 2em;
-  width: 95px;
-  background: #e0f7ff; /* baby blue background */
-  border: 2px solid #7daac6; /* medium blue border */
-  border-radius: 0.75em;
-  box-sizing: border-box;
-  transform-style: preserve-3d;
-  transition:
-    transform 150ms cubic-bezier(0, 0, 0.58, 1),
-    background 150ms cubic-bezier(0, 0, 0.58, 1);
-  margin-bottom: 1em;
-  text-align: center;
-}
 
-a.cat-button::before {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #b6e5f7; /* lighter baby blue shadow surface */
-  border-radius: inherit;
-  box-shadow: 0 0 0 2px #7daac6, 0 0.625em 0 0 #d9f5ff;
-  transform: translate3d(0, 0.75em, -1em);
-  transition:
-    transform 150ms cubic-bezier(0, 0, 0.58, 1),
-    box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
-  z-index: -1;
-}
-
-a.cat-button:hover {
-  background: #d0efff; /* hover lighter blue */
-  transform: translate(0, 0.25em);
-}
-
-a.cat-button:hover::before {
-  box-shadow: 0 0 0 2px #7daac6, 0 0.5em 0 0 #d9f5ff;
-  transform: translate3d(0, 0.5em, -1em);
-}
-
-a.cat-button:active {
-  background: #d0efff;
-  transform: translate(0, 0.75em);
-}
-
-a.cat-button:active::before {
-  box-shadow: 0 0 0 2px #7daac6, 0 0 #d9f5ff;
-  transform: translate3d(0, 0, -1em);
-}
+/* Cat image styling */
 
 .cat-position {
     position: absolute;
@@ -115,7 +44,6 @@ a.cat-button:active::before {
     height: auto;
     display: block;
     transition: max-width 0.3s ease;
-
 }
 
 .cat-image:hover {
@@ -124,6 +52,8 @@ a.cat-button:active::before {
     height: auto;
     display: block;
 }
+
+/* Food bowl styling */
 
 .food-bowl-image {
     max-width: 75px;
@@ -136,7 +66,7 @@ a.cat-button:active::before {
 .food-bowl-position {
     position: absolute;
     top: 80%;
-    left: 19%;
+    left: 26%;
     transform: translate(-50%, -50%);
 }
 
@@ -147,18 +77,20 @@ a.cat-button:active::before {
     display: block;
 }
 
+/* Water bowl styling */
+
 .water-bowl-image {
     max-width: 75px;
     width: 100%;
     height: auto;
     display: block;
     transition: max-width 0.3s ease;
-
 }
+
 .water-bowl-position {
     position: absolute;
     top: 80%;
-    left: 12%;
+    left: 19%;
     transform: translate(-50%, -50%);
 }
 
@@ -169,14 +101,16 @@ a.cat-button:active::before {
     display: block;
 }
 
+/* Ball of yarn styling */
+
 .yarn-image {
     max-width: 100px;
     width: 100%;
     height: auto;
     display: block;
     transition: max-width 0.3s ease;
-
 }
+
 .yarn-position {
     position: absolute;
     top: 70%;
@@ -191,11 +125,15 @@ a.cat-button:active::before {
     display: block;
 }
 
+/* unsure? */
+
 .cat-option.selected-cat {
   border: 4px solid #0d6efd;
   border-radius: 0.375rem;
   transition: border 0.2s ease-in-out;
 }
+
+/* Tooltips styling */
 
 .tooltip {
   position: absolute;
@@ -213,34 +151,6 @@ a.cat-button:active::before {
   z-index: 20;
 }
 
-.thought-bubble-container {
-    position: absolute;
-    bottom: 90%;              /* this places it above the cat image */
-    right: 20%;
-    transform: translateX(-50%) translateY(-10px); /* optional upward shift */
-    width: 360px;              /* make bubble bigger */
-    height: 280px;
-    z-index: 1;
-}
-
-.bubble-img {
-    width: 100%;
-    height: 100%;
-}
-
-.bubble-text {
-    position: absolute;
-    top: 36%;
-    left: 47%;
-    transform: translate(-50%, -40%);
-    text-align: center;
-    width: 50%;
-    font-size: 15px;
-    color: #333;
-    padding: 20px;
-}
-
-
 .water-bowl-position:hover .tooltip {
   opacity: 1;
 }
@@ -253,6 +163,37 @@ a.cat-button:active::before {
 .yarn-position:hover .tooltip {
   opacity: 1;
 }
+
+/* Cat thought bubble styling */
+
+.thought-bubble-container {
+    position: absolute;
+    bottom: 85%; /* move it slightly down from 90% to 85% */
+    left: 10%;   /* move it slightly to the left from 20% */
+    transform: translateX(45%) translateY(0); /* reduce horizontal shift and remove upward shift */
+    width: 360px;
+    height: 280px;
+    z-index: 1;
+}
+
+.bubble-img {
+    width: 100%;
+    height: 100%;
+}
+
+.bubble-text {
+    position: absolute;
+    top: 36%;
+    left: 52%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+    width: 50%;
+    font-size: 15px;
+    color: #333;
+    padding: 20px;
+}
+
+/* Cat leaving page styling */
 
 .bindle-position {
     position: absolute;
@@ -268,150 +209,68 @@ a.cat-button:active::before {
     height: auto;
     display: block;
     transition: max-width 0.3s ease;
-
 }
 
+/* Flash message confirmation banner for interactions */
 
 h2 {
     text-align: center;
 }
 
-/*status bar css*/
-.hunger-bar-outer {
-    width: 100%;
-    height: 20px;
-    background-color: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 5px;
+/* Bottom right buttons, living room */
+
+.page-bottom-right-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+  max-width: 160px;
+  /* optional drop shadow for contrast */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
-.hunger-bar-inner {
-    height: 100%;
-    transition: width 0.3s ease;
+/* Buttons inside the container */
+
+.page-bottom-right-buttons .btn {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 15px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
-.bar-green {
-    background-color: #4caf50 !important; /* Green */
+/* Shoo Away button */
+.page-bottom-right-buttons .shoo-away-btn {
+  background-color: #8a8f95;
+  color: white;
+  border: none;
 }
 
-.bar-orange {
-    background-color: #ff9800 !important; /* Orange */
+.page-bottom-right-buttons .shoo-away-btn:hover {
+  background-color: #6e7378;
 }
 
-.bar-red {
-    background-color: #f44336 !important; /* Red */
+/* Logout button */
+.page-bottom-right-buttons .logout-btn {
+  background-color: #c74949;
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
 }
 
-
-/* memories popup stuff */
-
-
-#scrapbook-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
-    display: none;
-    justify-content: center;
-    align-items: center;
+.page-bottom-right-buttons .logout-btn:hover {
+  background-color: #a83f3f;
 }
 
-#scrapbook-inner {
-    background: white;
-    padding: 2rem;
-    max-width: 90vw;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.25);
-    position: relative;
+/* Adjust btn-info (blue) hover */
+.page-bottom-right-buttons .btn-info:hover {
+  background-color: #3a66cc;
 }
 
-.scrapbook-title {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #4e342e;
-    font-family: 'Delius Swash Caps', cursive;
-    margin-bottom: 20px;
-}
-
-.scrapbook-pages {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-}
-
-.memory-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: 180px;
-    padding: 1rem;
-    text-align: center;
-    font-family: 'Delius Swash Caps', cursive;
-}
-
-.polaroid {
-    background: white;
-    padding: 10px 10px 30px 10px;
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
-    border-radius: 8px;
-    position: relative;
-    transform: rotate(-2deg);
-    transition: transform 0.3s ease;
-}
-
-.polaroid:hover {
-    transform: rotate(0deg) scale(1.05);
-}
-
-.polaroid.tilt-left {
-    transform: rotate(-3deg);
-}
-
-.polaroid.tilt-right {
-    transform: rotate(3deg);
-}
-
-.polaroid img {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    object-fit: cover;
-}
-
-.polaroid-caption {
-    position: absolute;
-    bottom: 5px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: bold;
-    color: #333;
-    font-family: 'Delius Swash Caps', cursive;
-}
-
-.memory-details p {
-    font-size: 0.85rem;
-    margin: 4px 0;
-    font-family: 'Delius Swash Caps', cursive;
-    color: #444;
-}
-
-.btn-close-scrapbook {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
+/* Adjust btn-warning (yellow) hover */
+.page-bottom-right-buttons .btn-warning:hover {
+  background-color: #cca944;
 }

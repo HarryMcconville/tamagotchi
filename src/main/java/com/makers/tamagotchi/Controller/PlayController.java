@@ -41,6 +41,18 @@ public class PlayController {
                 .orElseThrow(NoActivePetException::new);  // throws instead of returning null
     }
 
+    // this adds the active pet to the model for html use
+    @ModelAttribute("pet")
+    public Pet populateActivePet(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
+        return getActivePet(email);
+    }
+
+    // this handles "no active pet" exception by redirecting to /welcome
+    @ExceptionHandler(NoActivePetException.class)
+    public String handleNoActivePet() {
+        return "redirect:/welcome";
+    }
+
     // helper method to get active village by user email
     private Village getActiveVillage(String email) {
         return userRepository.findUserByEmail(email)
@@ -51,16 +63,10 @@ public class PlayController {
                 .orElse(null);
     }
 
-    // this handles "no active pet" exception by redirecting to /welcome
-    @ExceptionHandler(NoActivePetException.class)
-    public String handleNoActivePet() {
-        return "redirect:/welcome";
-    }
-
-    // this adds the active pet to the model before every controller method
-    @ModelAttribute("pet")
-    public Pet populateActivePet(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
-        return getActivePet(email);
+    // this adds the active village to the model for html use
+    @ModelAttribute("village")
+    public Village populateActiveVillage(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
+        return getActiveVillage(email);
     }
 
     // helper method to check for perk or flaw affecting restoration rate for stat

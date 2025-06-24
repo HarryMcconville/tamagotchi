@@ -183,4 +183,24 @@ function closeScrapbook() {
     document.getElementById('scrapbook-overlay').style.display = 'none';
 }
 
+// shoo away meow sound
 
+function playMeowAndRedirect(event) {
+    event.preventDefault();
+    const audio = document.getElementById('meow');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+        setTimeout(() => {
+            window.location.href = "/play/confirm_shoo";
+        }, 1500);
+    }
+}
+
+// Attach the event listener after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const shooLink = document.getElementById('shoo-away-btn');
+    if (shooLink) {
+        shooLink.addEventListener('click', playMeowAndRedirect);
+    }
+});
