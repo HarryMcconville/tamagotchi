@@ -11,7 +11,7 @@ body.living-room {
     background-image: url(/images/living-room.jpg   );
 }
 body.goodbye-page {
-    background-image: url(/images/goodbye-placeholder.jpg);
+    background-image: url(/images/bg-goodbye-sunset.png);
 }
 body.welcome-page {
     background-color: #94e3fe
@@ -28,7 +28,7 @@ body.village-square-bg {
 
 .alert {
     position: relative;
-    z-index: 0; /* or -1 if needed */
+    z-index: 2; /* or -1 if needed */
 }
 
 /* Cat image styling */
