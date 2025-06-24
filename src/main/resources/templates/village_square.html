@@ -4,36 +4,61 @@
     <meta charset="UTF-8">
     <title>The Village</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/sidebar.css">
 </head>
 <body class="village-square-bg">
 <audio id="bg-music" src="/audio/village_bg_music_placeholder.mp3" loop autoplay></audio>
-<p>Not a yellow raincoat in sight</p>
 
-<p th:text="${flashMessage}" th:if="${flashMessage}"></p>
+<div class="sidebar">
+    <div class="pet-name">
+        <p>Not a yellow raincoat in sight</p>
+    </div>
 
-<!--This handles the cat food -->
-<p th:text="'Available food: ' + ${village.catfood}"></p>
-<p th:text="'Your collected food: ' + ${village.collectedCatFood}"></p>
+    <div class="status-section">
 
-<a href="/village/catFood" class="cat-button">Collect food</a>
+    <p th:text="${flashMessage}" th:if="${flashMessage}"></p>
 
-<!--This handles the milk-->
-<p th:text="'Available milk: ' + ${village.milk}"></p>
-<p th:text="'Your collected milk: ' + ${village.collectedMilk}"></p>
+    <!--This handles the cat food -->
+    <p th:text="'Available food: ' + ${village.catfood}"></p>
+    <a href="/village/catFood" class="cat-button">Collect food</a>
 
-<a href="/village/milk" class="cat-button">Collect milk</a>
+    <!--This handles the milk-->
+    <p th:text="'Available milk: ' + ${village.milk}"></p>
+    <a href="/village/milk" class="cat-button">Collect milk</a>
 
-<!--This handles the catnip-->
-<p th:text="'Available catnip: ' + ${village.catnip}"></p>
-<p th:text="'Your collected catnip: ' + ${village.collectedCatnip}"></p>
+    <!--This handles the catnip-->
+    <p th:text="'Available catnip: ' + ${village.catnip}"></p>
+    <a href="/village/catnip" class="cat-button">Collect catnip</a>
 
-<a href="/village/catnip" class="cat-button">Collect catnip</a>
+    <!--This handles the brush-->
+    <p th:text="'Available brushes: ' + ${village.brush}"></p>
+    <a href="/village/brush" class="cat-button">Collect brushes</a>
 
-<!--This handles the brush-->
-<p th:text="'Available brushes: ' + ${village.brush}"></p>
-<p th:text="'Your collected brushes: ' + ${village.collectedBrush}"></p>
-
-<a href="/village/brush" class="cat-button">Collect brushes</a>
+        <!-- Resource Grid -->
+        <div class="resource-grid">
+            <div class="resource-item">
+                <img src="/images/catfood-icon-.png" alt="Cat Food" class="resource-icon">
+                <span class="resource-label">Cat Food:</span>
+                <span class="resource-count" th:text="${village.collectedCatFood}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/milk-icon-.png" alt="Milk" class="resource-icon">
+                <span class="resource-label">Milk:</span>
+                <span class="resource-count" th:text="${village.collectedMilk}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/catnip-icon-.png" alt="Catnip" class="resource-icon">
+                <span class="resource-label">Catnip:</span>
+                <span class="resource-count" th:text="${village.collectedCatnip}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/brush-icon-.png" alt="Brush" class="resource-icon">
+                <span class="resource-label">Brushes:</span>
+                <span class="resource-count" th:text="${village.collectedBrush}">0</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
