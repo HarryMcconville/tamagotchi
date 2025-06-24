@@ -3,6 +3,7 @@ package com.makers.tamagotchi.Controller;
 import com.makers.tamagotchi.Model.Pet;
 import com.makers.tamagotchi.Model.Trait;
 import com.makers.tamagotchi.Model.Trait.StatType;
+import com.makers.tamagotchi.Model.User;
 import com.makers.tamagotchi.Model.Village;
 import com.makers.tamagotchi.Repository.PetRepository;
 import com.makers.tamagotchi.Repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -90,162 +92,48 @@ public class PlayController {
         return "living_room";
     }
 
-//    @GetMapping("/play/feed")
-//    public String feedCat(@ModelAttribute("pet") Pet pet,
-//                          @AuthenticationPrincipal(expression = "attributes['email']") String email,
-//                          RedirectAttributes redirectAttributes) {
-//
-//        int restoredAmount = calculateRestoredAmount(pet, StatType.HUNGER, 20);
-//        int newHunger = Math.min(100, pet.getHunger() + restoredAmount);
-//        pet.setHunger(newHunger);
-//
-//        Village activeVillage = getActiveVillage(email);
-//
-//        if (activeVillage == null) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "No active village found!");
-//            return "redirect:/play";
-//        }
-//
-//        // Check if user has collected cat food
-//        if (activeVillage.getCollectedCatFood() <= 0) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "You don't have any cat food! Visit the village to collect some.");
-//            return "redirect:/play";
-//        }
-//
-//        // Consume 1 cat food and feed the pet
-//        activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() - 1);
-//        villageRepository.save(activeVillage);
-//
-//        pet.setHunger(100);
-//        pet.setLastUpdated(LocalDateTime.now());
-//        pet.setHappiness(pet.calculateHappiness());
-//        petRepository.save(pet);
-//
-//        redirectAttributes.addFlashAttribute("flashMessage", "You have fed " + pet.getName() + "!");
-//        return "redirect:/play";
-//    }
-//
-//    @GetMapping("/play/water")
-//    public String waterCat(@ModelAttribute("pet") Pet pet,
-//                           @AuthenticationPrincipal(expression = "attributes['email']") String email,
-//                           RedirectAttributes redirectAttributes) {
-//
-//        int restoredAmount = calculateRestoredAmount(pet, StatType.THIRST, 20);
-//        int newThirst = Math.min(100, pet.getThirst() + restoredAmount);
-//        pet.setThirst(newThirst);
-//
-//        pet.setLastUpdated(LocalDateTime.now());
-//
-//        Village activeVillage = getActiveVillage(email);
-//
-//        if (activeVillage == null) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "No active village found!");
-//            return "redirect:/play";
-//        }
-//
-//        // Check if user has collected milk
-//        if (activeVillage.getCollectedMilk() <= 0) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "You don't have any milk! Visit the village to collect some.");
-//            return "redirect:/play";
-//        }
-//
-//        // Consume 1 milk and give water to the pet
-//        activeVillage.setCollectedMilk(activeVillage.getCollectedMilk() - 1);
-//        villageRepository.save(activeVillage);
-//
-//        pet.setThirst(100);
-//        pet.setThirstLastUpdated(LocalDateTime.now());
-//        pet.setHappiness(pet.calculateHappiness());
-//        petRepository.save(pet);
-//
-//        redirectAttributes.addFlashAttribute("flashMessage", "You have refilled " + pet.getName() + "'s bowl with milk!");
-//        return "redirect:/play";
-//    }
-//
-//    @GetMapping("/play/pet")
-//    public String petCat(@ModelAttribute("pet") Pet pet,
-//                         @AuthenticationPrincipal(expression = "attributes['email']") String email,
-//                         RedirectAttributes redirectAttributes) {
-//
-//        int restoredAmount = calculateRestoredAmount(pet, StatType.SOCIAL, 20);
-//        int newSocial = Math.min(100, pet.getSocial() + restoredAmount);
-//        pet.setSocial(newSocial);
-//
-//        pet.setLastUpdated(LocalDateTime.now());
-//        Village activeVillage = getActiveVillage(email);
-//
-//        if (activeVillage == null) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "No active village found!");
-//            return "redirect:/play";
-//        }
-//
-//        // Check if user has collected brushes
-//        if (activeVillage.getCollectedBrush() <= 0) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "You don't have any brushes! Visit the village to get some.");
-//            return "redirect:/play";
-//        }
-//
-//        // Consume 1 brush and pet the cat
-//        activeVillage.setCollectedBrush(activeVillage.getCollectedBrush() - 1);
-//        villageRepository.save(activeVillage);
-//
-//        pet.setSocial(100);
-//        pet.setSocialLastUpdated(LocalDateTime.now());
-//        pet.setHappiness(pet.calculateHappiness());
-//        petRepository.save(pet);
-//
-//        redirectAttributes.addFlashAttribute("flashMessage", "You have pet " + pet.getName() + "!");
-//        return "redirect:/play";
-//    }
-//
-//    @GetMapping("/play/game")
-//    public String playGameWithCat(@ModelAttribute("pet") Pet pet,
-//                                  @AuthenticationPrincipal(expression = "attributes['email']") String email,
-//                                  RedirectAttributes redirectAttributes) {
-//
-//        int restoredAmount = calculateRestoredAmount(pet, StatType.FUN, 20);
-//        int newFun = Math.min(100, pet.getFun() + restoredAmount);
-//        pet.setFun(newFun);
-//
-//        pet.setLastUpdated(LocalDateTime.now());
-//        Village activeVillage = getActiveVillage(email);
-//
-//        if (activeVillage == null) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "No active village found!");
-//            return "redirect:/play";
-//        }
-//
-//        // Check if user has collected catnip
-//        if (activeVillage.getCollectedCatnip() <= 0) {
-//            redirectAttributes.addFlashAttribute("flashMessage", "You don't have any catnip! Visit the village to get some.");
-//            return "redirect:/play";
-//        }
-//
-//        // Consume 1 catnip and play with the cat
-//        activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() - 1);
-//        villageRepository.save(activeVillage);
-//
-//        pet.setFun(100);
-//        pet.setFunLastUpdated(LocalDateTime.now());
-//        pet.setHappiness(pet.calculateHappiness());
-//        petRepository.save(pet);
-//
-//        redirectAttributes.addFlashAttribute("flashMessage", "You have played with " + pet.getName() + "!");
-//        return "redirect:/play";
-//    }
+    // Helper method to reset village stats
+    private void resetVillageResources(String email) {
+        Optional<User> userOpt = userRepository.findUserByEmail(email);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            List<Village> villages = villageRepository.findAllByUser(user);
+
+            Village activeVillage = villages.stream()
+                    .filter(Village::getIsActive)
+                    .findFirst()
+                    .orElse(null);
+
+            if (activeVillage != null) {
+                // Reset all collected resources to 0
+                activeVillage.setCatfood(0);
+                activeVillage.setCollectedCatFood(0);
+                activeVillage.setMilk(0);
+                activeVillage.setCollectedMilk(0);
+                activeVillage.setCatnip(0);
+                activeVillage.setCollectedCatnip(0);
+                activeVillage.setBrush(0);
+                activeVillage.setCollectedBrush(0);
+                villageRepository.save(activeVillage);
+            }
+        }
+    }
 
     @GetMapping("/play/shoo")
     public String shooCat(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         try {
-            Pet activePet = getActivePet(email); // had to change this just for the memories page.
+            Pet activePet = getActivePet(email); //had to change this for the memories page
             activePet.setIsActive(false);
             petRepository.save(activePet);
+
+            // Reset village resources when shooing the cat
+            resetVillageResources(email);
+
         } catch (NoActivePetException e) {
             // fallback if no active pet exists
         }
         return "redirect:/welcome";
     }
-
 
     @GetMapping("/play/confirm_shoo")
     public String confirmShoo(){
@@ -253,11 +141,17 @@ public class PlayController {
     }
 
     @GetMapping("/play/relocation")
-    public String relocateCat(@ModelAttribute("pet") Pet pet) {
+    public String relocateCat(@ModelAttribute("pet") Pet pet,
+                              @AuthenticationPrincipal(expression = "attributes['email']") String email) {
         int happinessStatus = pet.getHappiness();
         if (happinessStatus == 0) {
-            return "cat_relocated"; }
-        else {
+            pet.setIsActive(false);
+            petRepository.save(pet);
+
+            // reset the village when shooing the cat
+            resetVillageResources(email);
+            return "cat_relocated";
+        } else {
             return "redirect:/play";
         }
     }
