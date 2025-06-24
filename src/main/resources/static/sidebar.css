@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+.sidebar-wrapper {
+  position: relative;
+  display: flex;
+  overflow: visible;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -29,6 +35,32 @@
     margin-bottom: 1.5rem;
     color: #333;
 }
+
+/* Pet Traits Pop up - styling */
+
+.traits-reminder {
+  width: 220px;
+  background-color: #ffd65a;
+  border-left: 2px solid #ccc;
+  padding: 1em;
+  color: #333;
+  font-size: 0.9rem;
+  position: absolute;
+  top: 0;
+  left: 250px;
+  min-height: 100px;
+  z-index: 15;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  white-space: normal;
+  display: none; /* hide it by default */
+}
+
+.sidebar-wrapper:hover .traits-reminder {
+  display: block; /* show it on hover */
+}
+
+
 
 /* Status Bar Section Styling */
 .status-section {
