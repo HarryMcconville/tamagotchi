@@ -13,6 +13,9 @@ body.living-room {
 body.goodbye-page {
     background-image: url(/images/goodbye-placeholder.jpg);
 }
+body.welcome-page {
+    background-color: #94e3fe
+}
 
 body.village-square-bg {
     background-image: url(/images/bg-village-square.png); /* Your new image */
