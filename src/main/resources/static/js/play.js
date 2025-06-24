@@ -24,6 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
         happiness: document.getElementById("happiness-text")
     };
 
+    const bubbleText = document.querySelector(".bubble-text");
+    let currentHappiness = null;
+    let currentHappinessTier = null;
+
+    // Get current happiness tier (to generate the correct status message)
+    function getHappinessTier(value) {
+        if (value < 5) return 0;
+        if (value < 15) return 1;
+        if (value < 30) return 2;
+        if (value < 45) return 3;
+        if (value < 60) return 4;
+        if (value < 75) return 5;
+        if (value < 90) return 6;
+        return 7;
+    }
+
     // Updating the status bars
     function updateStatusBars(data) {
         for (const key in bars) {
@@ -52,11 +68,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 texts[key].textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}%`;
                 if (key === "happiness") {
                     currentHappiness = value; // Store the latest happiness
+                    if (catImage && imageName) {
+                        const folder = value < 60 ? "sadCats" : "cats";
+                        catImage.src = `/images/${folder}/${imageName}`;
+                    }
+                    const newTier = getHappinessTier(value);
+                    if (newTier !== currentHappinessTier) {
+                        updateThoughtBubble(value);
+                        currentHappinessTier = newTier;
+                    }
 
-                    if (catImage) {
-                            const folder = value < 60 ? "sadCats" : "cats";
-                            catImage.src = `/images/${folder}/${imageName}`;
-                        }
                 }
             }
         }
@@ -67,17 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("milk-count").textContent = data.milk ?? 0;
         document.getElementById("catnip-count").textContent = data.catnip ?? 0;
         document.getElementById("brush-count").textContent = data.brush ?? 0;
-    }
-
-    async function fetchResources() {
-        try {
-            const response = await fetch("/api/village_resources");
-            if (!response.ok) throw new Error("Failed to fetch resources");
-            const data = await response.json();
-            updateResourcesUI(data);
-        } catch (err) {
-            console.error("Could not update resources:", err);
-        }
     }
 
     // this method is what will fetch the data from the db, defined in the Ajax controller route /api/status
@@ -94,13 +104,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             updateStatusBars(data);
-            updateThoughtBubble(data.happiness)
         } catch (error) {
             console.error("Error fetching status:", error);
         }
     }
-    // getting bubble text to do with happiness
-    const bubbleText = document.querySelector(".bubble-text");
+
+    async function fetchResources() {
+        try {
+            const response = await fetch("/api/village_resources");
+            if (!response.ok) throw new Error("Failed to fetch resources");
+            const data = await response.json();
+            updateResourcesUI(data);
+        } catch (err) {
+            console.error("Could not update resources:", err);
+        }
+    }
 
     async function updateThoughtBubble(happiness) {
         try {
@@ -113,17 +131,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // initial fetch from database
+    fetchStatus().then(() => {
+        if (currentHappiness !== null) {
+            updateThoughtBubble(currentHappiness);
+        }
+    });
+    fetchResources();
 
-    // starting load from db
-    fetchStatus();
-
-
-    // and then this interval sets how often it will ping the backend for data updates.
-    // currently set to every 5 seconds
+    // update status and resources every 2 seconds
     setInterval(() => {
         fetchStatus();
         fetchResources();
-    }, 5000);
+    }, 2000);
+
+    // update thought bubble message every 10 seconds
+    setInterval(() => {
+        updateThoughtBubble(currentHappiness);
+    }, 10000); // every 10 seconds
 
 });
 
