@@ -18,99 +18,112 @@
 <body class="living-room">
 <audio id="bg-music" src="/audio/bg_music_placeholder.mp3" loop autoplay></audio>
 
-<div class="sidebar">
-    <div class="pet-name">
-        <p th:text="${pet.name} + ' the Cat'"></p>
+<div class="sidebar-wrapper">
+    <div class="sidebar">
+
+        <div class="pet-name" onmouseover="showSidebarMessage()" onmouseout="hideSidebarMessage()">
+            <p th:text="${pet.name} + ' the Cat'" id="pet-name"></p>
+        </div>
+
+
+        <!-- Status Bars -->
+        <div class="status-section">
+            <div class="happiness-item" id="happiness">
+                <p id="happiness-text"
+                   th:if="${pet != null}"
+                   th:attr="data-happiness=${pet.happiness}"
+                   th:text="'Happiness: ' + ${pet.happiness} + '%'">Happiness: --%</p>
+                <div class="happiness-status-bar-outer">
+                    <div class="happiness-status-bar-inner" id="happiness-bar"></div>
+                </div>
+            </div>
+
+            <div class="status-item" id="hunger">
+                <p id="hunger-text"
+                   th:if="${pet != null}"
+                   th:attr="data-hunger=${pet.hunger}"
+                   th:text="'Hunger: ' + ${pet.hunger} + '%'">Hunger: --%</p>
+                <div class="status-bar-outer">
+                    <div class="status-bar-inner" id="hunger-bar"></div>
+                </div>
+            </div>
+
+            <div class="status-item" id="thirst">
+                <p id="thirst-text"
+                   th:if="${pet != null}"
+                   th:attr="data-thirst=${pet.thirst}"
+                   th:text="'Thirst: ' + ${pet.thirst} + '%'">Thirst: --%</p>
+                <div class="status-bar-outer">
+                    <div class="status-bar-inner" id="thirst-bar"></div>
+                </div>
+            </div>
+
+            <div class="status-item" id="social">
+                <p id="social-text"
+                   th:if="${pet != null}"
+                   th:attr="data-social=${pet.social}"
+                   th:text="'Social: ' + ${pet.social} + '%'">Social: --%</p>
+                <div class="status-bar-outer">
+                    <div class="status-bar-inner" id="social-bar"></div>
+                </div>
+            </div>
+
+            <div class="status-item" id="fun">
+                <p id="fun-text"
+                   th:if="${pet != null}"
+                   th:attr="data-fun=${pet.fun}"
+                   th:text="'Fun: ' + ${pet.fun} + '%'">Fun: --%</p>
+                <div class="status-bar-outer">
+                    <div class="status-bar-inner" id="fun-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resource Grid -->
+        <div class="resource-grid">
+            <div class="resource-item">
+                <img src="/images/catfood-icon-.png" alt="Cat Food" class="resource-icon">
+                <span class="resource-label">Cat Food:</span>
+                <span class="resource-count" th:text="${village.collectedCatFood}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/milk-icon-.png" alt="Milk" class="resource-icon">
+                <span class="resource-label">Milk:</span>
+                <span class="resource-count" th:text="${village.collectedMilk}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/catnip-icon-.png" alt="Catnip" class="resource-icon">
+                <span class="resource-label">Catnip:</span>
+                <span class="resource-count" th:text="${village.collectedCatnip}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/brush-icon-.png" alt="Brush" class="resource-icon">
+                <span class="resource-label">Brushes:</span>
+                <span class="resource-count" th:text="${village.collectedBrush}">0</span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="sidebar-actions">
+
+            <button class="btn btn-warning" onclick="openScrapbook()">📖 View Memories</button>
+
+            <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#helpSidebar" aria-controls="helpSidebar">
+                Help
+            </button>
+
+        </div>
     </div>
-
-    <!-- Status Bars -->
-    <div class="status-section">
-        <div class="happiness-item" id="happiness">
-            <p id="happiness-text"
-               th:if="${pet != null}"
-               th:attr="data-happiness=${pet.happiness}"
-               th:text="'Happiness: ' + ${pet.happiness} + '%'">Happiness: --%</p>
-            <div class="happiness-status-bar-outer">
-                <div class="happiness-status-bar-inner" id="happiness-bar"></div>
-            </div>
-        </div>
-
-        <div class="status-item" id="hunger">
-            <p id="hunger-text"
-               th:if="${pet != null}"
-               th:attr="data-hunger=${pet.hunger}"
-               th:text="'Hunger: ' + ${pet.hunger} + '%'">Hunger: --%</p>
-            <div class="status-bar-outer">
-                <div class="status-bar-inner" id="hunger-bar"></div>
-            </div>
-        </div>
-
-        <div class="status-item" id="thirst">
-            <p id="thirst-text"
-               th:if="${pet != null}"
-               th:attr="data-thirst=${pet.thirst}"
-               th:text="'Thirst: ' + ${pet.thirst} + '%'">Thirst: --%</p>
-            <div class="status-bar-outer">
-                <div class="status-bar-inner" id="thirst-bar"></div>
-            </div>
-        </div>
-
-        <div class="status-item" id="social">
-            <p id="social-text"
-               th:if="${pet != null}"
-               th:attr="data-social=${pet.social}"
-               th:text="'Social: ' + ${pet.social} + '%'">Social: --%</p>
-            <div class="status-bar-outer">
-                <div class="status-bar-inner" id="social-bar"></div>
-            </div>
-        </div>
-
-        <div class="status-item" id="fun">
-            <p id="fun-text"
-               th:if="${pet != null}"
-               th:attr="data-fun=${pet.fun}"
-               th:text="'Fun: ' + ${pet.fun} + '%'">Fun: --%</p>
-            <div class="status-bar-outer">
-                <div class="status-bar-inner" id="fun-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Resource Grid -->
-    <div class="resource-grid">
-        <div class="resource-item">
-            <img src="/images/catfood-icon-.png" alt="Cat Food" class="resource-icon">
-            <span class="resource-label">Cat Food:</span>
-            <span class="resource-count" th:text="${village.collectedCatFood}">0</span>
-        </div>
-        <div class="resource-item">
-            <img src="/images/milk-icon-.png" alt="Milk" class="resource-icon">
-            <span class="resource-label">Milk:</span>
-            <span class="resource-count" th:text="${village.collectedMilk}">0</span>
-        </div>
-        <div class="resource-item">
-            <img src="/images/catnip-icon-.png" alt="Catnip" class="resource-icon">
-            <span class="resource-label">Catnip:</span>
-            <span class="resource-count" th:text="${village.collectedCatnip}">0</span>
-        </div>
-        <div class="resource-item">
-            <img src="/images/brush-icon-.png" alt="Brush" class="resource-icon">
-            <span class="resource-label">Brushes:</span>
-            <span class="resource-count" th:text="${village.collectedBrush}">0</span>
-        </div>
-    </div>
-
-    <!-- Actions -->
-    <div class="sidebar-actions">
-
-        <button class="btn btn-warning" onclick="openScrapbook()">📖 View Memories</button>
-
-        <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#helpSidebar" aria-controls="helpSidebar">
-            Help
-        </button>
-
+<!--    Traits sidebar from name hover   -->
+    <div class="traits-reminder" id="traits-reminder">
+        <h5 th:text="${pet.name} + '’s Traits'"></h5>
+        <h6><small><strong>Perk:</strong> <span th:text="${#strings.replace(pet.perk, '_', ' ')}"></span></small></h6>
+        <p><small><em th:text="${pet.perk.description}"></em></small></p>
+        <h6><small><strong>Flaw:</strong> <span th:text="${#strings.replace(pet.flaw, '_', ' ')}"></span></small></h6>
+        <p><small><em th:text="${pet.flaw.description}"></em></small></p>
     </div>
 </div>
+
 
 <h2 id="flash-message" class="alert alert-primary" style="display:none;"></h2>
 
