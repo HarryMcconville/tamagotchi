@@ -45,181 +45,181 @@ public class VillageController {
         return modelAndView;
     }
 
-    @GetMapping("/village/catFood")
-    public String harvestFood(@AuthenticationPrincipal(expression = "attributes['email']") String email,
-                              RedirectAttributes redirectAttributes) {
-        try {
-            Optional<User> userOpt = userRepository.findUserByEmail(email);
+//    @GetMapping("/village/catFood")
+//    public String harvestFood(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+//                              RedirectAttributes redirectAttributes) {
+//        try {
+//            Optional<User> userOpt = userRepository.findUserByEmail(email);
+//
+//            if (userOpt.isEmpty()) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+//                return "redirect:/village";
+//            }
+//
+//            User user = userOpt.get();
+//            List<Village> villages = villageRepository.findAllByUser(user);
+//
+//            Village activeVillage = villages.stream()
+//                    .filter(Village::getIsActive)
+//                    .findFirst()
+//                    .orElse(null);
+//
+//            if (activeVillage == null) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
+//                return "redirect:/village";
+//            }
+//
+//            int available = activeVillage.getCatfood();
+//
+//            if (available > 0) {
+//                activeVillage.setCatfood(available - 1);
+//                activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() + 1);
+//                activeVillage.setCatFoodLastUpdated(LocalDateTime.now());
+//                villageRepository.save(activeVillage);
+//                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 cat food!");
+//            } else {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No cat food available yet.");
+//            }
+//
+//            return "redirect:/village";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting cat food.");
+//            return "redirect:/village";
+//        }
+//    }
 
-            if (userOpt.isEmpty()) {
-                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
-                return "redirect:/village";
-            }
+//    @GetMapping("/village/milk")
+//    public String harvestMilk(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+//                              RedirectAttributes redirectAttributes) {
+//        try {
+//            Optional<User> userOpt = userRepository.findUserByEmail(email);
+//
+//            if (userOpt.isEmpty()) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+//                return "redirect:/village";
+//            }
+//
+//            User user = userOpt.get();
+//            List<Village> villages = villageRepository.findAllByUser(user);
+//
+//            Village activeVillage = villages.stream()
+//                    .filter(Village::getIsActive)
+//                    .findFirst()
+//                    .orElse(null);
+//
+//            if (activeVillage == null) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
+//                return "redirect:/village";
+//            }
+//
+//            int available = activeVillage.getMilk();
+//
+//            if (available > 0) {
+//                activeVillage.setMilk(available - 1);
+//                activeVillage.setCollectedMilk(activeVillage.getCollectedMilk() + 1);
+//                activeVillage.setMilkLastUpdated(LocalDateTime.now());
+//                villageRepository.save(activeVillage);
+//                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 bucket of milk!");
+//            } else {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No milk available yet.");
+//            }
+//
+//            return "redirect:/village";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting milk");
+//            return "redirect:/village";
+//        }
+//    }
 
-            User user = userOpt.get();
-            List<Village> villages = villageRepository.findAllByUser(user);
+//    @GetMapping("/village/catnip")
+//    public String harvestCatnip(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+//                              RedirectAttributes redirectAttributes) {
+//        try {
+//            Optional<User> userOpt = userRepository.findUserByEmail(email);
+//
+//            if (userOpt.isEmpty()) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+//                return "redirect:/village";
+//            }
+//
+//            User user = userOpt.get();
+//            List<Village> villages = villageRepository.findAllByUser(user);
+//
+//            Village activeVillage = villages.stream()
+//                    .filter(Village::getIsActive)
+//                    .findFirst()
+//                    .orElse(null);
+//
+//            if (activeVillage == null) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
+//                return "redirect:/village";
+//            }
+//
+//            int available = activeVillage.getCatnip();
+//
+//            if (available > 0) {
+//                activeVillage.setCatnip(available - 1);
+//                activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() + 1);
+//                activeVillage.setCatnipLastUpdated(LocalDateTime.now());
+//                villageRepository.save(activeVillage);
+//                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 pouch of catnip!");
+//            } else {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No catnip available yet.");
+//            }
+//
+//            return "redirect:/village";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting catnip.");
+//            return "redirect:/village";
+//        }
+//    }
 
-            Village activeVillage = villages.stream()
-                    .filter(Village::getIsActive)
-                    .findFirst()
-                    .orElse(null);
-
-            if (activeVillage == null) {
-                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
-                return "redirect:/village";
-            }
-
-            int available = activeVillage.getCatfood();
-
-            if (available > 0) {
-                activeVillage.setCatfood(available - 1);
-                activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() + 1);
-                activeVillage.setCatFoodLastUpdated(LocalDateTime.now());
-                villageRepository.save(activeVillage);
-                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 cat food!");
-            } else {
-                redirectAttributes.addFlashAttribute("flashMessage", "No cat food available yet.");
-            }
-
-            return "redirect:/village";
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting cat food.");
-            return "redirect:/village";
-        }
-    }
-
-    @GetMapping("/village/milk")
-    public String harvestMilk(@AuthenticationPrincipal(expression = "attributes['email']") String email,
-                              RedirectAttributes redirectAttributes) {
-        try {
-            Optional<User> userOpt = userRepository.findUserByEmail(email);
-
-            if (userOpt.isEmpty()) {
-                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
-                return "redirect:/village";
-            }
-
-            User user = userOpt.get();
-            List<Village> villages = villageRepository.findAllByUser(user);
-
-            Village activeVillage = villages.stream()
-                    .filter(Village::getIsActive)
-                    .findFirst()
-                    .orElse(null);
-
-            if (activeVillage == null) {
-                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
-                return "redirect:/village";
-            }
-
-            int available = activeVillage.getMilk();
-
-            if (available > 0) {
-                activeVillage.setMilk(available - 1);
-                activeVillage.setCollectedMilk(activeVillage.getCollectedMilk() + 1);
-                activeVillage.setMilkLastUpdated(LocalDateTime.now());
-                villageRepository.save(activeVillage);
-                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 bucket of milk!");
-            } else {
-                redirectAttributes.addFlashAttribute("flashMessage", "No milk available yet.");
-            }
-
-            return "redirect:/village";
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting milk");
-            return "redirect:/village";
-        }
-    }
-
-    @GetMapping("/village/catnip")
-    public String harvestCatnip(@AuthenticationPrincipal(expression = "attributes['email']") String email,
-                              RedirectAttributes redirectAttributes) {
-        try {
-            Optional<User> userOpt = userRepository.findUserByEmail(email);
-
-            if (userOpt.isEmpty()) {
-                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
-                return "redirect:/village";
-            }
-
-            User user = userOpt.get();
-            List<Village> villages = villageRepository.findAllByUser(user);
-
-            Village activeVillage = villages.stream()
-                    .filter(Village::getIsActive)
-                    .findFirst()
-                    .orElse(null);
-
-            if (activeVillage == null) {
-                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
-                return "redirect:/village";
-            }
-
-            int available = activeVillage.getCatnip();
-
-            if (available > 0) {
-                activeVillage.setCatnip(available - 1);
-                activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() + 1);
-                activeVillage.setCatnipLastUpdated(LocalDateTime.now());
-                villageRepository.save(activeVillage);
-                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 pouch of catnip!");
-            } else {
-                redirectAttributes.addFlashAttribute("flashMessage", "No catnip available yet.");
-            }
-
-            return "redirect:/village";
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting catnip.");
-            return "redirect:/village";
-        }
-    }
-
-    @GetMapping("/village/brush")
-    public String harvestBrush(@AuthenticationPrincipal(expression = "attributes['email']") String email,
-                              RedirectAttributes redirectAttributes) {
-        try {
-            Optional<User> userOpt = userRepository.findUserByEmail(email);
-
-            if (userOpt.isEmpty()) {
-                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
-                return "redirect:/village";
-            }
-
-            User user = userOpt.get();
-            List<Village> villages = villageRepository.findAllByUser(user);
-
-            Village activeVillage = villages.stream()
-                    .filter(Village::getIsActive)
-                    .findFirst()
-                    .orElse(null);
-
-            if (activeVillage == null) {
-                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
-                return "redirect:/village";
-            }
-
-            int available = activeVillage.getBrush();
-
-            if (available > 0) {
-                activeVillage.setBrush(available - 1);
-                activeVillage.setCollectedBrush(activeVillage.getCollectedBrush() + 1);
-                activeVillage.setBrushLastUpdated(LocalDateTime.now());
-                villageRepository.save(activeVillage);
-                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 brush!");
-            } else {
-                redirectAttributes.addFlashAttribute("flashMessage", "No brushes available yet.");
-            }
-
-            return "redirect:/village";
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting brushes");
-            return "redirect:/village";
-        }
-    }
+//    @GetMapping("/village/brush")
+//    public String harvestBrush(@AuthenticationPrincipal(expression = "attributes['email']") String email,
+//                              RedirectAttributes redirectAttributes) {
+//        try {
+//            Optional<User> userOpt = userRepository.findUserByEmail(email);
+//
+//            if (userOpt.isEmpty()) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "User not found.");
+//                return "redirect:/village";
+//            }
+//
+//            User user = userOpt.get();
+//            List<Village> villages = villageRepository.findAllByUser(user);
+//
+//            Village activeVillage = villages.stream()
+//                    .filter(Village::getIsActive)
+//                    .findFirst()
+//                    .orElse(null);
+//
+//            if (activeVillage == null) {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No active village found.");
+//                return "redirect:/village";
+//            }
+//
+//            int available = activeVillage.getBrush();
+//
+//            if (available > 0) {
+//                activeVillage.setBrush(available - 1);
+//                activeVillage.setCollectedBrush(activeVillage.getCollectedBrush() + 1);
+//                activeVillage.setBrushLastUpdated(LocalDateTime.now());
+//                villageRepository.save(activeVillage);
+//                redirectAttributes.addFlashAttribute("flashMessage", "You collected 1 brush!");
+//            } else {
+//                redirectAttributes.addFlashAttribute("flashMessage", "No brushes available yet.");
+//            }
+//
+//            return "redirect:/village";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("flashMessage", "Error collecting brushes");
+//            return "redirect:/village";
+//        }
+//    }
 
 }
 
