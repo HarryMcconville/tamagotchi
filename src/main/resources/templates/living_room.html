@@ -67,7 +67,7 @@
                     <div class="status-bar-inner" id="social-bar"></div>
                 </div>
             </div>
-          
+
             <div class="status-item" id="fun">
                 <p id="fun-text"
                    th:if="${pet != null}"
@@ -77,31 +77,30 @@
                     <div class="status-bar-inner" id="fun-bar"></div>
                 </div>
             </div>
-      </div>
-
-    <!-- Resource Grid -->
-    <div class="resource-grid">
-        <div class="resource-item">
-            <img src="/images/catfood-icon-.png" alt="Cat Food" class="resource-icon">
-            <span class="resource-label">Cat Food:</span>
-            <span class="resource-count" id="catfood-count" th:text="${village.collectedCatFood}">0</span>
-        </div>
-        <div class="resource-item">
-            <img src="/images/milk-bottle-icon.png" alt="Milk" class="resource-icon">
-            <span class="resource-label">Milk:</span>
-            <span class="resource-count" id="milk-count" th:text="${village.collectedMilk}">0</span>
-        </div>
-        <div class="resource-item">
-            <img src="/images/catnip-icon-.png" alt="Catnip" class="resource-icon">
-            <span class="resource-label">Catnip:</span>
-            <span class="resource-count" id="catnip-count" th:text="${village.collectedCatnip}">0</span>
-        </div>
-        <div class="resource-item">
-            <img src="/images/brush-icon-.png" alt="Brush" class="resource-icon">
-            <span class="resource-label">Brushes:</span>
-            <span class="resource-count" id="brush-count" th:text="${village.collectedBrush}">0</span>
         </div>
 
+        <!-- Resource Grid -->
+        <div class="resource-grid">
+            <div class="resource-item">
+                <img src="/images/catfood-icon-.png" alt="Cat Food" class="resource-icon">
+                <span class="resource-label">Cat Food:</span>
+                <span class="resource-count" id="catfood-count" th:text="${village.collectedCatFood}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/milk-icon-.png" alt="Milk" class="resource-icon">
+                <span class="resource-label">Milk:</span>
+                <span class="resource-count" id="milk-count" th:text="${village.collectedMilk}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/catnip-icon-.png" alt="Catnip" class="resource-icon">
+                <span class="resource-label">Catnip:</span>
+                <span class="resource-count" id="catnip-count" th:text="${village.collectedCatnip}">0</span>
+            </div>
+            <div class="resource-item">
+                <img src="/images/brush-icon-.png" alt="Brush" class="resource-icon">
+                <span class="resource-label">Brushes:</span>
+                <span class="resource-count" id="brush-count" th:text="${village.collectedBrush}">0</span>
+            </div>
         </div>
 
         <!-- Actions -->
