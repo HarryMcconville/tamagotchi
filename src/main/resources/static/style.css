@@ -64,8 +64,8 @@ body.village-square-bg {
     height: auto;
     display: block;
     transition: max-width 0.3s ease;
-
 }
+
 .food-bowl-position {
     position: absolute;
     top: 80%;
@@ -157,12 +157,15 @@ body.village-square-bg {
 .water-bowl-position:hover .tooltip {
   opacity: 1;
 }
+
 .food-bowl-position:hover .tooltip {
   opacity: 1;
 }
+
 .cat-position:hover .tooltip {
   opacity: 1;
 }
+
 .catnip-position:hover .tooltip {
   opacity: 1;
 }
@@ -278,3 +281,53 @@ h2 {
   background-color: #cca944;
 }
 
+/* Village button styling */
+/* Container: top-right corner */
+.village-icon-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Bigger icon with smooth scaling */
+.village-icon-image {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: max-width 0.3s ease, transform 0.3s ease;
+}
+
+/* Grow smoothly on hover */
+.village-icon-container:hover .village-icon-image {
+  max-width: 240px;
+  transform: scale(1.05);
+}
+
+/* Tooltip below, text centered */
+.tooltip-below {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2px;
+  background-color: #89CFF0;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+  text-align: center;  /* centers the tooltip text */
+  white-space: nowrap; /* prevents wrapping */
+}
+
+/* Show tooltip on hover */
+.village-icon-container:hover .tooltip-below {
+  opacity: 1;
+}
