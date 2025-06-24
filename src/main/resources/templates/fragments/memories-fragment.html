@@ -7,7 +7,7 @@
                 <div class="polaroid-caption" th:text="${entry.pet.name}">Cat Name</div>
             </div>
             <div class="memory-details mt-2">
-                <p><small><strong>Perk:</strong> <span th:text="${entry.pet.perk}"></span></small></p>
+                <p><small><strong>Perk:</strong> <span th:text="${(entry.pet.perk).replace('_', ' ')}"></span></small></p>
                 <p><small><strong>Flaw:</strong> <span th:text="${entry.pet.flaw}"></span></small></p>
                 <p><small><strong>Happiness:</strong> <span th:text="${entry.pet.happiness} + '%'"></span></small></p>
                 <p><small><strong>Days Together:</strong> <span th:text="${entry.daysOwned} + ' day(s)'"></span></small></p>
