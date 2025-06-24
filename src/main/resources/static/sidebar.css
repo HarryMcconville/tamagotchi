@@ -40,7 +40,6 @@
 
 .traits-reminder {
   width: 220px;
-  height: auto; /* allow height to expand */
   background-color: #ffd65a;
   border-left: 2px solid #ccc;
   padding: 1em;
@@ -48,14 +47,19 @@
   font-size: 0.9rem;
   position: absolute;
   top: 0;
-  left: 250px; /* matches .sidebar width */
-  min-height: 100px; /* give it some natural breathing space */
-  display: none;
-  z-index: 9;
+  left: 250px;
+  min-height: 100px;
+  z-index: 15;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
   white-space: normal;
+  display: none; /* hide it by default */
 }
+
+.sidebar-wrapper:hover .traits-reminder {
+  display: block; /* show it on hover */
+}
+
 
 
 /* Status Bar Section Styling */
