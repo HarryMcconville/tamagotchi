@@ -96,12 +96,4 @@ public class Village {
 
         this.isActive = true;
     }
-
-
-
-
-
-
-
-
 }
