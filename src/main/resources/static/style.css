@@ -18,7 +18,7 @@ body.welcome-page {
 }
 
 body.village-square-bg {
-    background-image: url(/images/pastel-bg.png); /* Your new image */
+    background-image: url(/images/village-bg.png); /* Your new image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
