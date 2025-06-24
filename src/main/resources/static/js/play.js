@@ -263,10 +263,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // script for showing traits reminder
-function showSidebarMessage() {
-  document.getElementById("traits-reminder").style.display = "block";
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const petName = document.querySelector(".pet-name");
+  const traits = document.getElementById("traits-reminder");
 
-function hideSidebarMessage() {
-  document.getElementById("traits-reminder").style.display = "none";
-}
+  function show() {
+    traits.style.display = "block";
+  }
+
+  function hide() {
+    traits.style.display = "none";
+  }
+
+  petName.addEventListener("mouseenter", show);
+  petName.addEventListener("mouseleave", (e) => {
+    // Only hide if you're not hovering the traits popup
+    if (!traits.matches(":hover")) hide();
+  });
+
+  traits.addEventListener("mouseleave", hide);
+  traits.addEventListener("mouseenter", show);
+});

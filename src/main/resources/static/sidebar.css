@@ -56,11 +56,6 @@
   display: none; /* hide it by default */
 }
 
-.sidebar-wrapper:hover .traits-reminder {
-  display: block; /* show it on hover */
-}
-
-
 
 /* Status Bar Section Styling */
 .status-section {
