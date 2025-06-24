@@ -61,6 +61,7 @@ public class AjaxController {
 
         return (int) (baseAmount * modifier);
     }
+
     // this controller gets all the status figures from the database that the javascript will fetch from.
     @GetMapping("/api/status")
     public Map<String, Object> getPetStatus(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
@@ -85,10 +86,12 @@ public class AjaxController {
         }
         return status;
     }
+
     @PostMapping("/village/milk")
     @ResponseBody
     public ResponseEntity<?> collectMilk(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -112,13 +115,14 @@ public class AjaxController {
                 "message", "You have gathered 1 bottle of milk for " + pet.getName() + " !",
                 "collectedMilk", activeVillage.getCollectedMilk(),
                 "villageMilk", activeVillage.getMilk()
-
         ));
     }
+
     @PostMapping("/village/catfood")
     @ResponseBody
     public ResponseEntity<?> collectFood(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -138,18 +142,18 @@ public class AjaxController {
         activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() + 1);
         villageRepository.save(activeVillage);
 
-
         return ResponseEntity.ok(Map.of(
                 "message", "You have gathered 1 pack of cat food for " + pet.getName() + " !",
                 "collectedCatFood", activeVillage.getCollectedCatFood(),
                 "villageCatfood", activeVillage.getCatfood()
-
         ));
     }
+
     @PostMapping("/village/catnip")
     @ResponseBody
     public ResponseEntity<?> collectCatnip(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -169,22 +173,18 @@ public class AjaxController {
         activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() + 1);
         villageRepository.save(activeVillage);
 
-        pet.setHunger(100);
-        pet.setLastUpdated(LocalDateTime.now());
-        pet.setHappiness(pet.calculateHappiness());
-        petRepository.save(pet);
-
         return ResponseEntity.ok(Map.of(
                 "message", "You have gathered 1 Catnip for " + pet.getName() + " !",
                 "collectedCatnip", activeVillage.getCollectedCatnip(),
                 "villageCatnip", activeVillage.getCatnip()
-
         ));
     }
+
     @PostMapping("/village/brush")
     @ResponseBody
     public ResponseEntity<?> collectBrush(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -208,7 +208,6 @@ public class AjaxController {
                 "message", "You have gathered 1 Brush for " + pet.getName() + " !",
                 "collectedBrush", activeVillage.getCollectedBrush(),
                 "villageBrush", activeVillage.getBrush()
-
         ));
     }
 
@@ -216,9 +215,11 @@ public class AjaxController {
     @ResponseBody
     public ResponseEntity<?> feedCat(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
+
         Village activeVillage = getActiveVillage(email);
 
         if (activeVillage == null) {
@@ -234,7 +235,14 @@ public class AjaxController {
         activeVillage.setCollectedCatFood(activeVillage.getCollectedCatFood() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setHunger(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.HUNGER, baseRestoration);
+
+        int currentHunger = pet.getHunger();
+        int newHunger = Math.min(100, currentHunger + restoredAmount);
+
+        pet.setHunger(newHunger);
         pet.setLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
@@ -253,6 +261,7 @@ public class AjaxController {
     @ResponseBody
     public ResponseEntity<?> waterCat(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -264,13 +273,20 @@ public class AjaxController {
         // Check if user has collected milk
         if (activeVillage.getCollectedMilk() <= 0) {
             return ResponseEntity.ok(Map.of("message", "You don't have any Milk! Visit the village to collect some."));
-
         }
+
         // Consume 1 milk and give to the pet
         activeVillage.setCollectedMilk(activeVillage.getCollectedMilk() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setThirst(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.THIRST, baseRestoration);
+
+        int currentThirst = pet.getThirst();
+        int newThirst = Math.min(100, currentThirst + restoredAmount);
+
+        pet.setThirst(newThirst);
         pet.setThirstLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
@@ -289,6 +305,7 @@ public class AjaxController {
     @ResponseBody
     public ResponseEntity<?> petCat(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -306,7 +323,14 @@ public class AjaxController {
         activeVillage.setCollectedBrush(activeVillage.getCollectedBrush() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setSocial(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.SOCIAL, baseRestoration);
+
+        int currentSocial = pet.getSocial();
+        int newSocial = Math.min(100, currentSocial + restoredAmount);
+
+        pet.setSocial(newSocial);
         pet.setSocialLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
@@ -325,6 +349,7 @@ public class AjaxController {
     @ResponseBody
     public ResponseEntity<?> playGameWithCat(@AuthenticationPrincipal(expression = "attributes['email']") String email) {
         Pet pet = getActivePet(email);
+
         if (pet == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "No active pet found."));
         }
@@ -341,7 +366,14 @@ public class AjaxController {
         activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() - 1);
         villageRepository.save(activeVillage);
 
-        pet.setFun(100);
+        // checks for perks or flaws, adds modifier on to base stat increase of +20
+        int baseRestoration = 20;
+        int restoredAmount = calculateRestoredAmount(pet, Trait.StatType.FUN, baseRestoration);
+
+        int currentFun = pet.getFun();
+        int newFun = Math.min(100, currentFun + restoredAmount);
+
+        pet.setFun(newFun);
         pet.setFunLastUpdated(LocalDateTime.now());
         pet.setHappiness(pet.calculateHappiness());
         petRepository.save(pet);
