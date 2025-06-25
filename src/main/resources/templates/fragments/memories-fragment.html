@@ -10,7 +10,7 @@
         <!-- Loop through past pets -->
         <div th:each="entry : ${pastPetsWithDuration}" class="memory-card">
             <div class="polaroid">
-                <img th:src="@{'/images/cats/' + ${entry.pet.image}}" alt="'Memory of ' + ${entry.pet.name} + ', who lived with you for ' + ${entry.daysOwned} + ' days'" />
+                <img th:src="@{'/images/cats/' + ${entry.pet.image}}" alt="Memory of one of your previous cats framed in a photo." />
                 <div class="polaroid-caption" th:text="${entry.pet.name}">Cat Name</div>
             </div>
             <div class="memory-details mt-2">
