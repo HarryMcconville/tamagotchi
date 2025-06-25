@@ -152,6 +152,7 @@ body.village-square-bg {
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 20;
+  text-align: center !important;
 }
 
 .water-bowl-position:hover .tooltip {
@@ -436,3 +437,70 @@ h2 {
 .village-icon-container:hover .tooltip-below {
   opacity: 1;
 }
+
+/* Shoo styling */
+
+.storybook-container {
+        background: #fbeac2;
+        border: 4px solid #c87d3e;
+        border-radius: 25px;
+        padding: 2rem;
+        box-shadow: 4px 4px 0 #a2592f;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        font-family: 'Comic Sans MS', 'Patrick Hand', cursive;
+}
+
+.shoo-container {
+        background: #e4f4fb; /* Soft baby blue */
+        border: 4px solid #6e8ca0; /* Muted blue-grey border */
+        border-radius: 25px;
+        padding: 2rem;
+        box-shadow: 4px 4px 0 #4a6170;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        font-family: 'Comic Sans MS', 'Patrick Hand', cursive;
+    }
+
+    .shoo-container h1 {
+        background-color: #cdeafd;
+        border: 3px solid #4a6170;
+        border-radius: 15px;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        color: #304654;
+        box-shadow: inset 0 0 5px #b4dff7;
+    }
+
+    .shoo-buttons a {
+        display: inline-block;
+        background-color: #d0ecff;
+        border: 2px solid #6e8ca0;
+        border-radius: 12px;
+        padding: 0.5rem 1.5rem;
+        margin: 0 0.5rem;
+        color: #304654;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 2px 2px 0 #6e8ca0;
+        transition: all 0.2s ease;
+    }
+
+    .shoo-buttons a:hover {
+        background-color: #b9def2;
+        transform: translateY(-2px);
+        box-shadow: 2px 4px 4px rgba(0,0,0,0.15);
+    }
+
+    .overlay-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 10vh;
+        background: url('/mnt/data/village-bg.png') no-repeat center center fixed;
+        background-size: cover;
+    }

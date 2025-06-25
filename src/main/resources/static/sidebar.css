@@ -325,7 +325,7 @@
 }
 
 .resource-icon {
-    width: 52px; /* slightly reduced */
+    width: 52px;
     height: 52px;
     margin-bottom: 2px;
 }
@@ -334,4 +334,27 @@
     font-size: 0.95rem;
     font-weight: 700;
     color: #333;
+}
+
+/* Village Local Story Styling */
+
+.local-story {
+  padding: 1em;
+  font-style: italic;
+  margin-bottom: 1em;
+  position: relative;
+  color: #444;
+  text-align: center;
+  height: 300px; /* Lock the height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center quote and author */
+  overflow: hidden;
+}
+
+.villager {
+  font-style: normal;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 0.5em;
 }
