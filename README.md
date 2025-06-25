@@ -3,7 +3,7 @@
 1. Clone project into local repository `git clone https://github.com/HarryMcconville/tamagotchi.git`.
 2. Open the cloned repository in IDE (IntelliJ).
 3. In `src/main/resources` add a file called `application.yml`. Contact developers for the information that needs to be pasted here
-4. Inside IDE terminal enter 'createdb tamagotchi_development' & 'createdb tamagotchi_test'
+4. Inside IDE terminal enter `createdb tamagotchi_development` & `createdb tamagotchi_test`
 4. Run project from IDE terminal with `mvn spring-boot:run`.
 5. Open browser and direct to `http://localhost:8080/`.
 
@@ -24,20 +24,14 @@ _If the running of the project fails, or the web page doesn't load, please conta
 * Clicking `HELP` brings out a side bar with instructions
 
 ## Troubleshooting
-* If you are running into issues related to the version of Java go to Pom.xml and edit the following sections to change the value of 'XX' to your current version:
-  * '<properties>
-    <java.version>XX</java.version>
-    </properties>'
-  * '<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.13.0</version>
-    <configuration>
-       <source>XX</source>
-       <target>XX</target>'
-  * if you are struggling to even launch the project with 'mvn spring-boot:run' then try invalidating caches:
-    * 'File' > 'Invalidate Caches' > 'Invalidate and restart'
+* If you are running into issues related to the version of Java go to Pom.xml and edit the following sections to change the value of `XX` to your current version:
+  * Find this line in the properties section: `<java.version>XX</java.version>`
+  * Find these lines in the plugins section under `Maven Compiler`
+    *  `<source>XX</source>`
+    *  `<target>XX</target>`
+  * if you are struggling to even launch the project with `mvn spring-boot:run` then try invalidating caches:
+    * `File` > `Invalidate Caches` > `Invalidate and restart`
   * If you get an error stating Maven is either not present or using the wrong version:
-    * Run 'mvn wrapper:wrapper' in the terminal then try running 'mvn spring-boot:run' again
+    * Run `mvn wrapper:wrapper` in the terminal then try running `mvn spring-boot:run` again
 
 
