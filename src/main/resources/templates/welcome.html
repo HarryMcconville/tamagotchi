@@ -36,7 +36,7 @@
                style="display: inline-block; text-align: center; margin: 0 15px;">
   <!--      individual image styling + functionality     -->
             <img th:src="@{'/images/cats/' + ${img}}"
-                 th:alt="${img}"
+                 th:alt="'Adoptable cat option - ' + ${#strings.replace(#strings.substringBefore(img, '.'), '_', ' ')}"
                  class="cat-option"
                  style="width: 300px; height: auto; cursor: pointer;"
                  onclick="selectCat(this)"

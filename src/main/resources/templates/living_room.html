@@ -143,7 +143,7 @@
              th:src="@{/images/sadCats/{img}(img=${pet.image})}"
              th:attr="data-image-name=${pet.image}"
              class="cat-image"
-             alt="Image of Cat">
+             alt="Your cat is sat in the room waiting to be brushed">
 
     </a>
     <span class="tooltip" th:text="'Cuddle ' + ${pet.name} + '!'"></span>
@@ -156,21 +156,21 @@
 
 <!-- Shows Food bowl and makes clickable -->
 <div class="food-bowl-position">
-    <a href="#" id="feed-btn"><img src="/images/foodbowl.png" class="food-bowl-image"></a>
+    <a href="#" id="feed-btn"><img src="/images/foodbowl.png" alt="Food bowl for feeding cat" class="food-bowl-image"></a>
     <span class="tooltip" th:text="'Give ' + ${pet.name} + ' some food!'"></span>
     <audio id="feed" src="/audio/feed.mp3" preload="auto"></audio>
 </div>
 
 <!-- Shows Milk bowl and makes clickable -->
 <div class="water-bowl-position">
-    <a href="#" id="water-btn"><img src="/images/milkbowl.png" class="water-bowl-image"></a>
+    <a href="#" id="water-btn"><img src="/images/milkbowl.png" alt="A bowl of milk for the cat to drink" class="water-bowl-image"></a>
     <span class="tooltip" th:text="'Give ' + ${pet.name} + ' some milk!'"></span>
     <audio id="water" src="/audio/water.mp3" preload="auto"></audio>
 </div>
 
 <!-- Shows Catnip and makes clickable -->
 <div class="catnip-position">
-    <a href="#" id="game-btn"><img src="/images/catnip.png" class="catnip-image"></a>
+    <a href="#" id="game-btn"><img src="/images/catnip.png" alt="A bundle of catnip for the cat to play with" class="catnip-image"></a>
     <span class="tooltip" th:text="'Play with ' + ${pet.name} + '!'"></span>
     <audio id="game" src="/audio/game.mp3" preload="auto"></audio>
 </div>
