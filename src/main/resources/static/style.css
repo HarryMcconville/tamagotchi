@@ -125,7 +125,7 @@ body.village-square-bg {
 /* Catnip styling */
 
 .catnip-image {
-    max-width: 100px;
+    max-width: 140px;
     width: 100%;
     height: auto;
     display: block;
@@ -140,28 +140,10 @@ body.village-square-bg {
 }
 
 .catnip-image:hover {
-    max-width: 120px;
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Catnip box styling */
-
-.catnip-box-image {
     max-width: 160px;
     width: 100%;
     height: auto;
     display: block;
-    transition: max-width 0.3s ease;
-}
-
-.catnip-box-position {
-    position: absolute;
-    top: 85%;
-    left: 70%;
-    transform: translate(-50%, -50%);
-    z-index: 0;
 }
 
 /* unsure? */
