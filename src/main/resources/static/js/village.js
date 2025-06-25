@@ -51,35 +51,34 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Update tooltips with village resource amounts
-        if (data.villageMilk !== undefined) {
-            const milkTooltip = document.getElementById('milk_tooltip');
-            if (milkTooltip) {
-                milkTooltip.textContent = `There is ${data.villageMilk} bottles worth of milk in the well!`;
-            }
-        }
-
-        if (data.villageCatfood !== undefined) {
-            const foodTooltip = document.getElementById('food_tooltip');
-            if (foodTooltip) {
-                foodTooltip.textContent = `There are ${data.villageCatfood} packs of food left on the tree!`;
-            }
-        }
-
-        if (data.villageCatnip !== undefined) {
-            const catnipTooltip = document.getElementById('catnip_tooltip');
-            if (catnipTooltip) {
-                catnipTooltip.textContent = `There are ${data.villageCatnip} packets worth of catnip in the greenhouse!`;
-            }
-        }
-
-        if (data.villageBrush !== undefined) {
-            const brushTooltip = document.getElementById('brush_tooltip');
-            if (brushTooltip) {
-                brushTooltip.textContent = `There are ${data.villageBrush} brushes left in the shop!`;
-            }
-        }
+// Update tooltips with village resource amounts
+if (data.villageMilk !== undefined) {
+    const milkTooltip = document.getElementById('milk_tooltip');
+    if (milkTooltip) {
+        milkTooltip.textContent = `Available milk: ${data.villageMilk}`;
     }
+}
+
+if (data.villageCatFood !== undefined) {
+    const foodTooltip = document.getElementById('food_tooltip');
+    if (foodTooltip) {
+        foodTooltip.textContent = `Available food: ${data.villageCatFood}`;
+    }
+}
+
+if (data.villageCatnip !== undefined) {
+    const catnipTooltip = document.getElementById('catnip_tooltip');
+    if (catnipTooltip) {
+        catnipTooltip.textContent = `Available catnip: ${data.villageCatnip}`;
+    }
+}
+
+if (data.villageBrush !== undefined) {
+    const brushTooltip = document.getElementById('brush_tooltip');
+    if (brushTooltip) {
+        brushTooltip.textContent = `Available brushes: ${data.villageBrush}`;
+    }
+}
 
     // Shared function to handle interaction with village resources (AJAX + sound + flash message)
     async function interact(endpoint, successSoundId, emptySoundId) {

@@ -76,29 +76,29 @@
 
 <!-- Milk Well Position -->
 <div class="well-position">
-    <a href="#" id="gatherMilk-btn"><img src="/images/milk_well.png" class="well-image"></a>
-    <span class="tooltip" id="milk_tooltip" th:text="${village.milk} + ' bottles of milk'"></span>
+    <a href="#" id="gatherMilk-btn"><img src="/images/milk-well.png" class="well-image"></a>
+    <span class="tooltip" id="milk_tooltip" th:text="'Available milk: ' + ${village.milk}"></span>
     <audio id="pour-milk" src="/audio/milk_pour.mp3" preload="auto"></audio>
 </div>
 
 <!-- Catnip Greenhouse Position -->
 <div class="greenhouse-position">
     <a href="#" id="gatherCatnip-btn"><img src="/images/greenhouse.png" class="greenhouse-image"></a>
-    <span class="tooltip" id="catnip_tooltip" th:text="${village.catnip} + ' packets of catnip'"></span>
+    <span class="tooltip" id="catnip_tooltip" th:text="'Available catnip: ' + ${village.catnip}"></span>
     <audio id="pick-catnip" src="/audio/catnip_pick.mp3" preload="auto"></audio>
 </div>
 
 <!-- Brush Shop Position -->
 <div class="shop-position">
     <a href="#" id="gatherBrushes-btn"><img src="/images/brushes-r-us.png" class="shop-image"></a>
-    <span class="tooltip" id="brush_tooltip" th:text="${village.brush} + ' brushes'"></span>
+    <span class="tooltip" id="brush_tooltip" th:text="'Available brushes: ' + ${village.brush}"></span>
     <audio id="buy-brush" src="/audio/brush_bought.mp3" preload="auto"></audio>
 </div>
 
 <!-- Cat Food Tree Position -->
 <div class="food-position">
     <a href="#" id="gatherFood-btn"><img src="/images/cat-food-tree.png" class="food-image"></a>
-    <span class="tooltip" id="food_tooltip" th:text="${village.catfood} + ' packs of food'"></span>
+    <span class="tooltip" id="food_tooltip" th:text="'Available food: ' + ${village.catfood}"></span>
     <audio id="pick-food" src="/audio/cat_food_pick.mp3" preload="auto"></audio>
 </div>
 

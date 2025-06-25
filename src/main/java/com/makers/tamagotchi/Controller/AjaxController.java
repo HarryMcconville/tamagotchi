@@ -82,7 +82,7 @@ public class AjaxController {
             status.put("collectedCatnip", activeVillage.getCollectedCatnip());
             status.put("villageCatnip", activeVillage.getCatnip());
             status.put("collectedBrush", activeVillage.getCollectedBrush());
-            status.put("villagebrush", activeVillage.getBrush());
+            status.put("villageBrush", activeVillage.getBrush());
         }
         return status;
     }
@@ -156,7 +156,7 @@ public class AjaxController {
                 "message", "You have gathered 1 pack of cat food for " + pet.getName() + " !",
                 "isEmpty", false,
                 "collectedCatFood", activeVillage.getCollectedCatFood(),
-                "villageCatfood", activeVillage.getCatfood()
+                "villageCatFood", activeVillage.getCatfood()
         ));
     }
 
