@@ -99,24 +99,24 @@ public class VillageController {
     public Map<String, String> getVillageQuote() {
         List<Map<String, String>> quotes = List.of(
                 // "Store" keepers (2 each)
-                Map.of("quote", "Ever try brushing a cat who thinks the brush is a fierce rival? Welcome to my daily adventure.", "author", "Brush Shop Owner"),
-                Map.of("quote", "These brushes aren’t just tools—they’re peacekeepers in a land of fur and claws.", "author", "Brush Shop Owner"),
-                Map.of("quote", "Sometimes the catnip whispers secrets I’m not supposed to hear. Or maybe I’m just imagining things.", "author", "Greenhouse Keeper"),
-                Map.of("quote", "The greenhouse is full of life—and mischief. One sniff and the cats forget all their worries.", "author", "Greenhouse Keeper"),
-                Map.of("quote", "Milk here isn’t just for drinking—it’s a potion for courage and the occasional nap.", "author", "Milk Well Keeper"),
-                Map.of("quote", "I swear the well hums softly at night, like it’s telling tales from the village’s past.", "author", "Milk Well Keeper"),
-                Map.of("quote", "The food tree is a gift. Every bite feels like a story unfolding in the sunshine.", "author", "Cat Food Orchard Keeper"),
-                Map.of("quote", "Cats gather ‘round like it’s a festival. The tree’s bounty never fails to inspire joy.", "author", "Cat Food Orchard Keeper"),
+                Map.of("quote", "Ever try brushing a cat who thinks the brush is a fierce rival? It’s a daily adventure full of surprises and unexpected battles.", "author", "Brush Shop Owner"),
+                Map.of("quote", "These brushes aren’t just tools—they’re peacekeepers in a land full of fur and claws, helping cats stay calm and looking their best.", "author", "Brush Shop Owner"),
+                Map.of("quote", "Sometimes the catnip whispers secrets I’m not supposed to hear. Or maybe it’s just my imagination running wild in the quiet greenhouse.", "author", "Greenhouse Keeper"),
+                Map.of("quote", "The greenhouse is full of life—and mischief too. One sniff of the catnip, and cats forget all their worries and just play.", "author", "Greenhouse Keeper"),
+                Map.of("quote", "Milk here isn’t just for drinking—it’s like a potion that gives courage and inspires the occasional well-deserved nap in the sun.", "author", "Milk Well Keeper"),
+                Map.of("quote", "I swear the well hums softly at night, telling ancient tales and village secrets to those who listen closely and believe in magic.", "author", "Milk Well Keeper"),
+                Map.of("quote", "The cat food orchard is a wonderful gift. Every bite feels like a new story unfolding for a cat, warmed by sunshine and filled with promise.", "author", "Cat Food Orchard Keeper"),
+                Map.of("quote", "Cats gather ‘round like it’s a festival when the food trees bears fruit. Its bounty never fails to inspire joy and wonder.", "author", "Cat Food Orchard Keeper"),
 
                 // Cats (1 each)
-                Map.of("quote", "Caught a leaf. Let it go. Caught it again. Life is beautiful.", "author", "Pip"),
-                Map.of("quote", "Got into a staring contest with a bird. It blinked first.", "author", "Captain Claws"),
-                Map.of("quote", "Brushed my tail 47 times today. New record.", "author", "Whiskella"),
-                Map.of("quote", "Is it just me or does the milk well smell like tuna?", "author", "Bramble"),
-                Map.of("quote", "I'm not lazy. I'm conserving energy for a dramatic pounce.", "author", "Ziggy"),
-                Map.of("quote", "Someone planted catnip in the mayor’s flower bed. Again.", "author", "Deputy Whisp"),
-                Map.of("quote", "Why does no one take the brush merchant seriously? Brushes are life.", "author", "Biscuit"),
-                Map.of("quote", "The food tree whispered to me. I think it likes me.", "author", "Socks"),
+                Map.of("quote", "Caught a leaf. Let it go. Caught it again. Life is beautiful. Sometimes the simplest things bring the greatest joy, don’t you think?", "author", "Pip"),
+                Map.of("quote", "Got into a staring contest with a bird today. It blinked first, but honestly, I was already planning my next move anyway.", "author", "Captain Claws"),
+                Map.of("quote", "Brushed my tail 47 times today. New record! Feeling fabulous and sleek — a well-maintained tail is a cat’s pride and joy.", "author", "Whiskella"),
+                Map.of("quote", "Is it just me, or does the milk well smell suspiciously like tuna? If so, I’m definitely going to investigate that tasty mystery soon.", "author", "Bramble"),
+                Map.of("quote", "I’m not lazy, I’m conserving energy for a dramatic pounce. You wouldn’t want me wasting my best moves on just anything.", "author", "Ziggy"),
+                Map.of("quote", "Someone planted catnip in the mayor’s flower bed again. It’s becoming a neighborhood phenomenon—cats everywhere can’t resist the temptation!", "author", "Deputy Whisp"),
+                Map.of("quote", "Why does no one take the brush merchant seriously? Brushes are life—without a good brush, how can a cat expect to look this good?", "author", "Biscuit"),
+                Map.of("quote", "The food tree whispered secrets to me today. I think it likes me… or maybe it just wants me to keep coming back for more.", "author", "Socks"),
 
                 // Villagers (1 each)
                 Map.of("quote", "I heard that old Mr. Finch, the greenhouse owner, has been sneaking in at night with a curious box. What could he be hiding?", "author", "Mrs. Baker"),

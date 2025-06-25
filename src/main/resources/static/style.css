@@ -296,7 +296,7 @@ h2 {
 /* Village styling */
 .well-position {
     position: absolute;
-    top: 63%;
+    top: 69%;
     left: 34%;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -320,7 +320,7 @@ h2 {
 
 .greenhouse-position {
     position: absolute;
-    top: 65%;
+    top: 72%;
     left: 77%;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -343,8 +343,8 @@ h2 {
 
 .shop-position {
     position: absolute;
-    top: 54%;
-    left: 61%;
+    top: 61%;
+    left: 48%;
     transform: translate(-50%, -50%);
     z-index: 1;
 }
@@ -366,8 +366,8 @@ h2 {
 
 .food-position {
     position: absolute;
-    top: 55%;
-    left: 49%;
+    top: 61%;
+    left: 60%;
     transform: translate(-50%, -50%);
     z-index: 1;
 }
