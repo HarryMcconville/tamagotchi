@@ -80,6 +80,8 @@ if (data.villageBrush !== undefined) {
     }
 }
 
+}
+
     // Shared function to handle interaction with village resources (AJAX + sound + flash message)
     async function interact(endpoint, successSoundId, emptySoundId) {
         const flashMessage = document.getElementById("flash-message");
