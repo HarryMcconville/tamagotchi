@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body class="welcome-page">
+<audio id="bg-music" src="/audio/welcome-bg-music.mp3" loop autoplay></audio>
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <form th:action="@{/start}" method="post" class="p-4 bg-white rounded shadow" style="max-width: 400px; width: 100%;" onsubmit="return validateCatSelection()">

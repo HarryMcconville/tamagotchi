@@ -103,7 +103,12 @@ public class AjaxController {
 
         // Check if well has no milk
         if (activeVillage.getMilk() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "There is no milk left in the well! Try again later"));
+            return ResponseEntity.ok(Map.of(
+                    "message", "There is no milk left in the well! Try again later",
+                    "isEmpty", true,
+                    "collectedMilk", activeVillage.getCollectedMilk(),
+                    "villageMilk", activeVillage.getMilk()
+            ));
         }
 
         // Take 1 milk from the well and add 1 to your inventory
@@ -113,6 +118,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have gathered 1 bottle of milk for " + pet.getName() + " !",
+                "isEmpty", false,
                 "collectedMilk", activeVillage.getCollectedMilk(),
                 "villageMilk", activeVillage.getMilk()
         ));
@@ -134,7 +140,11 @@ public class AjaxController {
 
         // Check if tree has no food
         if (activeVillage.getCatfood() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "There is no food left on the tree! Try again later"));
+            return ResponseEntity.ok(Map.of(
+                    "message", "There is no food left on the tree! Try again later",
+                    "isEmpty", true,
+                    "collectedMilk", activeVillage.getCollectedCatFood(),
+                    "villageMilk", activeVillage.getCatfood()));
         }
 
         // Take 1 food from the tree and add 1 to your inventory
@@ -144,6 +154,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have gathered 1 pack of cat food for " + pet.getName() + " !",
+                "isEmpty", false,
                 "collectedCatFood", activeVillage.getCollectedCatFood(),
                 "villageCatfood", activeVillage.getCatfood()
         ));
@@ -165,7 +176,12 @@ public class AjaxController {
 
         // Check if greenhouse has no catnip
         if (activeVillage.getCatnip() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "There is no Catnip left in the greenhouse! Try again later"));
+            return ResponseEntity.ok(Map.of(
+                    "message", "There is no Catnip left in the greenhouse! Try again later",
+                    "isEmpty", true,
+                    "collectedMilk", activeVillage.getCollectedCatnip(),
+                    "villageMilk", activeVillage.getCatnip()
+            ));
         }
 
         // Take 1 catnip from the greenhouse and add 1 to your inventory
@@ -175,6 +191,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have gathered 1 Catnip for " + pet.getName() + " !",
+                "isEmpty", false,
                 "collectedCatnip", activeVillage.getCollectedCatnip(),
                 "villageCatnip", activeVillage.getCatnip()
         ));
@@ -196,7 +213,11 @@ public class AjaxController {
 
         // Check if shop has no brushes
         if (activeVillage.getBrush() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "There are no Brushes left in the shop! Try again later"));
+            return ResponseEntity.ok(Map.of("message", "There are no Brushes left in the shop! Try again later",
+                    "isEmpty", true,
+                    "collectedMilk", activeVillage.getCollectedBrush(),
+                    "villageMilk", activeVillage.getBrush()
+            ));
         }
 
         // Take 1 catnip from the greenhouse and add 1 to your inventory
@@ -206,6 +227,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have gathered 1 Brush for " + pet.getName() + " !",
+                "isEmpty", false,
                 "collectedBrush", activeVillage.getCollectedBrush(),
                 "villageBrush", activeVillage.getBrush()
         ));
@@ -228,7 +250,10 @@ public class AjaxController {
 
         // Check if user has collected cat food
         if (activeVillage.getCollectedCatFood() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "You don't have any cat food! Visit the village to collect some."));
+            return ResponseEntity.ok(Map.of(
+                    "message", "You don't have any cat food! Visit the village to collect some.",
+                    "isEmpty", true
+            ));
         }
 
         // Consume 1 cat food and feed the pet
@@ -249,6 +274,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have fed " + pet.getName() + "!",
+                "isEmpty", false,
                 "hunger", pet.getHunger(),
                 "thirst", pet.getThirst(),
                 "social", pet.getSocial(),
@@ -272,7 +298,9 @@ public class AjaxController {
         }
         // Check if user has collected milk
         if (activeVillage.getCollectedMilk() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "You don't have any Milk! Visit the village to collect some."));
+            return ResponseEntity.ok(Map.of(
+                    "message", "You don't have any Milk! Visit the village to collect some.",
+                    "isEmpty", true));
         }
 
         // Consume 1 milk and give to the pet
@@ -293,6 +321,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have refilled " + pet.getName() + "'s bowl with Milk!",
+                "isEmpty", false,
                 "hunger", pet.getHunger(),
                 "thirst", pet.getThirst(),
                 "social", pet.getSocial(),
@@ -316,7 +345,9 @@ public class AjaxController {
         }
         // Check if user has collected brushes
         if (activeVillage.getCollectedBrush() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "You don't have any brushes! Visit the village to collect some!."));
+            return ResponseEntity.ok(Map.of(
+                    "message", "You don't have any brushes! Visit the village to collect some!.",
+                    "isEmpty", true));
         }
 
         // Consume 1 brush and pet the cat
@@ -337,6 +368,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have brushed " + pet.getName() + "!",
+                "isEmpty", false,
                 "hunger", pet.getHunger(),
                 "thirst", pet.getThirst(),
                 "social", pet.getSocial(),
@@ -360,7 +392,9 @@ public class AjaxController {
         }
         // Check if user has collected catnip
         if (activeVillage.getCollectedCatnip() <= 0) {
-            return ResponseEntity.ok(Map.of("message", "You don't have any catnip! Visit the village to collect some!."));
+            return ResponseEntity.ok(Map.of(
+                    "message", "You don't have any catnip! Visit the village to collect some!.",
+                    "isEmpty", true));
         }
         // Consume 1 catnip and play with the cat
         activeVillage.setCollectedCatnip(activeVillage.getCollectedCatnip() - 1);
@@ -380,6 +414,7 @@ public class AjaxController {
 
         return ResponseEntity.ok(Map.of(
                 "message", "You have played with " + pet.getName() + "!",
+                "isEmpty", false,
                 "hunger", pet.getHunger(),
                 "thirst", pet.getThirst(),
                 "social", pet.getSocial(),
