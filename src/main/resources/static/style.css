@@ -8,7 +8,7 @@ html, body {
     background-repeat: no-repeat;
 }
 body.living-room {
-    background-image: url(/images/living-room.jpg   );
+    background-image: url(/images/living-room-colour.png   );
 }
 body.goodbye-page {
     background-image: url(/images/bg-goodbye-sunset.png);
@@ -56,6 +56,24 @@ body.village-square-bg {
     display: block;
 }
 
+/* Shooed image styling */
+
+.shooed-cat-position {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.shooed-cat-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: max-width 0.3s ease;
+}
+
 /* Food bowl styling */
 
 .food-bowl-image {
@@ -69,7 +87,7 @@ body.village-square-bg {
 .food-bowl-position {
     position: absolute;
     top: 80%;
-    left: 26%;
+    left: 28%;
     transform: translate(-50%, -50%);
 }
 
@@ -83,7 +101,7 @@ body.village-square-bg {
 /* Water bowl styling */
 
 .water-bowl-image {
-    max-width: 75px;
+    max-width: 78px;
     width: 100%;
     height: auto;
     display: block;
@@ -92,8 +110,8 @@ body.village-square-bg {
 
 .water-bowl-position {
     position: absolute;
-    top: 80%;
-    left: 19%;
+    top: 90%;
+    left: 28%;
     transform: translate(-50%, -50%);
 }
 
@@ -107,7 +125,7 @@ body.village-square-bg {
 /* Catnip styling */
 
 .catnip-image {
-    max-width: 100px;
+    max-width: 140px;
     width: 100%;
     height: auto;
     display: block;
@@ -116,13 +134,13 @@ body.village-square-bg {
 
 .catnip-position {
     position: absolute;
-    top: 70%;
+    top: 81%;
     left: 70%;
     transform: translate(-50%, -50%);
 }
 
 .catnip-image:hover {
-    max-width: 120px;
+    max-width: 160px;
     width: 100%;
     height: auto;
     display: block;
@@ -440,67 +458,58 @@ h2 {
 
 /* Shoo styling */
 
-.storybook-container {
-        background: #fbeac2;
-        border: 4px solid #c87d3e;
-        border-radius: 25px;
-        padding: 2rem;
-        box-shadow: 4px 4px 0 #a2592f;
-        max-width: 500px;
-        width: 90%;
-        text-align: center;
-        font-family: 'Comic Sans MS', 'Patrick Hand', cursive;
-}
-
-.shoo-container {
-        background: #e4f4fb; /* Soft baby blue */
-        border: 4px solid #6e8ca0; /* Muted blue-grey border */
-        border-radius: 25px;
-        padding: 2rem;
-        box-shadow: 4px 4px 0 #4a6170;
-        max-width: 500px;
-        width: 90%;
-        text-align: center;
-        font-family: 'Comic Sans MS', 'Patrick Hand', cursive;
-    }
-
-    .shoo-container h1 {
-        background-color: #cdeafd;
-        border: 3px solid #4a6170;
-        border-radius: 15px;
-        padding: 0.5rem 1rem;
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        color: #304654;
-        box-shadow: inset 0 0 5px #b4dff7;
-    }
-
-    .shoo-buttons a {
-        display: inline-block;
-        background-color: #d0ecff;
-        border: 2px solid #6e8ca0;
-        border-radius: 12px;
-        padding: 0.5rem 1.5rem;
-        margin: 0 0.5rem;
-        color: #304654;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 2px 2px 0 #6e8ca0;
-        transition: all 0.2s ease;
-    }
-
-    .shoo-buttons a:hover {
-        background-color: #b9def2;
-        transform: translateY(-2px);
-        box-shadow: 2px 4px 4px rgba(0,0,0,0.15);
-    }
-
-    .overlay-container {
+.overlay-container {
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: flex-start;
         padding-top: 10vh;
-        background: url('/mnt/data/village-bg.png') no-repeat center center fixed;
-        background-size: cover;
+        pointer-events: none; /* This allows clicks to pass through */
     }
+
+.shoo-container {
+    background: #e4f4fb;
+    border: 4px solid #6e8ca0;
+    border-radius: 25px;
+    padding: 2rem;
+    box-shadow: 4px 4px 0 #4a6170;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    font-family: 'Comic Sans MS', 'Patrick Hand', cursive;
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.shoo-container h1 {
+    background-color: #cdeafd;
+    border: 3px solid #4a6170;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #304654;
+    box-shadow: inset 0 0 5px #b4dff7;
+}
+
+.shoo-buttons a {
+    display: inline-block;
+    background-color: #d0ecff;
+    border: 2px solid #6e8ca0;
+    border-radius: 12px;
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.5rem;
+    color: #304654;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #6e8ca0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.shoo-buttons a:hover {
+    background-color: #b9def2;
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 4px rgba(0,0,0,0.15);
+}
