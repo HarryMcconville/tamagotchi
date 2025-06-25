@@ -80,6 +80,8 @@ if (data.villageBrush !== undefined) {
     }
 }
 
+}
+
     // Shared function to handle interaction with village resources (AJAX + sound + flash message)
     async function interact(endpoint, successSoundId, emptySoundId) {
         const flashMessage = document.getElementById("flash-message");
@@ -139,3 +141,22 @@ if (data.villageBrush !== undefined) {
     document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "pick-catnip", "fail-sound"));
     document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "buy-brush", "fail-sound"));
 });
+
+// script for fetching village quotes
+
+function fetchVillageQuote() {
+    fetch('/api/village_quote')
+        .then(response => response.json())
+        .then(data => {
+            const storyContainer = document.getElementById('village-story');
+            if (storyContainer) {
+                storyContainer.innerHTML = `
+                    <p class="quote">“${data.quote}”</p>
+                    <p class="villager">– ${data.author}</p>
+                `;
+            }
+        })
+        .catch(err => console.error("Failed to fetch village quote:", err));
+}
+
+document.addEventListener("DOMContentLoaded", fetchVillageQuote);

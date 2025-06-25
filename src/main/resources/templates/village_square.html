@@ -19,21 +19,11 @@
 <div class="sidebar-wrapper">
     <div class="sidebar">
         <div class="pet-name">
-            <p>Welcome to Catville!</p>
+            <p>Welcome to Pawston!</p>
         </div>
 
-        <div class="status-section">
-            <p th:text="${flashMessage}" th:if="${flashMessage}"></p>
-
-            <!--This handles the cat food -->
-            <p th:text="'Available food: ' + ${village.catfood}"></p>
-            <!--This handles the milk-->
-            <p th:text="'Available milk: ' + ${village.milk}"></p>
-            <!--This handles the catnip-->
-            <p th:text="'Available catnip: ' + ${village.catnip}"></p>
-            <!--This handles the brush-->
-            <p th:text="'Available brushes: ' + ${village.brush}"></p>
-        </div>
+        <!-- Village quotes -->
+        <div id="village-story" class="local-story"></div>
 
         <!-- Resource Grid -->
         <div class="resource-grid">
