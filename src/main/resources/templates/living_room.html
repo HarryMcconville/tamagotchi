@@ -140,7 +140,7 @@
 <div class="cat-position">
     <a href="#" id="pet-btn">
         <img id="cat-image"
-             th:src="@{/images/sadCats/{img}(img=${pet.image})}"
+             th:src="@{${pet.happiness} > 60 ? '/images/cats/' + ${pet.image} : '/images/sadCats/' + ${pet.image}}"
              th:attr="data-image-name=${pet.image}"
              class="cat-image"
              alt="Your cat is sat in the room waiting to be brushed">
