@@ -177,7 +177,8 @@
 							<artifactId>lombok</artifactId>
 						</path>
 					</annotationProcessorPaths>
-				</configuration>
+
+                </configuration>
 			</plugin>
 
 			<!-- Flyway plugin -->
