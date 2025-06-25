@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(() => {
         fetchStatus();
         fetchResources();
-    }, 2000);
+    }, 100);
 
     // update thought bubble message every 10 seconds
     setInterval(() => {
@@ -196,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 fetchStatus(); // refresh bars immediately
+                fetchResources();
             } else {
                 console.error("Interaction failed with status:", response.status);
             }
