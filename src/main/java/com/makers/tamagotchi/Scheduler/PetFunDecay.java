@@ -40,13 +40,6 @@ public class PetFunDecay {
             pet.setFun(newFun);
             pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
-
-            if (modifier != 1.0) {
-                String traitName = petDecayService.getActiveDecayTraitName(pet, StatType.FUN);
-                System.out.println("Fun decayed for pet '" + pet.getName() + "' by " + decayAmount + "% with " + traitName + ".");
-            } else {
-                System.out.println("Fun decayed for pet '" + pet.getName() + "' by " + decayAmount + "%.");
-            }
         }
     }
 }

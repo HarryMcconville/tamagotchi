@@ -25,8 +25,6 @@ public class VillageBrushIncrease {
             village.setBrush(newBrush);
             villageRepository.save(village);
         }
-
-        System.out.println("Brushes increased for village by 1.");
     }
 }
 
