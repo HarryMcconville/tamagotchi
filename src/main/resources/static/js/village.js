@@ -54,32 +54,31 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Update tooltips with village resource amounts
-            if (data.villageMilk !== undefined) {
-                const milkTooltip = document.querySelector('.well-position .tooltip');
-                if (milkTooltip) {
-                    milkTooltip.textContent = `There is ${data.villageMilk} bottles worth of milk in the well!`;
-                }
+        if (data.villageMilk !== undefined) {
+            const milkTooltip = document.getElementById('milk_tooltip');
+            if (milkTooltip) {
+                milkTooltip.textContent = `There is ${data.villageMilk} bottles worth of milk in the well!`;
             }
+        }
 
-            if (data.villageCatfood !== undefined) {
-                const foodTooltip = document.querySelector('.food-position .tooltip');
-                if (foodTooltip) {
-                    foodTooltip.textContent = `There are ${data.villageCatfood} packs of food left on the tree!`;
-                }
+        if (data.villageCatfood !== undefined) {
+            const foodTooltip = document.getElementById('food_tooltip');
+            if (foodTooltip) {
+                foodTooltip.textContent = `There are ${data.villageCatfood} packs of food left on the tree!`;
             }
+        }
 
-            if (data.villageCatnip !== undefined) {
-                const catnipTooltip = document.querySelector('.greenhouse-position .tooltip');
-                if (catnipTooltip) {
-                    catnipTooltip.textContent = `There are ${data.villageCatnip} packets worth of catnip in the greenhouse!`;
-                }
+        if (data.villageCatnip !== undefined) {
+            const catnipTooltip = document.getElementById('catnip_tooltip');
+            if (catnipTooltip) {
+                catnipTooltip.textContent = `There are ${data.villageCatnip} packets worth of catnip in the greenhouse!`;
             }
+        }
 
-            if (data.villageBrush !== undefined) {
-                const brushTooltip = document.querySelector('.shop-position .tooltip');
-                if (brushTooltip) {
-                    brushTooltip.textContent = `There are ${data.villageBrush} brushes left in the shop!`;
-                }
+        if (data.villageBrush !== undefined) {
+            const brushTooltip = document.getElementById('brush_tooltip');
+            if (brushTooltip) {
+                brushTooltip.textContent = `There are ${data.villageBrush} brushes left in the shop!`;
             }
         }
 
