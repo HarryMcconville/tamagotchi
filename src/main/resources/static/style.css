@@ -152,6 +152,7 @@ body.village-square-bg {
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 20;
+  text-align: center !important;
 }
 
 .water-bowl-position:hover .tooltip {
