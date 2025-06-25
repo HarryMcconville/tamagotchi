@@ -6,33 +6,31 @@ const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttrib
 
 document.addEventListener("DOMContentLoaded", function () {
 
-
     // Function to fetch initial status and update tooltips
-        async function fetchStatus() {
-            try {
-                const response = await fetch("/api/status", {
-                    method: "GET",
-                    credentials: "include"
-                });
+    async function fetchStatus() {
+        try {
+            const response = await fetch("/api/status", {
+                method: "GET",
+                credentials: "include"
+            });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    updateResourceCounts(data);
-                }
-            } catch (error) {
-                console.error("Failed to load initial status:", error);
+            if (response.ok) {
+                const data = await response.json();
+                updateResourceCounts(data);
             }
+        } catch (error) {
+            console.error("Failed to load initial status:", error);
         }
+    }
 
-        // Load initial status when page loads
+    // Load initial status when page loads
+    fetchStatus();
+
+    // and then this interval sets how often it will ping the backend for data updates.
+    // currently set to every 5 seconds
+    setInterval(() => {
         fetchStatus();
-
-        // and then this interval sets how often it will ping the backend for data updates.
-            // currently set to every 5 seconds
-            setInterval(() => {
-                fetchStatus();
-            }, 5000);
-
+    }, 5000);
 
     // Function to update resource counts in the sidebar
     function updateResourceCounts(data) {
@@ -81,15 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 brushTooltip.textContent = `There are ${data.villageBrush} brushes left in the shop!`;
             }
         }
+    }
 
     // Shared function to handle interaction with village resources (AJAX + sound + flash message)
-    async function interact(endpoint, soundId) {
+    async function interact(endpoint, successSoundId, emptySoundId) {
         const flashMessage = document.getElementById("flash-message");
-        const audio = document.getElementById(soundId);
-        if (audio) {
-            audio.currentTime = 0;
-            audio.play();
-        }
 
         // making sure we are making a POST request and we are using the correct csrf credentials
         try {
@@ -104,15 +98,31 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 const data = await response.json();
 
-                if (flashMessage && data.message) {
-                                    flashMessage.textContent = data.message;
-                                    flashMessage.style.display = "block";
+                // Determine which sound to play based on the response
+                let soundToPlay;
+                if (data.isEmpty) {
+                    // Resource was empty - play empty sound
+                    soundToPlay = document.getElementById(emptySoundId);
+                } else {
+                    // Resource was available - play success sound
+                    soundToPlay = document.getElementById(successSoundId);
+                }
 
-                                    // hide flash message after 3 seconds
-                                    setTimeout(() => {
-                                        flashMessage.style.display = "none";
-                                    }, 3000);
-                                }
+                // Play the appropriate sound
+                if (soundToPlay) {
+                    soundToPlay.currentTime = 0;
+                    soundToPlay.play();
+                }
+
+                if (flashMessage && data.message) {
+                    flashMessage.textContent = data.message;
+                    flashMessage.style.display = "block";
+
+                    // hide flash message after 3 seconds
+                    setTimeout(() => {
+                        flashMessage.style.display = "none";
+                    }, 3000);
+                }
 
                 // Update the resource counts in the sidebar without reloading
                 updateResourceCounts(data);
@@ -123,8 +133,10 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Interaction error:", error);
         }
     }
-        document.getElementById("gatherFood-btn")?.addEventListener("click", () => interact("/village/catfood", "pick-food"));
-        document.getElementById("gatherMilk-btn")?.addEventListener("click", () => interact("/village/milk", "pour-milk"));
-        document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "pick-catnip"));
-        document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "buy-brush"));
+
+    // Updated event listeners with success and empty sound IDs
+    document.getElementById("gatherFood-btn")?.addEventListener("click", () => interact("/village/catfood", "pick-food", "fail-sound"));
+    document.getElementById("gatherMilk-btn")?.addEventListener("click", () => interact("/village/milk", "pour-milk", "fail-sound"));
+    document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "pick-catnip", "fail-sound"));
+    document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "buy-brush", "fail-sound"));
 });

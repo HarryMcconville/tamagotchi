@@ -153,13 +153,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
     // Shared function to handle interaction with pet (AJAX + sound + flash message)
-    async function interact(endpoint, soundId) {
+    async function interact(endpoint, successSoundId, emptySoundId) {
         const flashMessage = document.getElementById("flash-message");
-        const audio = document.getElementById(soundId);
-        if (audio) {
-            audio.currentTime = 0;
-            audio.play();
-        }
+
     // making sure we are making a POST request and we are using the correct csrf credentials
         try {
             const response = await fetch(endpoint, {
@@ -172,6 +168,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 const data = await response.json();
+
+                // Determine which sound to play based on the response
+                let soundToPlay;
+                if (data.isEmpty) {
+                    // Resource was empty - play empty sound
+                    soundToPlay = document.getElementById(emptySoundId);
+                } else {
+                    // Resource was available - play success sound
+                    soundToPlay = document.getElementById(successSoundId);
+                }
+
+                // Play the appropriate sound
+                if (soundToPlay) {
+                    soundToPlay.currentTime = 0;
+                    soundToPlay.play();
+                }
 
                 if (flashMessage && data.message) {
                     flashMessage.textContent = data.message;
@@ -193,14 +205,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Attach click events to buttons
-    document.getElementById("feed-btn")?.addEventListener("click", () => interact("/play/feed", "feed"));
-    document.getElementById("pet-btn")?.addEventListener("click", () => interact("/play/pet", "purr"));
-    document.getElementById("water-btn")?.addEventListener("click", () => interact("/play/water", "water"));
-    document.getElementById("game-btn")?.addEventListener("click", () => interact("/play/game", "game"));
-    document.getElementById("gatherFood-btn")?.addEventListener("click", () => interact("/village/catFood", "feed"));
-    document.getElementById("gatherMilk-btn")?.addEventListener("click", () => interact("/village/milk", "water"));
-    document.getElementById("gatherCatnip-btn")?.addEventListener("click", () => interact("/village/catnip", "water"));
-    document.getElementById("gatherBrushes-btn")?.addEventListener("click", () => interact("/village/brush", "game"));
+    document.getElementById("feed-btn")?.addEventListener("click", () => interact("/play/feed", "feed", "fail-sound"));
+    document.getElementById("pet-btn")?.addEventListener("click", () => interact("/play/pet", "purr", "fail-sound"));
+    document.getElementById("water-btn")?.addEventListener("click", () => interact("/play/water", "water", "fail-sound"));
+    document.getElementById("game-btn")?.addEventListener("click", () => interact("/play/game", "game", "fail-sound"));
 
 // for new pet modal on entering play screen
 document.addEventListener('DOMContentLoaded', function () {
