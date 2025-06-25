@@ -39,13 +39,6 @@ public class PetSocialDecay {
             pet.setSocial(newSocial);
             pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
-
-            if (modifier != 1.0) {
-                String traitName = petDecayService.getActiveDecayTraitName(pet, StatType.SOCIAL);
-                System.out.println("Social decayed for pet '" + pet.getName() + "' by " + decayAmount + "% with " + traitName + ".");
-            } else {
-                System.out.println("Social decayed for pet '" + pet.getName() + "' by " + decayAmount + "%.");
-            }
         }
     }
 }

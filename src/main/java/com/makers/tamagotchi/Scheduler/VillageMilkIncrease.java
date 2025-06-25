@@ -25,8 +25,6 @@ public class VillageMilkIncrease {
             village.setMilk(newMilk);
             villageRepository.save(village);
         }
-
-        System.out.println("Milk increased for village by 1.");
     }
 }
 

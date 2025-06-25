@@ -25,8 +25,6 @@ public class VillageCatFoodIncrease {
             village.setCatfood(newCatFood);
             villageRepository.save(village);
         }
-
-        System.out.println("Cat Food increased for village by 1.");
     }
 }
 

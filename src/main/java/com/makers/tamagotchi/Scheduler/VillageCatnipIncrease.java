@@ -25,8 +25,6 @@ public class VillageCatnipIncrease {
             village.setCatnip(newCatnip);
             villageRepository.save(village);
         }
-
-        System.out.println("Catnip increased for village by 1.");
     }
 }
 

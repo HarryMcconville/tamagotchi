@@ -40,13 +40,6 @@ public class PetHungerDecay {
             pet.setHunger(newHunger);
             pet.setHappiness(pet.calculateHappiness());
             petRepository.save(pet);
-
-            if (modifier != 1.0) {
-                String traitName = petDecayService.getActiveDecayTraitName(pet, StatType.HUNGER);
-                System.out.println("Hunger decayed for pet '" + pet.getName() + "' by " + decayAmount + "% with " + traitName + ".");
-            } else {
-                System.out.println("Hunger decayed for pet '" + pet.getName() + "' by " + decayAmount + "%.");
-            }
         }
     }
 }
